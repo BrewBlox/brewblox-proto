@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+
+package blox.ControlSurface;
+
+message Block {
+  option (brewblox.msg).objtype = ControlSurface;
+  option (brewblox.msg).impl = EnablerInterface;
+
+  bool enabled = 1 [ (brewblox.field).logged = true ];
+
+  string sessionName = 2;
+  uint32 sessionStart = 3
+      [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
+  uint32 sessionEnd = 4
+      [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
+
+  uint32 setpoint = 10 [
+    (brewblox.field).objtype = SetpointSensorPairInterface,
+    (nanopb).int_size = IS_16
+  ];
+
+  uint32 profile = 11
+      [ (brewblox.field).objtype = SetpointProfile, (nanopb).int_size = IS_16 ];
+
+  uint32 sequence = 12
+      [ (brewblox.field).objtype = Sequence, (nanopb).int_size = IS_16 ];
+}
