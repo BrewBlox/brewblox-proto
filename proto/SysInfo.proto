@@ -10,6 +10,8 @@ enum Platform {
   PLATFORM_GCC = 3;
   PLATFORM_PHOTON = 6;
   PLATFORM_P1 = 8;
+  PLATFORM_ESP = 100;
+  PLATFORM_SIM = 200;
 }
 
 enum TemperatureUnit {

@@ -76,75 +76,6 @@ export const BlockOrIntfType = Enum(
   ...Enum.values(BlockIntfType),
 );
 
-// #region COMPATIBLE_TYPES
-export const COMPATIBLE_TYPES: Record<BlockIntfType, BlockType[]> = {
-  Any: Enum.values(BlockType),
-  ProcessValueInterface: [
-    BlockType.ActuatorAnalogMock,
-    BlockType.ActuatorPwm,
-    BlockType.FastPwm,
-    BlockType.SetpointSensorPair,
-  ],
-  TempSensorInterface: [
-    BlockType.TempSensorCombi,
-    BlockType.TempSensorExternal,
-    BlockType.TempSensorMock,
-    BlockType.TempSensorOneWire,
-  ],
-  SetpointSensorPairInterface: [BlockType.SetpointSensorPair],
-  ActuatorAnalogInterface: [
-    BlockType.ActuatorAnalogMock,
-    BlockType.ActuatorOffset,
-    BlockType.ActuatorPwm,
-    BlockType.FastPwm,
-  ],
-  ActuatorDigitalInterface: [BlockType.DigitalActuator, BlockType.MotorValve],
-  BalancerInterface: [BlockType.Balancer],
-  MutexInterface: [BlockType.Mutex],
-  OneWireBusInterface: [BlockType.OneWireGpioModule],
-  OneWireDeviceInterface: [
-    BlockType.TempSensorOneWire,
-    BlockType.DS2408,
-    BlockType.DS2413,
-  ],
-  IoModuleInterface: [],
-  IoArrayInterface: [
-    BlockType.DS2408,
-    BlockType.DS2413,
-    BlockType.Spark2Pins,
-    BlockType.Spark3Pins,
-    BlockType.OneWireGpioModule,
-    BlockType.MockPins,
-  ],
-  IoDriverInterface: [
-    BlockType.DigitalActuator,
-    BlockType.MotorValve,
-    BlockType.FastPwm,
-  ],
-  DS2408Interface: [BlockType.DS2408],
-  EnablerInterface: [
-    BlockType.ActuatorOffset,
-    BlockType.ActuatorLogic,
-    BlockType.Pid,
-    BlockType.Sequence,
-    BlockType.ActuatorPwm,
-    BlockType.FastPwm,
-    BlockType.SetpointSensorPair,
-    BlockType.SetpointProfile,
-    BlockType.TempSensorExternal,
-  ],
-  ClaimableInterface: [
-    BlockType.ActuatorAnalogMock,
-    BlockType.ActuatorOffset,
-    BlockType.ActuatorPwm,
-    BlockType.DigitalActuator,
-    BlockType.FastPwm,
-    BlockType.MotorValve,
-    BlockType.SetpointSensorPair,
-  ],
-};
-// #endregion COMPATIBLE_TYPES
-
 export const DigitalConstraintKey = Enum(
   'mutexed',
   'minOff',
@@ -362,6 +293,8 @@ export const SparkPlatform = Enum(
   'PLATFORM_GCC',
   'PLATFORM_PHOTON',
   'PLATFORM_P1',
+  'PLATFORM_ESP',
+  'PLATFORM_SIM',
 );
 // #endregion SparkPlatform
 

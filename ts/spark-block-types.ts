@@ -355,6 +355,7 @@ export interface DS2413Block extends Block {
 }
 // #endregion DS2413
 
+// #region FastPwm
 export interface FastPwmBlock extends Block {
   type: 'FastPwm';
   data: {
@@ -378,6 +379,7 @@ export interface FastPwmBlock extends Block {
     claimedBy: Readonly<Link>;
   };
 }
+// #endregion FastPwm
 
 // #region InactiveObject
 export interface InactiveObjectBlock extends Block {
