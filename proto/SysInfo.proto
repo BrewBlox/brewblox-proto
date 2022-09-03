@@ -70,4 +70,5 @@ message Block {
 
   // Deprecated fields
   bool command = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool trace = 91 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }
