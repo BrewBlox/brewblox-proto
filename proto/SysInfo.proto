@@ -67,4 +67,7 @@ message Block {
   TemperatureUnit tempUnit = 15;
 
   uint32 displayBrightness = 16 [ (nanopb).int_size = IS_8 ];
+
+  // Deprecated fields
+  bool command = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }
