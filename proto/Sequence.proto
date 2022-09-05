@@ -95,7 +95,7 @@ message WaitDigital {
 
 message SetPwm {
   uint32 target = 1
-      [ (brewblox.field).objtype = ActuatorPwm, (nanopb).int_size = IS_16 ];
+      [ (brewblox.field).objtype = ActuatorAnalogInterface, (nanopb).int_size = IS_16 ];
   sint32 setting = 2
       [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
 }

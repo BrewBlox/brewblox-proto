@@ -294,7 +294,7 @@
         {
           "name": "target",
           "desc": "block ID",
-          "type": "ActuatorPwm"
+          "type": "ActuatorAnalogInterface"
         },
         {
           "name": "setting",
