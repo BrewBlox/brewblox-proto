@@ -57,7 +57,6 @@ message Block {
     (brewblox.field).readonly = true
   ];
 
-  bool requiresClaim = 14;
   FilterChoice filter = 9;
   sint32 filterThreshold = 10 [
     (brewblox.field).unit = DeltaCelsius,

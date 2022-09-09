@@ -566,7 +566,6 @@ export interface SetpointSensorPairBlock extends Block {
     value: Readonly<Quantity>;
     valueUnfiltered: Readonly<Quantity>;
 
-    requiresClaim: boolean;
     filter: FilterChoice;
     filterThreshold: Quantity;
     resetFilter: boolean;
