@@ -18,11 +18,15 @@ message Block {
     (nanopb).int_size = IS_16
   ];
   uint32 channel = 2 [ (nanopb).int_size = IS_8 ];
+
+  IoArray.DigitalState storedState = 11 [ (brewblox.field).logged = true ];
+  IoArray.DigitalState desiredState = 6
+      [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
   IoArray.DigitalState state = 3
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
+
   bool invert = 4;
   Constraints.DigitalConstraints constrainedBy = 5;
-  IoArray.DigitalState desiredState = 6 [ (brewblox.field).logged = true ];
 
   IoArray.TransitionDurationPreset transitionDurationPreset = 7;
   uint32 transitionDurationSetting = 8

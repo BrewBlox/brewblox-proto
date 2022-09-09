@@ -180,15 +180,17 @@ export interface AnyConstraintsObj {
 export interface ActuatorAnalogMockBlock extends Block {
   type: 'ActuatorAnalogMock';
   data: {
-    desiredSetting: number;
+    storedSetting: number;
+    desiredSetting: Readonly<number>;
+    setting: Readonly<number>;
+    value: Readonly<number>;
+
     minSetting: number;
     maxSetting: number;
-    value: number;
     minValue: number;
     maxValue: number;
     constrainedBy: AnalogConstraintsObj;
 
-    setting: Readonly<number>;
     claimedBy: Readonly<Link>;
   };
 }
@@ -230,14 +232,16 @@ export interface ActuatorOffsetBlock extends Block {
   type: 'ActuatorOffset';
   data: {
     enabled: boolean;
-    referenceId: Link;
-    referenceSettingOrValue: ReferenceKind;
     targetId: Link;
-    constrainedBy: AnalogConstraintsObj;
+    referenceId: Link;
 
-    desiredSetting: number;
+    storedSetting: number;
+    desiredSetting: Readonly<number>;
     setting: Readonly<number>;
     value: Readonly<number>;
+
+    referenceSettingOrValue: ReferenceKind;
+    constrainedBy: AnalogConstraintsObj;
 
     claimedBy: Readonly<Link>;
   };
@@ -249,13 +253,15 @@ export interface ActuatorPwmBlock extends Block {
   type: 'ActuatorPwm';
   data: {
     enabled: boolean;
-    period: Quantity;
     actuatorId: Link;
-    constrainedBy: AnalogConstraintsObj;
 
-    desiredSetting: number;
+    storedSetting: number;
+    desiredSetting: Readonly<number>;
     setting: Readonly<number>;
     value: Readonly<number>;
+
+    period: Quantity;
+    constrainedBy: AnalogConstraintsObj;
 
     claimedBy: Readonly<Link>;
   };
@@ -292,11 +298,12 @@ export interface DigitalActuatorBlock extends Block {
   data: {
     hwDevice: Link;
     channel: number;
-    invert: boolean;
 
-    desiredState: DigitalState;
+    storedState: Readonly<DigitalState>;
+    desiredState: Readonly<DigitalState | null>;
     state: Readonly<DigitalState | null>;
 
+    invert: boolean;
     constrainedBy: DigitalConstraintsObj;
 
     transitionDurationPreset: TransitionDurationPreset;
@@ -363,13 +370,14 @@ export interface FastPwmBlock extends Block {
 
     hwDevice: Link;
     channel: number;
-    invert: boolean;
-    frequency: PwmFrequency;
 
-    desiredSetting: number;
+    storedSetting: number;
+    desiredSetting: Readonly<number>;
     setting: Readonly<number>;
     value: Readonly<number>;
 
+    invert: boolean;
+    frequency: PwmFrequency;
     constrainedBy: AnalogConstraintsObj;
 
     transitionDurationPreset: TransitionDurationPreset;
@@ -406,7 +414,8 @@ export interface MotorValveBlock extends Block {
     hwDevice: Link;
     channel: number;
 
-    desiredState: DigitalState;
+    storedState: DigitalState;
+    desiredState: Readonly<DigitalState | null>;
     state: Readonly<DigitalState | null>;
     valveState: Readonly<ValveState | null>;
 
@@ -549,16 +558,18 @@ export interface SetpointProfileBlock extends Block {
 export interface SetpointSensorPairBlock extends Block {
   type: 'SetpointSensorPair';
   data: {
-    storedSetting: Quantity;
     enabled: boolean;
+    sensorId: Link;
+
+    storedSetting: Quantity;
+    setting: Readonly<Quantity>;
+    value: Readonly<Quantity>;
+    valueUnfiltered: Readonly<Quantity>;
+
+    requiresClaim: boolean;
     filter: FilterChoice;
     filterThreshold: Quantity;
     resetFilter: boolean;
-    setting: Readonly<Quantity>;
-
-    sensorId: Link;
-    value: Readonly<Quantity>;
-    valueUnfiltered: Readonly<Quantity>;
 
     claimedBy: Readonly<Link>;
   };

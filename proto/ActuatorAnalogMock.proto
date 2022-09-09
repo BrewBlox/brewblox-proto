@@ -11,6 +11,17 @@ message Block {
   option (brewblox.msg).impl = ActuatorAnalogInterface;
   option (brewblox.msg).impl = ProcessValueInterface;
 
+  sint32 storedSetting = 11 [
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32
+  ];
+  sint32 desiredSetting = 9 [
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32
+  ];
   sint32 setting = 1 [
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
@@ -19,10 +30,11 @@ message Block {
   ];
   sint32 value = 2 [
     (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
     (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32,
-    (brewblox.field).readonly = true
+    (nanopb).int_size = IS_32
   ];
+
   sint32 minSetting = 4
       [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
   sint32 maxSetting = 5
@@ -33,12 +45,6 @@ message Block {
       [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
 
   Constraints.AnalogConstraints constrainedBy = 8;
-
-  sint32 desiredSetting = 9 [
-    (brewblox.field).logged = true,
-    (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32
-  ];
 
   uint32 claimedBy = 10 [
     (brewblox.field).objtype = Any,

@@ -15,20 +15,28 @@ message Block {
   option (brewblox.msg).impl = ClaimableInterface;
   option (brewblox.msg).impl = IoDriverInterface;
 
+  bool enabled = 8;
+
   uint32 hwDevice = 1 [
     (brewblox.field).objtype = IoArrayInterface,
     (nanopb).int_size = IS_16
   ];
   uint32 channel = 2 [ (nanopb).int_size = IS_8 ];
-  IoArray.PwmFrequency frequency = 3;
-  sint32 setting = 4 [
+
+  sint32 storedSetting = 14 [
     (brewblox.field).logged = true,
-    (brewblox.field).readonly = true,
     (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
   sint32 desiredSetting = 5 [
     (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32
+  ];
+  sint32 setting = 4 [
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
     (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
@@ -38,8 +46,10 @@ message Block {
     (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
+
+  bool invert = 12;
+  IoArray.PwmFrequency frequency = 3;
   Constraints.AnalogConstraints constrainedBy = 7;
-  bool enabled = 8;
 
   IoArray.TransitionDurationPreset transitionDurationPreset = 9;
   uint32 transitionDurationSetting = 10
@@ -49,7 +59,6 @@ message Block {
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true
   ];
-  bool invert = 12;
 
   uint32 claimedBy = 13 [
     (brewblox.field).objtype = Any,

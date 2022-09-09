@@ -22,11 +22,19 @@ message Block {
   option (brewblox.msg).impl = EnablerInterface;
   option (brewblox.msg).impl = ClaimableInterface;
 
+  bool enabled = 7;
+
   uint32 sensorId = 2 [
     (brewblox.field).objtype = TempSensorInterface,
     (nanopb).int_size = IS_16
   ];
 
+  sint32 storedSetting = 8 [
+    (brewblox.field).logged = false,
+    (brewblox.field).unit = Celsius,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32
+  ];
   sint32 setting = 5 [
     (brewblox.field).logged = true,
     (brewblox.field).unit = Celsius,
@@ -41,21 +49,6 @@ message Block {
     (nanopb).int_size = IS_32,
     (brewblox.field).readonly = true
   ];
-  bool enabled = 7;
-  sint32 storedSetting = 8 [
-    (brewblox.field).logged = false,
-    (brewblox.field).unit = Celsius,
-    (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32
-  ];
-
-  FilterChoice filter = 9;
-  sint32 filterThreshold = 10 [
-    (brewblox.field).unit = DeltaCelsius,
-    (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32
-  ];
-
   sint32 valueUnfiltered = 11 [
     (brewblox.field).logged = true,
     (brewblox.field).unit = Celsius,
@@ -63,6 +56,15 @@ message Block {
     (nanopb).int_size = IS_32,
     (brewblox.field).readonly = true
   ];
+
+  bool requiresClaim = 14;
+  FilterChoice filter = 9;
+  sint32 filterThreshold = 10 [
+    (brewblox.field).unit = DeltaCelsius,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32
+  ];
+
   bool resetFilter = 12;
 
   uint32 claimedBy = 13 [
@@ -72,5 +74,6 @@ message Block {
   ];
 
   // Renamed field
-  bool settingEnabled = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool settingEnabled = 90
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }
