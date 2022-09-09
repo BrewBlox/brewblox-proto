@@ -29,7 +29,7 @@ message Block {
 
   IoArray.DigitalState storedState = 7 [ (brewblox.field).logged = true ];
   IoArray.DigitalState desiredState = 7
-      [ (brewblox.field).logged = true, , (brewblox.field).readonly = true ];
+      [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
   IoArray.DigitalState state = 3
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
   ValveState valveState = 6
