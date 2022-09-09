@@ -27,7 +27,7 @@ message Block {
       [ (brewblox.field).objtype = DS2408Interface, (nanopb).int_size = IS_16 ];
   uint32 channel = 2 [ (nanopb).int_size = IS_8 ];
 
-  IoArray.DigitalState storedState = 7 [ (brewblox.field).logged = true ];
+  IoArray.DigitalState storedState = 9 [ (brewblox.field).logged = true ];
   IoArray.DigitalState desiredState = 7
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
   IoArray.DigitalState state = 3
