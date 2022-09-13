@@ -44,7 +44,7 @@ message Block {
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
   ];
-  Claims.SettingMode settingMode = 9;
+  Claims.SettingMode settingMode = 10;
 
   // Deprecated fields
   bool startChannel = 90
