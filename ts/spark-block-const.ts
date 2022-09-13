@@ -10,6 +10,7 @@ export const COMPATIBLE_TYPES: Record<BlockIntfType, BlockType[]> = {
   Any: Enum.values(BlockType),
   ProcessValueInterface: [
     BlockType.ActuatorAnalogMock,
+    BlockType.ActuatorOffset,
     BlockType.ActuatorPwm,
     BlockType.FastPwm,
     BlockType.SetpointSensorPair,

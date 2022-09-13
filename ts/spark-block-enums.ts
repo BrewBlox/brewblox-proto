@@ -91,6 +91,10 @@ export const AnyConstraintKey = Enum(
   ...Enum.values(AnalogConstraintKey),
 );
 
+// #region SettingMode
+export const SettingMode = Enum('STORED', 'CLAIMED');
+// #endregion SettingMode
+
 // #region Gpio
 export const GpioDeviceType = Enum(
   'GPIO_DEV_NONE',
@@ -335,6 +339,7 @@ export type BlockOrIntfType = Enum<typeof BlockOrIntfType>;
 export type DigitalConstraintKey = Enum<typeof DigitalConstraintKey>;
 export type AnalogConstraintKey = Enum<typeof AnalogConstraintKey>;
 export type AnyConstraintKey = Enum<typeof AnyConstraintKey>;
+export type SettingMode = Enum<typeof SettingMode>;
 export type GpioDeviceType = Enum<typeof GpioDeviceType>;
 export type DigitalState = Enum<typeof DigitalState>;
 export type TransitionDurationPreset = Enum<typeof TransitionDurationPreset>;

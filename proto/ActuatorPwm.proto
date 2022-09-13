@@ -3,6 +3,7 @@ syntax = "proto3";
 import "brewblox.proto";
 import "nanopb.proto";
 import "Constraints.proto";
+import "Claims.proto";
 
 package blox.ActuatorPwm;
 
@@ -10,6 +11,7 @@ message Block {
   option (brewblox.msg).objtype = ActuatorPwm;
   option (brewblox.msg).impl = ProcessValueInterface;
   option (brewblox.msg).impl = ActuatorAnalogInterface;
+  option (brewblox.msg).impl = StoredAnalogInterface;
   option (brewblox.msg).impl = EnablerInterface;
   option (brewblox.msg).impl = ClaimableInterface;
 
@@ -53,6 +55,7 @@ message Block {
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
   ];
+  Claims.StoredSettingMode settingMode = 12;
 
   // Deprecated field
   bool drivenActuatorId = 90

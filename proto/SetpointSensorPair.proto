@@ -2,6 +2,7 @@ syntax = "proto3";
 
 import "brewblox.proto";
 import "nanopb.proto";
+import "Claims.proto";
 
 package blox.SetpointSensorPair;
 
@@ -18,6 +19,7 @@ enum FilterChoice {
 message Block {
   option (brewblox.msg).objtype = SetpointSensorPair;
   option (brewblox.msg).impl = ProcessValueInterface;
+  option (brewblox.msg).impl = StoredTemperatureInterface;
   option (brewblox.msg).impl = SetpointSensorPairInterface;
   option (brewblox.msg).impl = EnablerInterface;
   option (brewblox.msg).impl = ClaimableInterface;
@@ -71,6 +73,7 @@ message Block {
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
   ];
+  Claims.StoredSettingMode settingMode = 14;
 
   // Renamed field
   bool settingEnabled = 90

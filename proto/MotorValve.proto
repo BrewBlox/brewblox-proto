@@ -4,6 +4,7 @@ import "brewblox.proto";
 import "nanopb.proto";
 import "Constraints.proto";
 import "IoArray.proto";
+import "Claims.proto";
 
 package blox.MotorValve;
 
@@ -20,6 +21,7 @@ enum ValveState {
 message Block {
   option (brewblox.msg).objtype = MotorValve;
   option (brewblox.msg).impl = ActuatorDigitalInterface;
+  option (brewblox.msg).impl = StoredDigitalInterface;
   option (brewblox.msg).impl = ClaimableInterface;
   option (brewblox.msg).impl = IoDriverInterface;
 
@@ -42,6 +44,7 @@ message Block {
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
   ];
+  Claims.StoredSettingMode settingMode = 9;
 
   // Deprecated fields
   bool startChannel = 90

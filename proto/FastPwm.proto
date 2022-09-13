@@ -4,12 +4,14 @@ import "brewblox.proto";
 import "nanopb.proto";
 import "Constraints.proto";
 import "IoArray.proto";
+import "Claims.proto";
 
 package blox.FastPwm;
 
 message Block {
   option (brewblox.msg).objtype = FastPwm;
   option (brewblox.msg).impl = ProcessValueInterface;
+  option (brewblox.msg).impl = StoredAnalogInterface;
   option (brewblox.msg).impl = ActuatorAnalogInterface;
   option (brewblox.msg).impl = EnablerInterface;
   option (brewblox.msg).impl = ClaimableInterface;
@@ -65,4 +67,5 @@ message Block {
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
   ];
+  Claims.StoredSettingMode settingMode = 15;
 }

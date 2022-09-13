@@ -39,6 +39,9 @@ enum BlockType {
   EnablerInterface = 15;
   ClaimableInterface = 16;
   IoDriverInterface = 17;
+  StoredAnalogInterface = 18;
+  StoredTemperatureInterface = 19;
+  StoredDigitalInterface = 20;
   Any = 255;
   SysInfo = 256;
   Ticks = 257; // deprecated

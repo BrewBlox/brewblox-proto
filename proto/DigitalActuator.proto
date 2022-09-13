@@ -4,12 +4,14 @@ import "brewblox.proto";
 import "nanopb.proto";
 import "Constraints.proto";
 import "IoArray.proto";
+import "Claims.proto";
 
 package blox.DigitalActuator;
 
 message Block {
   option (brewblox.msg).objtype = DigitalActuator;
   option (brewblox.msg).impl = ActuatorDigitalInterface;
+  option (brewblox.msg).impl = StoredDigitalInterface;
   option (brewblox.msg).impl = ClaimableInterface;
   option (brewblox.msg).impl = IoDriverInterface;
 
@@ -42,4 +44,5 @@ message Block {
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
   ];
+  Claims.StoredSettingMode settingMode = 12;
 }

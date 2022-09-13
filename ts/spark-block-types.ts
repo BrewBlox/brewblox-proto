@@ -24,6 +24,7 @@ import {
   TransitionDurationPreset,
   PwmFrequency,
   ChannelCapabilities,
+  SettingMode,
 } from './spark-block-enums';
 
 // #region Block
@@ -93,6 +94,7 @@ export interface EnablerInterfaceBlock extends Block {
 export interface ClaimableInterfaceBlock extends Block {
   data: {
     claimedBy: Readonly<Link>;
+    settingMode: SettingMode;
   };
 }
 // #endregion ClaimableInterfaceBlock
@@ -192,6 +194,7 @@ export interface ActuatorAnalogMockBlock extends Block {
     constrainedBy: AnalogConstraintsObj;
 
     claimedBy: Readonly<Link>;
+    settingMode: SettingMode;
   };
 }
 // #endregion ActuatorAnalogMock
@@ -244,6 +247,7 @@ export interface ActuatorOffsetBlock extends Block {
     constrainedBy: AnalogConstraintsObj;
 
     claimedBy: Readonly<Link>;
+    settingMode: SettingMode;
   };
 }
 // #endregion ActuatorOffset
@@ -264,6 +268,7 @@ export interface ActuatorPwmBlock extends Block {
     constrainedBy: AnalogConstraintsObj;
 
     claimedBy: Readonly<Link>;
+    settingMode: SettingMode;
   };
 }
 // #endregion ActuatorPwm
@@ -311,6 +316,7 @@ export interface DigitalActuatorBlock extends Block {
     transitionDurationValue: Readonly<Quantity>;
 
     claimedBy: Readonly<Link>;
+    settingMode: SettingMode;
   };
 }
 // #endregion DigitalActuator
@@ -385,6 +391,7 @@ export interface FastPwmBlock extends Block {
     transitionDurationValue: Readonly<Quantity>;
 
     claimedBy: Readonly<Link>;
+    settingMode: SettingMode;
   };
 }
 // #endregion FastPwm
@@ -422,6 +429,7 @@ export interface MotorValveBlock extends Block {
     constrainedBy: DigitalConstraintsObj;
 
     claimedBy: Readonly<Link>;
+    settingMode: SettingMode;
   };
 }
 // #endregion MotorValve
@@ -571,6 +579,7 @@ export interface SetpointSensorPairBlock extends Block {
     resetFilter: boolean;
 
     claimedBy: Readonly<Link>;
+    settingMode: SettingMode;
   };
 }
 // #endregion SetpointSensorPair
