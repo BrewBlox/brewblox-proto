@@ -67,7 +67,7 @@ message Block {
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
   ];
-  Claims.StoredSettingMode settingMode = 14;
+  Claims.SettingMode settingMode = 14;
 
   // Deprecated field
   bool drivenTargetId = 90

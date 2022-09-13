@@ -67,5 +67,5 @@ message Block {
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
   ];
-  Claims.StoredSettingMode settingMode = 15;
+  Claims.SettingMode settingMode = 15;
 }
