@@ -41,8 +41,11 @@ enum BlockType {
   IoDriverInterface = 17;
   SetpointInterface = 18;
   StoredAnalogInterface = 19;
-  StoredTemperatureInterface = 20;
+  StoredSetpointInterface = 20;
   StoredDigitalInterface = 21;
+  ConstrainedAnalogInterface = 22;
+  ConstrainedSetpointInterface = 23;
+  ConstrainedDigitalInterface = 24;
   Any = 255;
   SysInfo = 256;
   Ticks = 257; // deprecated
