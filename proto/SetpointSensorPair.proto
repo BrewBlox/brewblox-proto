@@ -19,7 +19,7 @@ enum FilterChoice {
 message Block {
   option (brewblox.msg).objtype = SetpointSensorPair;
   option (brewblox.msg).impl = ProcessValueInterface;
-  option (brewblox.msg).impl = StoredTemperatureInterface;
+  option (brewblox.msg).impl = StoredSetpointInterface;
   option (brewblox.msg).impl = SetpointSensorPairInterface;
   option (brewblox.msg).impl = EnablerInterface;
   option (brewblox.msg).impl = ClaimableInterface;
