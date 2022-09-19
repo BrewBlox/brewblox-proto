@@ -570,6 +570,7 @@ export interface SetpointSensorPairBlock extends Block {
     sensorId: Link;
 
     storedSetting: Quantity;
+    desiredSetting: Readonly<Quantity>;
     setting: Readonly<Quantity>;
     value: Readonly<Quantity>;
     valueUnfiltered: Readonly<Quantity>;
