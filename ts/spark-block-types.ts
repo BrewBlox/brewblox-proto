@@ -240,10 +240,10 @@ export interface ActuatorOffsetBlock extends Block {
     targetId: Link;
     referenceId: Link;
 
-    storedSetting: number;
-    desiredSetting: Readonly<number>;
-    setting: Readonly<number>;
-    value: Readonly<number>;
+    storedSetting: Quantity;
+    desiredSetting: Readonly<Quantity>;
+    setting: Readonly<Quantity>;
+    value: Readonly<Quantity>;
 
     referenceSettingOrValue: ReferenceKind;
     constrainedBy: AnalogConstraintsObj;
