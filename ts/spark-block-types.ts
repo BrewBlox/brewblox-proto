@@ -182,6 +182,8 @@ export interface AnyConstraintsObj {
 export interface ActuatorAnalogMockBlock extends Block {
   type: 'ActuatorAnalogMock';
   data: {
+    enabled: boolean;
+
     storedSetting: number;
     desiredSetting: Readonly<number>;
     setting: Readonly<number>;

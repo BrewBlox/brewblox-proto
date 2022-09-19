@@ -53,6 +53,7 @@ export const COMPATIBLE_TYPES: Record<BlockIntfType, BlockType[]> = {
   ],
   DS2408Interface: [BlockType.DS2408],
   EnablerInterface: [
+    BlockType.ActuatorAnalogMock,
     BlockType.ActuatorOffset,
     BlockType.ActuatorLogic,
     BlockType.Pid,
