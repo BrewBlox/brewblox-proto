@@ -33,14 +33,14 @@ message Block {
 
   sint32 storedSetting = 13 [
     (brewblox.field).logged = true,
-    (brewblox.field).unit = Celsius,
+    (brewblox.field).unit = DeltaCelsius,
     (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
   sint32 desiredSetting = 11 [
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
-    (brewblox.field).unit = Celsius,
+    (brewblox.field).unit = DeltaCelsius,
     (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
@@ -54,7 +54,7 @@ message Block {
   sint32 value = 7 [
     (brewblox.field).logged = true,
     (brewblox.field).scale = 4096,
-    (brewblox.field).unit = Celsius,
+    (brewblox.field).unit = DeltaCelsius,
     (nanopb).int_size = IS_32,
     (brewblox.field).readonly = true
   ];
