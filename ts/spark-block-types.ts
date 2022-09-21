@@ -134,7 +134,6 @@ export interface MutexedConstraint {
   mutexed: {
     mutexId: Link;
     extraHoldTime: Quantity;
-    hasCustomHoldTime: boolean;
     hasLock: boolean;
   };
 }
@@ -440,7 +439,6 @@ export interface MotorValveBlock extends Block {
 export interface MutexBlock extends Block {
   type: 'Mutex';
   data: {
-    differentActuatorWait: Quantity;
     waitRemaining: Readonly<Quantity>;
   };
 }

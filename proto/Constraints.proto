@@ -23,8 +23,11 @@ message Mutexed {
     (brewblox.field).scale = 1000,
     (nanopb).int_size = IS_32
   ];
-  bool hasCustomHoldTime = 3;
   bool hasLock = 4 [ (brewblox.field).readonly = true ];
+
+  // Deprecated fields
+  bool hasCustomHoldTime = 90
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }
 
 message AnalogConstraint {
@@ -72,7 +75,7 @@ message DigitalConstraint {
   }
 
   uint32 limiting = 100
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE];
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 
   uint32 remaining = 101 [
     (brewblox.field).unit = Second,
