@@ -44,6 +44,15 @@
       ]
     },
     {
+      "name": "WAIT",
+      "desc": "Waits until the user manually skips to the next instruction.",
+      "arguments": [],
+      "errors": [],
+      "example": [
+        "WAIT"
+      ]
+    },
+    {
       "name": "WAIT_DURATION",
       "desc": "Waits until a given duration has elapsed since the instruction was started. If the *Sequence* is disabled while this instruction is active, time spent disabled is **not** included. If the controller is shut down while this instruction is active, time spent shut down is included.",
       "arguments": [
@@ -246,6 +255,54 @@
       ],
       "example": [
         "WAIT_SETPOINT target='Fridge Setting', precision=0.1dC"
+      ]
+    },
+    {
+      "name": "WAIT_SETPOINT_ABOVE",
+      "desc": "Waits until the measured value of a *Setpoint* block is more than its desired setting + precision.",
+      "arguments": [
+        {
+          "name": "target",
+          "desc": "block ID",
+          "type": "SetpointSensorPair"
+        },
+        {
+          "name": "precision",
+          "desc": "Dead band between setpoint setting and condition trigger",
+          "type": "Delta Temperature"
+        }
+      ],
+      "errors": [
+        "INVALID_TARGET",
+        "DISABLED_TARGET",
+        "INACTIVE_TARGET"
+      ],
+      "example": [
+        "WAIT_SETPOINT_ABOVE target='Fridge Setting', precision=0.1dC"
+      ]
+    },
+    {
+      "name": "WAIT_SETPOINT_BELOW",
+      "desc": "Waits until the measured value of a *Setpoint* block is less than its desired setting - precision.",
+      "arguments": [
+        {
+          "name": "target",
+          "desc": "block ID",
+          "type": "SetpointSensorPair"
+        },
+        {
+          "name": "precision",
+          "desc": "Dead band between setpoint setting and condition trigger",
+          "type": "Delta Temperature"
+        }
+      ],
+      "errors": [
+        "INVALID_TARGET",
+        "DISABLED_TARGET",
+        "INACTIVE_TARGET"
+      ],
+      "example": [
+        "WAIT_SETPOINT_BELOW target='Fridge Setting', precision=0.1dC"
       ]
     },
     {

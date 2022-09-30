@@ -15,6 +15,8 @@ message EnableDisable {
   ];
 }
 
+message Wait {}
+
 message WaitDuration {
   uint32 duration = 1
       [ (brewblox.field).unit = Second, (nanopb).int_size = IS_32 ];
@@ -94,8 +96,10 @@ message WaitDigital {
 }
 
 message SetPwm {
-  uint32 target = 1
-      [ (brewblox.field).objtype = ActuatorAnalogInterface, (nanopb).int_size = IS_16 ];
+  uint32 target = 1 [
+    (brewblox.field).objtype = ActuatorAnalogInterface,
+    (nanopb).int_size = IS_16
+  ];
   sint32 setting = 2
       [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
 }
@@ -115,6 +119,7 @@ message Instruction {
     Restart RESTART = 1;
     EnableDisable ENABLE = 2;
     EnableDisable DISABLE = 3;
+    Wait WAIT = 20;
     WaitDuration WAIT_DURATION = 4;
     WaitUntil WAIT_UNTIL = 5;
     WaitTemperatureRange WAIT_TEMP_BETWEEN = 6;
@@ -124,6 +129,8 @@ message Instruction {
     WaitTemperatureBoundary WAIT_TEMP_BELOW = 10;
     SetSetpoint SET_SETPOINT = 11;
     WaitSetpoint WAIT_SETPOINT = 12;
+    WaitSetpoint WAIT_SETPOINT_ABOVE = 21;
+    WaitSetpoint WAIT_SETPOINT_BELOW = 22;
     SetDigital SET_DIGITAL = 13;
     WaitDigital WAIT_DIGITAL = 14;
     SetPwm SET_PWM = 15;
