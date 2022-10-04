@@ -120,7 +120,7 @@ export const CHANNEL_NAMES_SPARK_2 = {
   1: 'Bottom 1',
   2: 'Bottom 2',
   3: 'Bottom 3',
-  4: 'Bottom 4',
+  4: 'Bottom 0',
 } as const;
 // #endregion CHANNEL_NAMES_SPARK_2
 
