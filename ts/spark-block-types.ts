@@ -115,7 +115,6 @@ export interface BalancedConstraint {
   balanced: {
     balancerId: Link;
     granted: number;
-    id: number;
   };
 }
 
@@ -276,7 +275,7 @@ export interface ActuatorPwmBlock extends Block {
 
 // #region Balancer
 export interface BalancedActuator {
-  id: Readonly<number>;
+  id: Readonly<Link>;
   requested: Readonly<number>;
   granted: Readonly<number>;
 }
