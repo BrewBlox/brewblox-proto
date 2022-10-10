@@ -46,6 +46,7 @@ enum BlockType {
   ConstrainedAnalogInterface = 22;
   ConstrainedSetpointInterface = 23;
   ConstrainedDigitalInterface = 24;
+  ScanningFactoryInterface = 25;
   Any = 255;
   SysInfo = 256;
   Ticks = 257; // deprecated

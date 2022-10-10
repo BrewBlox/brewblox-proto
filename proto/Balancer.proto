@@ -9,7 +9,7 @@ message BalancedActuator {
   uint32 id = 1 [
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
-    (nanopb).int_size = IS_8
+    (nanopb).int_size = IS_16
   ];
   sint32 requested = 2 [
     (brewblox.field).logged = true,
