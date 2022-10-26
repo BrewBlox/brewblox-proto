@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+
+package blox.SgProbe;
+
+message Block {
+  option (brewblox.msg).objtype = SgProbe;
+  // option (brewblox.msg).impl = TempSensorInterface;
+
+  bool connected = 1 [ (brewblox.field).logged = true ];
+}
