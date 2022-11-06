@@ -19,6 +19,7 @@ enum UnitType {
   DeltaCelsiusMultSecond = 10;
   DeltaCelsiusMultMinute = 11;
   DeltaCelsiusMultHour = 12;
+  MilliBar = 13;
 }
 
 enum BlockType {

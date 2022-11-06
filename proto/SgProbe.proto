@@ -5,9 +5,101 @@ import "nanopb.proto";
 
 package blox.SgProbe;
 
+
+enum FilterChoice {
+  FILTER_NONE = 0;
+  FILTER_3s = 1;
+  FILTER_10s = 2;
+  FILTER_20s = 3;
+  FILTER_40s = 4;
+  FILTER_2m = 5;
+  FILTER_6m = 6;
+}
+
 message Block {
   option (brewblox.msg).objtype = SgProbe;
   // option (brewblox.msg).impl = TempSensorInterface;
 
   bool connected = 1 [ (brewblox.field).logged = true ];
+  FilterChoice filter = 2;
+
+  sint32 pressure1 = 3 [
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = MilliBar,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 pressure2 = 4 [
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = MilliBar,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 pressure1Filtered = 5 [
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = MilliBar,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 pressure2Filtered = 6 [
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = MilliBar,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 pressureDiff = 7 [
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = MilliBar,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 pressureDiffFiltered = 8 [
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = MilliBar,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 tempRtd1 = 9 [
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 tempRtd2 = 10 [
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 tempAdc1 = 11 [
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 tempAdc2 = 12 [
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 gain1 = 13 [
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 gain2 = 14 [
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+
 }
