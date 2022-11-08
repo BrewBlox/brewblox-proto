@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+
+package blox.ChemProbe;
+
+message Block {
+  option (brewblox.msg).objtype = ChemProbe;
+  // option (brewblox.msg).impl = TempSensorInterface;
+
+  bool connected = 1 [ (brewblox.field).logged = true ];
+
+  sint32 pHVoltage = 2 [
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = MilliVolt,
+    (brewblox.field).scale = 2048,
+    (nanopb).int_size = IS_16,
+    (brewblox.field).readonly = true
+  ];
+  sint32 redoxVoltage = 3 [
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = MilliVolt,
+    (brewblox.field).scale = 2048,
+    (nanopb).int_size = IS_16,
+    (brewblox.field).readonly = true
+  ];
+
+  sint32 tempRtd = 4 [
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 2048,
+    (brewblox.field).unit = Celsius,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 tempAdc = 10 [
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = Celsius,
+    (brewblox.field).scale = 2048,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+}

@@ -20,6 +20,7 @@ enum UnitType {
   DeltaCelsiusMultMinute = 11;
   DeltaCelsiusMultHour = 12;
   MilliBar = 13;
+  MilliVolt = 14;
 }
 
 enum BlockType {
@@ -83,6 +84,7 @@ enum BlockType {
   TempSensorExternal = 328;
   FastPwm = 329;
   SgProbe = 330;
+  ChemProbe = 331;
 }
 
 message MessageOpts {
