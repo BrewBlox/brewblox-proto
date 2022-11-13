@@ -18,10 +18,9 @@ enum FilterChoice {
 
 message Block {
   option (brewblox.msg).objtype = SgProbe;
-  // option (brewblox.msg).impl = TempSensorInterface;
 
   bool connected = 1 [ (brewblox.field).logged = true ];
-  FilterChoice filter = 2;
+  uint32 position = 2 [ (nanopb).int_size = IS_8 ];
 
   sint32 pressure1 = 3 [
     (brewblox.field).logged = true,
@@ -101,5 +100,21 @@ message Block {
     (nanopb).int_size = IS_32,
     (brewblox.field).readonly = true
   ];
+  sint32 bridge1 = 15 [
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 2560000,
+    (brewblox.field).unit = Volt,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 bridge2 = 16 [
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 2560000,
+    (brewblox.field).unit = Volt,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+
+  FilterChoice filter = 17;
 
 }

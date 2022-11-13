@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+package blox.ProbeConnector;
+// TODO: overlap with other GPIO modules, split into multiple blocks per IO module, function based
+
+message Block {
+  option (brewblox.msg).objtype = ProbeConnector;
+  option (brewblox.msg).impl = IoArrayInterface;
+
+  // repeated blox.OneWireGpioModule.GpioModuleChannel channels = 1 [ (nanopb).max_count = 8 ];
+  uint32 modulePosition = 2 [ (nanopb).int_size = IS_8 ];
+  // 7 reserved | 6 overtemperature shutdown | 5 overtemperature warning | 4
+  // open load | 3 overcurrent | 2 undervoltage lockout | 1 overvoltage | 0
+  // power-on-reset
+  // uint32 moduleStatus = 3
+  //     [ (nanopb).int_size = IS_8, (brewblox.field).bitfield = true ];
+  // uint32 pullUpDesired = 4 [
+  //   (brewblox.field).readonly = true,
+  //   (nanopb).int_size = IS_8,
+  //   (brewblox.field).bitfield = true
+  // ];
+  // uint32 pullUpStatus = 5 [
+  //   (brewblox.field).readonly = true,
+  //   (nanopb).int_size = IS_8,
+  //   (brewblox.field).bitfield = true
+  // ];
+  // uint32 pullUpWhenActive = 6 [
+  //   (brewblox.field).readonly = true,
+  //   (nanopb).int_size = IS_8,
+  //   (brewblox.field).bitfield = true
+  // ];
+  // uint32 pullUpWhenInactive = 7 [
+  //   (brewblox.field).readonly = true,
+  //   (nanopb).int_size = IS_8,
+  //   (brewblox.field).bitfield = true
+  // ];
+  // uint32 pullDownDesired = 8 [
+  //   (brewblox.field).readonly = true,
+  //   (nanopb).int_size = IS_8,
+  //   (brewblox.field).bitfield = true
+  // ];
+  // uint32 pullDownStatus = 9 [
+  //   (brewblox.field).readonly = true,
+  //   (nanopb).int_size = IS_8,
+  //   (brewblox.field).bitfield = true
+  // ];
+  // uint32 pullDownWhenActive = 10 [
+  //   (brewblox.field).readonly = true,
+  //   (nanopb).int_size = IS_8,
+  //   (brewblox.field).bitfield = true
+  // ];
+  // uint32 pullDownWhenInactive = 11 [
+  //   (brewblox.field).readonly = true,
+  //   (nanopb).int_size = IS_8,
+  //   (brewblox.field).bitfield = true
+  // ];
+  // uint32 overCurrent = 12 [
+  //   (brewblox.field).readonly = true,
+  //   (nanopb).int_size = IS_8,
+  //   (brewblox.field).bitfield = true
+  // ];
+  // uint32 openLoad = 13 [
+  //   (brewblox.field).readonly = true,
+  //   (nanopb).int_size = IS_8,
+  //   (brewblox.field).bitfield = true
+  // ];
+  // bool useExternalPower = 14;
+
+  // // Write true to clear a status flag and re-enable channels in shutdown
+  // // Read value is always false
+  // bool clearFaults = 32;
+
+  // // Field was renamed to clearFaults
+  // uint32 moduleStatusClear = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+}
