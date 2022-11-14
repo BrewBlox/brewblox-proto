@@ -16,6 +16,16 @@ enum FilterChoice {
   FILTER_6m = 6;
 }
 
+enum SgFilterChoice {
+  SG_FILTER_20s = 0;
+  SG_FILTER_2m = 1;
+  SG_FILTER_7m = 2;
+  SG_FILTER_15m = 3;
+  SG_FILTER_45m = 4;
+  SG_FILTER_1h30 = 5;
+  SG_FILTER_3h = 6;
+}
+
 message Block {
   option (brewblox.msg).objtype = SgProbe;
 
@@ -116,5 +126,60 @@ message Block {
   ];
 
   FilterChoice filter = 17;
+
+  sint32 raw1 = 18 [
+    (brewblox.field).logged = true,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).scale = 4096,
+    (brewblox.field).readonly = true
+  ];
+  sint32 raw2 = 19 [
+    (brewblox.field).logged = true,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).scale = 4096,
+    (brewblox.field).readonly = true
+  ];
+  sint32 raw1Filtered = 20 [
+    (brewblox.field).logged = true,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).scale = 4096,
+    (brewblox.field).readonly = true
+  ];
+  sint32 raw2Filtered = 21 [
+    (brewblox.field).logged = true,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).scale = 4096,
+    (brewblox.field).readonly = true
+  ];
+  sint32 offset1 = 22 [
+    (nanopb).int_size = IS_32,
+    (brewblox.field).scale = 4096
+  ];
+  sint32 offset2 = 23 [
+    (nanopb).int_size = IS_32,
+    (brewblox.field).scale = 4096
+  ];
+  sint32 scale1 = 24 [
+    (nanopb).int_size = IS_32,
+    (brewblox.field).scale = 1048576
+  ];
+  sint32 scale2 = 25 [
+    (nanopb).int_size = IS_32,
+    (brewblox.field).scale = 1048576
+  ];
+  sint32 referenceDiff = 26 [
+    (nanopb).int_size = IS_32,
+    (brewblox.field).scale = 4096
+  ];
+  sint32 density = 27 [
+    (nanopb).int_size = IS_32,
+    (brewblox.field).scale = 4096
+  ];
+  sint32 densityFilt = 28 [
+    (nanopb).int_size = IS_32,
+    (brewblox.field).scale = 4096
+  ];
+
+  SgFilterChoice sgFilter = 29;
 
 }
