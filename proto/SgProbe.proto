@@ -173,11 +173,13 @@ message Block {
   ];
   sint32 density = 27 [
     (nanopb).int_size = IS_32,
-    (brewblox.field).scale = 4096
+    (brewblox.field).scale = 4096,
+    (brewblox.field).logged = true
   ];
   sint32 densityFilt = 28 [
     (nanopb).int_size = IS_32,
-    (brewblox.field).scale = 4096
+    (brewblox.field).scale = 4096,
+    (brewblox.field).logged = true
   ];
 
   SgFilterChoice sgFilter = 29;
