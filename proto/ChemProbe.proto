@@ -15,39 +15,30 @@ message Block {
   sint32 pHVoltage = 3 [
     (brewblox.field).logged = true,
     (brewblox.field).unit = Volt,
-    (brewblox.field).scale = 2048,
-    (nanopb).int_size = IS_16,
+    (brewblox.field).scale = 4096000,
+    (nanopb).int_size = IS_32,
     (brewblox.field).readonly = true
   ];
 
   sint32 pH = 4 [
     (brewblox.field).logged = true,
-    (brewblox.field).unit = Volt,
-    (brewblox.field).scale = 2048,
-    (nanopb).int_size = IS_16,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
     (brewblox.field).readonly = true
   ];
 
-  sint32 redoxVoltage = 5 [
+  sint32 orpVoltage = 5 [
     (brewblox.field).logged = true,
     (brewblox.field).unit = Volt,
-    (brewblox.field).scale = 2048,
-    (nanopb).int_size = IS_16,
+    (brewblox.field).scale = 4096000,
+    (nanopb).int_size = IS_32,
     (brewblox.field).readonly = true
   ];
 
   sint32 tempRtd = 6 [
     (brewblox.field).logged = true,
-    (brewblox.field).scale = 2048,
+    (brewblox.field).scale = 4096,
     (brewblox.field).unit = Celsius,
-    (nanopb).int_size = IS_32,
-    (brewblox.field).readonly = true
-  ];
-
-  sint32 tempAdc = 7 [
-    (brewblox.field).logged = true,
-    (brewblox.field).unit = Celsius,
-    (brewblox.field).scale = 2048,
     (nanopb).int_size = IS_32,
     (brewblox.field).readonly = true
   ];
