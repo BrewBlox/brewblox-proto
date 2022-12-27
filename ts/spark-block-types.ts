@@ -514,8 +514,8 @@ export interface PidBlock extends Block {
     d: Readonly<number>;
 
     error: Readonly<Quantity>;
-    integral: Readonly<Quantity>;
-    derivative: Readonly<Quantity>;
+    integral: Readonly<number>;
+    derivative: Readonly<number>;
     derivativeFilter: Readonly<FilterChoice>;
 
     integralReset: number;
