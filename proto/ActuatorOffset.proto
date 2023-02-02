@@ -60,7 +60,8 @@ message Block {
   ];
 
   ReferenceKind referenceSettingOrValue = 4;
-  Constraints.AnalogConstraints constrainedBy = 8;
+  Constraints.DeprecatedAnalogConstraints constrainedBy = 8;
+  Constraints.AnalogConstraints constraints = 15;
 
   uint32 claimedBy = 12 [
     (brewblox.field).objtype = Any,

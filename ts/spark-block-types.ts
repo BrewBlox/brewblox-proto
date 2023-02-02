@@ -99,82 +99,53 @@ export interface ClaimableInterfaceBlock extends Block {
 }
 // #endregion ClaimableInterfaceBlock
 
-// #region Constraints
-export interface MinConstraint {
+// #region AnalogConstraints
+export interface AnalogConstraintBase {
+  enabled: boolean;
   limiting: Readonly<boolean>;
-  min: number;
 }
 
-export interface MaxConstraint {
+export interface ValueConstraint extends AnalogConstraintBase {
+  value: number;
+}
+
+export interface BalancedConstraint extends AnalogConstraintBase {
+  balancerId: Link;
+  granted: Readonly<number>;
+}
+
+export interface AnalogConstraints {
+  min?: ValueConstraint;
+  max?: ValueConstraint;
+  balanced?: BalancedConstraint;
+}
+// #endregion AnalogConstraints
+
+// #region DigitalConstraints
+export interface DigitalConstraintBase {
+  enabled: boolean;
   limiting: Readonly<boolean>;
-  max: number;
-}
-
-export interface BalancedConstraint {
-  limiting: Readonly<boolean>;
-  balanced: {
-    balancerId: Link;
-    granted: number;
-  };
-}
-
-export interface MinOnConstraint {
   remaining: Readonly<Quantity>;
-  minOn: Quantity;
 }
 
-export interface MinOffConstraint {
-  remaining: Readonly<Quantity>;
-  minOff: Quantity;
+export interface DurationConstraint extends DigitalConstraintBase {
+  duration: Quantity;
 }
 
-export interface MutexedConstraint {
-  remaining: Readonly<Quantity>;
-  mutexed: {
-    mutexId: Link;
-    extraHoldTime: Quantity;
-    hasLock: boolean;
-  };
+export interface MutexedConstraint extends DigitalConstraintBase {
+  mutexId: Link;
+  extraHoldTime: Quantity;
+  hasLock: Readonly<boolean>;
 }
 
-export interface DelayedOnConstraint {
-  remaining: Readonly<Quantity>;
-  delayedOn: Quantity;
+export interface DigitalConstraints {
+  minOff?: DurationConstraint;
+  minOn?: DurationConstraint;
+  delayedOff?: DurationConstraint;
+  delayedOn?: DurationConstraint;
+  mutexed?: MutexedConstraint;
 }
-
-export interface DelayedOffConstraint {
-  remaining: Readonly<Quantity>;
-  delayedOff: Quantity;
-}
-
-export type AnalogConstraint =
-  | MinConstraint
-  | MaxConstraint
-  | BalancedConstraint;
-
-export type DigitalConstraint =
-  | MutexedConstraint
-  | MinOnConstraint
-  | MinOffConstraint
-  | DelayedOnConstraint
-  | DelayedOffConstraint;
-
-export interface AnalogConstraintsObj {
-  constraints: AnalogConstraint[];
-}
-
-export interface DigitalConstraintsObj {
-  constraints: DigitalConstraint[];
-}
-// #endregion Constraints
-
-// #region AnyConstraint
-export type AnyConstraint = AnalogConstraint | DigitalConstraint;
-
-export interface AnyConstraintsObj {
-  constraints: AnyConstraint[];
-}
-// #endregion AnyConstraint
+// #endregion DigitalConstraints
 
 // #region ActuatorAnalogMock
 export interface ActuatorAnalogMockBlock extends Block {
@@ -191,7 +162,7 @@ export interface ActuatorAnalogMockBlock extends Block {
     maxSetting: number;
     minValue: number;
     maxValue: number;
-    constrainedBy: AnalogConstraintsObj;
+    constraints: AnalogConstraints;
 
     claimedBy: Readonly<Link>;
     settingMode: SettingMode;
@@ -244,7 +215,7 @@ export interface ActuatorOffsetBlock extends Block {
     value: Readonly<Quantity>;
 
     referenceSettingOrValue: ReferenceKind;
-    constrainedBy: AnalogConstraintsObj;
+    constraints: AnalogConstraints;
 
     claimedBy: Readonly<Link>;
     settingMode: SettingMode;
@@ -265,7 +236,7 @@ export interface ActuatorPwmBlock extends Block {
     value: Readonly<number>;
 
     period: Quantity;
-    constrainedBy: AnalogConstraintsObj;
+    constraints: AnalogConstraints;
 
     claimedBy: Readonly<Link>;
     settingMode: SettingMode;
@@ -309,7 +280,7 @@ export interface DigitalActuatorBlock extends Block {
     state: Readonly<DigitalState | null>;
 
     invert: boolean;
-    constrainedBy: DigitalConstraintsObj;
+    constraints: DigitalConstraints;
 
     transitionDurationPreset: TransitionDurationPreset;
     transitionDurationSetting: Quantity;
@@ -384,7 +355,7 @@ export interface FastPwmBlock extends Block {
 
     invert: boolean;
     frequency: PwmFrequency;
-    constrainedBy: AnalogConstraintsObj;
+    constraints: AnalogConstraints;
 
     transitionDurationPreset: TransitionDurationPreset;
     transitionDurationSetting: Quantity;
@@ -426,7 +397,7 @@ export interface MotorValveBlock extends Block {
     state: Readonly<DigitalState | null>;
     valveState: Readonly<ValveState | null>;
 
-    constrainedBy: DigitalConstraintsObj;
+    constraints: DigitalConstraints;
 
     claimedBy: Readonly<Link>;
     settingMode: SettingMode;
