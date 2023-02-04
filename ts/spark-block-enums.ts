@@ -141,6 +141,7 @@ export enum GpioModuleStatus {
   OPEN_LOAD = 1 << 4,
   OVERTEMPERATURE_WARNING = 1 << 5,
   OVERTEMPERATURE_SHUTDOWN = 1 << 6,
+  SPI_ERROR = 1 << 7,
 }
 // #endregion Gpio
 
