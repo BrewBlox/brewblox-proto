@@ -51,7 +51,8 @@ message Block {
 
   bool invert = 12;
   IoArray.PwmFrequency frequency = 3;
-  Constraints.AnalogConstraints constrainedBy = 7;
+  Constraints.DeprecatedAnalogConstraints constrainedBy = 7;
+  Constraints.AnalogConstraints constraints = 16;
 
   IoArray.TransitionDurationPreset transitionDurationPreset = 9;
   uint32 transitionDurationSetting = 10

@@ -48,7 +48,8 @@ message Block {
 
   uint32 period = 3
       [ (brewblox.field).unit = Second, (brewblox.field).scale = 1000 ];
-  Constraints.AnalogConstraints constrainedBy = 6;
+  Constraints.DeprecatedAnalogConstraints constrainedBy = 6;
+  Constraints.AnalogConstraints constraints = 13;
 
   uint32 claimedBy = 10 [
     (brewblox.field).objtype = Any,
