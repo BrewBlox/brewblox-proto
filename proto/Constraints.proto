@@ -38,7 +38,7 @@ message DurationConstraint {
 
   // Generic for digital constraints
   bool enabled = 50;
-  uint32 limiting = 51 [ (brewblox.field).readonly = true ];
+  bool limiting = 51 [ (brewblox.field).readonly = true ];
   uint32 remaining = 52 [
     (brewblox.field).unit = Second,
     (brewblox.field).scale = 1000,
@@ -59,7 +59,7 @@ message MutexedConstraint {
 
   // Generic for digital constraints
   bool enabled = 50;
-  uint32 limiting = 51 [ (brewblox.field).readonly = true ];
+  bool limiting = 51 [ (brewblox.field).readonly = true ];
   uint32 remaining = 52 [
     (brewblox.field).unit = Second,
     (brewblox.field).scale = 1000,
