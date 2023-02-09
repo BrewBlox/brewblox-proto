@@ -50,7 +50,8 @@ message Block {
   sint32 maxValue = 7
       [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
 
-  Constraints.AnalogConstraints constrainedBy = 8;
+  Constraints.DeprecatedAnalogConstraints constrainedBy = 8;
+  Constraints.AnalogConstraints constraints = 14;
 
   uint32 claimedBy = 10 [
     (brewblox.field).objtype = Any,

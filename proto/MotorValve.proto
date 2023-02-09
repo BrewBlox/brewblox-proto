@@ -37,7 +37,8 @@ message Block {
   ValveState valveState = 6
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
 
-  Constraints.DigitalConstraints constrainedBy = 5;
+  Constraints.DeprecatedDigitalConstraints constrainedBy = 5;
+  Constraints.DigitalConstraints constraints = 11;
 
   uint32 claimedBy = 8 [
     (brewblox.field).objtype = Any,

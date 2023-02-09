@@ -5,7 +5,15 @@ import "nanopb.proto";
 
 package blox.Constraints;
 
-message Balanced {
+message ValueConstraint {
+  sint32 value = 1 [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
+
+  // Generic for analog constraints
+  bool enabled = 50;
+  bool limiting = 51 [ (brewblox.field).readonly = true ];
+}
+
+message BalancedConstraint {
   uint32 balancerId = 1 [
     (brewblox.field).objtype = BalancerInterface,
     (nanopb).int_size = IS_16
@@ -13,11 +21,33 @@ message Balanced {
   uint32 granted = 2
       [ (brewblox.field).scale = 4096, (brewblox.field).readonly = true ];
 
+  // Generic for analog constraints
+  bool enabled = 50;
+  bool limiting = 51 [ (brewblox.field).readonly = true ];
+
   // Deprecated fields
   bool id = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }
 
-message Mutexed {
+message DurationConstraint {
+  uint32 duration = 1 [
+    (brewblox.field).unit = Second,
+    (brewblox.field).scale = 1000,
+    (nanopb).int_size = IS_32
+  ];
+
+  // Generic for digital constraints
+  bool enabled = 50;
+  bool limiting = 51 [ (brewblox.field).readonly = true ];
+  uint32 remaining = 52 [
+    (brewblox.field).unit = Second,
+    (brewblox.field).scale = 1000,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_32
+  ];
+}
+
+message MutexedConstraint {
   uint32 mutexId = 1
       [ (brewblox.field).objtype = MutexInterface, (nanopb).int_size = IS_16 ];
   uint32 extraHoldTime = 2 [
@@ -27,25 +57,54 @@ message Mutexed {
   ];
   bool hasLock = 4 [ (brewblox.field).readonly = true ];
 
+  // Generic for digital constraints
+  bool enabled = 50;
+  bool limiting = 51 [ (brewblox.field).readonly = true ];
+  uint32 remaining = 52 [
+    (brewblox.field).unit = Second,
+    (brewblox.field).scale = 1000,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_32
+  ];
+
   // Deprecated fields
   bool hasCustomHoldTime = 90
       [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }
 
-message AnalogConstraint {
+// Collections
+
+message AnalogConstraints {
+  ValueConstraint min = 1;
+  ValueConstraint max = 2;
+  BalancedConstraint balanced = 3;
+}
+
+message DigitalConstraints {
+  DurationConstraint minOff = 1;
+  DurationConstraint minOn = 2;
+  DurationConstraint delayedOff = 3;
+  DurationConstraint delayedOn = 4;
+  MutexedConstraint mutexed = 5;
+}
+
+// Deprecated old-style constraints
+
+message DeprecatedAnalogConstraint {
   oneof constraint {
     sint32 min = 1 [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
     sint32 max = 2 [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
-    Balanced balanced = 3;
+    BalancedConstraint balanced = 3;
   }
   bool limiting = 100 [ (brewblox.field).readonly = true ];
 }
 
-message AnalogConstraints {
-  repeated AnalogConstraint constraints = 1 [ (nanopb).max_count = 8 ];
+message DeprecatedAnalogConstraints {
+  repeated DeprecatedAnalogConstraint constraints = 1
+      [ (nanopb).max_count = 8 ];
 }
 
-message DigitalConstraint {
+message DeprecatedDigitalConstraint {
   oneof constraint {
     uint32 minOff = 1 [
       (brewblox.field).unit = Second,
@@ -57,7 +116,7 @@ message DigitalConstraint {
       (brewblox.field).scale = 1000,
       (nanopb).int_size = IS_32
     ];
-    Mutexed mutexed = 4;
+    MutexedConstraint mutexed = 4;
     uint32 delayedOff = 5 [
       (brewblox.field).unit = Second,
       (brewblox.field).scale = 1000,
@@ -87,6 +146,7 @@ message DigitalConstraint {
   ];
 }
 
-message DigitalConstraints {
-  repeated DigitalConstraint constraints = 1 [ (nanopb).max_count = 8 ];
+message DeprecatedDigitalConstraints {
+  repeated DeprecatedDigitalConstraint constraints = 1
+      [ (nanopb).max_count = 8 ];
 }

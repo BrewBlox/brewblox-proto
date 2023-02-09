@@ -28,7 +28,8 @@ message Block {
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
 
   bool invert = 4;
-  Constraints.DigitalConstraints constrainedBy = 5;
+  Constraints.DeprecatedDigitalConstraints constrainedBy = 5;
+  Constraints.DigitalConstraints constraints = 13;
 
   IoArray.TransitionDurationPreset transitionDurationPreset = 7;
   uint32 transitionDurationSetting = 8
