@@ -28,6 +28,10 @@ message Widget {
     ];
     uint32 pid = 14
         [ (brewblox.field).objtype = Pid, (nanopb).int_size = IS_16 ];
+    uint32 pressure = 15
+        [ (brewblox.field).objtype = SgProbe, (nanopb).int_size = IS_16 ];
+    uint32 chem = 16
+        [ (brewblox.field).objtype = SgProbe, (nanopb).int_size = IS_16 ];
   };
 }
 
