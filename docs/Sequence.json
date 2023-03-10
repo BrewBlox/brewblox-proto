@@ -363,7 +363,7 @@
         "INVALID_TARGET"
       ],
       "example": [
-        "WAIT_DIGITAL_EQUALS target='Cool Actuator'  "
+        "WAIT_DIGITAL_EQUALS target='Cool Actuator', state=STATE_ACTIVE"
       ]
     },
     {
