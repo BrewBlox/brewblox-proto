@@ -329,7 +329,7 @@
     },
     {
       "name": "WAIT_DIGITAL",
-      "desc": "Waits until the achieved value of target Digital Actuator matches its desired setting.",
+      "desc": "Waits until the achieved state of target Digital Actuator matches its desired setting.",
       "arguments": [
         {
           "name": "target",
@@ -342,6 +342,28 @@
       ],
       "example": [
         "WAIT_DIGITAL target='Cool Actuator'"
+      ]
+    },
+    {
+      "name": "WAIT_DIGITAL_EQUALS",
+      "desc": "Waits until the achieved state of target Digital Actuator matches a given state",
+      "arguments": [
+        {
+          "name": "target",
+          "desc": "block ID",
+          "type": "DigitalActuator"
+        },
+        {
+          "name": "state",
+          "desc": "target state must be equal to this",
+          "type": "STATE_INACTIVE | STATE_ACTIVE"
+        }
+      ],
+      "errors": [
+        "INVALID_TARGET"
+      ],
+      "example": [
+        "WAIT_DIGITAL_EQUALS target='Cool Actuator'  "
       ]
     },
     {
