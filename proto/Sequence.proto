@@ -95,6 +95,14 @@ message WaitDigital {
   ];
 }
 
+message WaitDigitalState {
+  uint32 target = 1 [
+    (brewblox.field).objtype = ActuatorDigitalInterface,
+    (nanopb).int_size = IS_16
+  ];
+  IoArray.DigitalState state = 2;
+}
+
 message SetPwm {
   uint32 target = 1 [
     (brewblox.field).objtype = ActuatorAnalogInterface,
@@ -133,6 +141,7 @@ message Instruction {
     WaitSetpoint WAIT_SETPOINT_BELOW = 22;
     SetDigital SET_DIGITAL = 13;
     WaitDigital WAIT_DIGITAL = 14;
+    WaitDigitalState WAIT_DIGITAL_EQUALS = 23;
     SetPwm SET_PWM = 15;
     TargetProfile START_PROFILE = 16;
     TargetProfile WAIT_PROFILE = 17;

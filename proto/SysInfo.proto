@@ -68,6 +68,21 @@ message Block {
 
   uint32 displayBrightness = 16 [ (nanopb).int_size = IS_8 ];
 
+  uint32 voltage5 = 17 [
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_16,
+    (brewblox.field).scale = 1000
+  ];
+  uint32 voltageExternal = 18 [
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_16,
+    (brewblox.field).scale = 1000
+  ];
+
+  uint32 memoryFree = 19 [ (brewblox.field).readonly = true ];
+  uint32 memoryFreeContiguous = 20 [ (brewblox.field).readonly = true ];
+  uint32 memoryFreeLowest = 21 [ (brewblox.field).readonly = true ];
+
   // Deprecated fields
   bool command = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
   bool trace = 91 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
