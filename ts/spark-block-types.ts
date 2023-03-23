@@ -662,11 +662,12 @@ export interface SysInfoBlock extends Block {
     ip: Readonly<string>;
     uptime: Readonly<Quantity>;
     updatesPerSecond: Readonly<number>;
-
     systemTime: DateString;
     timeZone: string;
     tempUnit: DisplayTempUnit;
     displayBrightness: number;
+    voltage5: Readonly<number>;
+    voltage12: Readonly<number>;
   };
 }
 // #endregion SysInfo
