@@ -246,6 +246,15 @@ message Block {
     (nanopb).int_size = IS_32,
     (brewblox.field).readonly = true
   ];
+
+  sint32 dTemp1 = 40 [
+    (nanopb).int_size = IS_32,
+    (brewblox.field).scale = 1048576
+  ];
+  sint32 dTemp2 = 41 [
+    (nanopb).int_size = IS_32,
+    (brewblox.field).scale = 1048576
+  ];
 }
 
 // message CalibrateAir {
