@@ -48,6 +48,7 @@ enum BlockType {
   ConstrainedDigitalInterface = 24;
   ScanningFactoryInterface = 25;
   I2CDiscoverableInterface = 26;
+  DigitalInterface = 27;
   Any = 255;
   SysInfo = 256;
   Ticks = 257; // deprecated
@@ -81,6 +82,7 @@ enum BlockType {
   Sequence = 326;
   TempSensorExternal = 328;
   FastPwm = 329;
+  InputDigital = 330;
 }
 
 message MessageOpts {
