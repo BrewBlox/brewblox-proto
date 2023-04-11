@@ -121,7 +121,7 @@ export interface SparkStatusDescription {
   /**
    * The transport layer implementation of the active connection.
    */
-  connection_kind: 'SIMULATION' | 'USB' | 'TCP' | null;
+  connection_kind: 'MOCK' | 'SIM' | 'USB' | 'TCP' | 'MQTT' | null;
 
   /**
    * Before service-to-controller communication can happen,
