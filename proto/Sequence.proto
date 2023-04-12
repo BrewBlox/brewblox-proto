@@ -6,6 +6,8 @@ import "IoArray.proto";
 
 package blox.Sequence;
 
+message Comment { string text = 1; }
+
 message Restart {}
 
 message EnableDisable {
@@ -147,6 +149,9 @@ message Instruction {
     TargetProfile WAIT_PROFILE = 17;
     TargetSequence START_SEQUENCE = 18;
     TargetSequence WAIT_SEQUENCE = 19;
+
+    // Special case: comment lines start with #
+    Comment COMMENT = 200;
   }
 }
 
