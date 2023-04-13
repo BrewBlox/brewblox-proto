@@ -125,6 +125,8 @@ message TargetSequence {
 }
 
 message Instruction {
+  option (nanopb_msgopt).submsg_callback = true;
+
   oneof instruction_oneof {
     Restart RESTART = 1;
     EnableDisable ENABLE = 2;
