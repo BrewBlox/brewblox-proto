@@ -667,7 +667,10 @@ export interface SysInfoBlock extends Block {
     tempUnit: DisplayTempUnit;
     displayBrightness: number;
     voltage5: Readonly<number>;
-    voltage12: Readonly<number>;
+    voltageExternal: Readonly<number>;
+    memoryFree: Readonly<number>;
+    memoryFreeContiguous: Readonly<number>;
+    memoryFreeLowest: Readonly<number>;
   };
 }
 // #endregion SysInfo
