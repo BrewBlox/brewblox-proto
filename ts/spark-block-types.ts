@@ -755,3 +755,15 @@ export interface WiFiSettingsBlock extends Block {
   };
 }
 // #endregion WiFiSettings
+
+// #region DigitalInput
+export interface DigitalInputBlock extends Block {
+  type: 'DigitalInput';
+  data: {
+    hwDeviceId: Link;
+    channel: number;
+    state: Readonly<DigitalState | null>;
+  }
+}
+
+// #endregion DigitalInput

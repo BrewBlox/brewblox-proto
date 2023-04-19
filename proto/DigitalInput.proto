@@ -4,10 +4,10 @@ import "brewblox.proto";
 import "nanopb.proto";
 import "IoArray.proto";
 
-package blox.InputDigital;
+package blox.DigitalInput;
 
 message Block {
-  option (brewblox.msg).objtype = InputDigital;
+  option (brewblox.msg).objtype = DigitalInput;
   option (brewblox.msg).impl = DigitalInterface;
 
   uint32 hwDevice = 1 [

@@ -25,6 +25,7 @@ export const BlockIntfType = Enum(
   'DS2408Interface',
   'EnablerInterface',
   'ClaimableInterface',
+  'DigitalInterface',
 );
 // #endregion BlockIntfType
 
