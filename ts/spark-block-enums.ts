@@ -120,6 +120,8 @@ export const GpioDeviceType = Enum(
   'GPIO_DEV_POWER_1P_LOAD_DETECT',
   'GPIO_DEV_GND_1P',
   'GPIO_DEV_GND_1P_LOAD_DETECT',
+  'GPIO_DEV_SWITCH_TO_GND',
+  'GPIO_DEV_SWITCH_TO_SUPPLY',
 );
 
 export enum GpioPins {
