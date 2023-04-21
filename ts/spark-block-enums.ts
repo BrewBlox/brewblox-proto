@@ -49,6 +49,7 @@ export const UserBlockType = Enum(
   'Balancer',
   'DeprecatedObject',
   'DigitalActuator',
+  'DigitalInput',
   'DS2408',
   'DS2413',
   'FastPwm',
