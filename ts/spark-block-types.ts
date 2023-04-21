@@ -597,6 +597,7 @@ export interface SetpointProfileBlock extends Block {
     points: Setpoint[];
     enabled: boolean;
     targetId: Link;
+    setting: Readonly<Quantity>;
   };
 }
 // #endregion SetpointProfile

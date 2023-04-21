@@ -28,6 +28,13 @@ message Block {
     (brewblox.field).objtype = SetpointSensorPair,
     (nanopb).int_size = IS_16
   ];
+  sint32 setting = 5 [
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = Celsius,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
   uint32 start = 6
       [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
 
