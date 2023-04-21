@@ -760,7 +760,7 @@ export interface WiFiSettingsBlock extends Block {
 export interface DigitalInputBlock extends Block {
   type: 'DigitalInput';
   data: {
-    hwDeviceId: Link;
+    hwDevice: Link;
     channel: number;
     state: Readonly<DigitalState | null>;
   }
