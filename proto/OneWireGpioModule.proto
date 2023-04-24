@@ -29,15 +29,13 @@ enum GpioDeviceType {
   GPIO_DEV_MOTOR_2P_BIDIRECTIONAL = 11;       // pp, pp, toggle 01 or 10
   GPIO_DEV_MOTOR_1P_HIGH_SIDE = 12;           // pu, external to GND
   GPIO_DEV_MOTOR_1P_LOW_SIDE = 13;            // pd, external to PWR
-  GPIO_DEV_LOAD_DETECT_2P = 14;               // old, old
-  GPIO_DEV_LOAD_DETECT_1P_PULL_DOWN = 15;     // old, external GND
-  GPIO_DEV_LOAD_DETECT_1P_PULL_UP = 16;       // old, external PWR
+  GPIO_DEV_SWITCH_2P = 14;                    // old, old
+  GPIO_DEV_SWITCH_1P_EXTERNAL_GND = 15;       // old, external GND
+  GPIO_DEV_SWITCH_1P_EXTERNAL_PWR = 16;       // old, external PWR
   GPIO_DEV_POWER_1P = 17;                     // pwr, without load detect
   GPIO_DEV_POWER_1P_LOAD_DETECT = 18;         // pwr, with load detect
   GPIO_DEV_GND_1P = 19;                       // gnd, without load detect
   GPIO_DEV_GND_1P_LOAD_DETECT = 20;           // gnd, with load detect
-  GPIO_DEV_SWITCH_TO_GND = 21;                // passive open load detect
-  GPIO_DEV_SWITCH_TO_SUPPLY = 22;             // passive open load detect
 };
 
 // Error flags
