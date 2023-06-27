@@ -337,10 +337,9 @@ export const WifiCipherType = Enum(
 
 // #region DigitalInput
 
-export const InputSwitchType = Enum(
-  'SWITCH_TYPE_MOMENTARY',
-  'SWITCH_TYPE_PULSE',
-  'SWITCH_TYPE_TOGGLE',
+export const ToggleBehavior = Enum(
+  'DIRECT',
+  'ALTERNATING',
 );
 
 // #endregion DigitalInput
@@ -375,4 +374,4 @@ export type SparkPlatform = Enum<typeof SparkPlatform>;
 export type TouchCalibrated = Enum<typeof TouchCalibrated>;
 export type WifiSecurityType = Enum<typeof WifiSecurityType>;
 export type WifiCipherType = Enum<typeof WifiCipherType>;
-export type InputSwitchType = Enum<typeof InputSwitchType>;
+export type ToggleBehavior = Enum<typeof ToggleBehavior>;

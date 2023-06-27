@@ -25,7 +25,7 @@ import {
   PwmFrequency,
   ChannelCapabilities,
   SettingMode,
-  InputSwitchType,
+  ToggleBehavior,
 } from './spark-block-enums';
 
 // #region Block
@@ -766,8 +766,8 @@ export interface DigitalInputBlock extends Block {
     channel: number;
     state: Readonly<DigitalState | null>;
     invert: boolean;
-    switchType: InputSwitchType;
-    period: Quantity;
+    behavior: ToggleBehavior;
+    minActiveTime: Quantity;
   }
 }
 
