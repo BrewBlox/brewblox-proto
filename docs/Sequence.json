@@ -329,7 +329,7 @@
     },
     {
       "name": "WAIT_DIGITAL",
-      "desc": "Waits until the achieved state of target Digital Actuator matches its desired setting.",
+      "desc": "Waits until the state of the target Digital Actuator matches its desired state.",
       "arguments": [
         {
           "name": "target",
@@ -346,12 +346,12 @@
     },
     {
       "name": "WAIT_DIGITAL_EQUALS",
-      "desc": "Waits until the achieved state of target Digital Actuator matches a given state",
+      "desc": "Waits until the state of target Digital Input or Digital Actuator matches a given state",
       "arguments": [
         {
           "name": "target",
           "desc": "block ID",
-          "type": "DigitalActuator"
+          "type": "DigitalInterface"
         },
         {
           "name": "state",

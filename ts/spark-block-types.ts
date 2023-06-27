@@ -768,6 +768,7 @@ export interface DigitalInputBlock extends Block {
     invert: boolean;
     behavior: ToggleBehavior;
     minActiveTime: Quantity;
+    hwState: Readonly<DigitalState | null>;
   }
 }
 
