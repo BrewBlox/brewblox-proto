@@ -25,6 +25,7 @@ import {
   PwmFrequency,
   ChannelCapabilities,
   SettingMode,
+  InputSwitchType,
 } from './spark-block-enums';
 
 // #region Block
@@ -764,6 +765,9 @@ export interface DigitalInputBlock extends Block {
     hwDevice: Link;
     channel: number;
     state: Readonly<DigitalState | null>;
+    invert: boolean;
+    switchType: InputSwitchType;
+    period: Quantity;
   }
 }
 

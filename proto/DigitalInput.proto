@@ -6,6 +6,13 @@ import "IoArray.proto";
 
 package blox.DigitalInput;
 
+
+enum InputSwitchType {
+  SWITCH_TYPE_MOMENTARY = 0;
+  SWITCH_TYPE_PULSE = 1;
+  SWITCH_TYPE_TOGGLE = 2;
+};
+
 message Block {
   option (brewblox.msg).objtype = DigitalInput;
   option (brewblox.msg).impl = DigitalInterface;
@@ -16,7 +23,11 @@ message Block {
   ];
   uint32 channel = 2 [ (nanopb).int_size = IS_8 ];
 
-  IoArray.DigitalState state = 3
-      [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
 
+  IoArray.DigitalState state = 3
+  [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
+
+  bool invert = 4;
+  InputSwitchType switchType = 5;
+  uint32 pulseDuration = 6 [ (brewblox.field).unit = Second, (brewblox.field).scale = 1000 ];
 }
