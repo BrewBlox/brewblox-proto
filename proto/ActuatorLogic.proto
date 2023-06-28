@@ -42,7 +42,7 @@ message DigitalCompare {
   DigitalOperator op = 1;
   Result result = 2 [ (brewblox.field).readonly = true ];
   uint32 id = 3 [
-    (brewblox.field).objtype = ActuatorDigitalInterface,
+    (brewblox.field).objtype = DigitalInterface,
     (nanopb).int_size = IS_16
   ];
   IoArray.DigitalState rhs = 4;
@@ -76,5 +76,6 @@ message Block {
       [ (brewblox.field).readonly = true, (nanopb).int_size = IS_8 ];
 
   // Deprecated field
-  bool drivenTargetId = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool drivenTargetId = 90
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }

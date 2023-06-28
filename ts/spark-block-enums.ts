@@ -25,6 +25,7 @@ export const BlockIntfType = Enum(
   'DS2408Interface',
   'EnablerInterface',
   'ClaimableInterface',
+  'DigitalInterface',
 );
 // #endregion BlockIntfType
 
@@ -48,6 +49,7 @@ export const UserBlockType = Enum(
   'Balancer',
   'DeprecatedObject',
   'DigitalActuator',
+  'DigitalInput',
   'DS2408',
   'DS2413',
   'FastPwm',
@@ -111,14 +113,15 @@ export const GpioDeviceType = Enum(
   'GPIO_DEV_MOTOR_2P_BIDIRECTIONAL',
   'GPIO_DEV_MOTOR_1P_HIGH_SIDE',
   'GPIO_DEV_MOTOR_1P_LOW_SIDE',
-  'GPIO_DEV_LOAD_DETECT_2P',
-  'GPIO_DEV_LOAD_DETECT_1P_PULL_DOWN',
-  'GPIO_DEV_LOAD_DETECT_1P_PULL_UP',
+  'GPIO_DEV_SWITCH_2P',
+  'GPIO_DEV_SWITCH_1P_EXTERNAL_GND',
+  'GPIO_DEV_SWITCH_1P_EXTERNAL_PWR',
   'GPIO_DEV_POWER_1P',
   'GPIO_DEV_POWER_1P_LOAD_DETECT',
   'GPIO_DEV_GND_1P',
   'GPIO_DEV_GND_1P_LOAD_DETECT',
 );
+
 
 export enum GpioPins {
   NONE = 0,
@@ -332,6 +335,16 @@ export const WifiCipherType = Enum(
 );
 // #endregion Wifi
 
+// #region DigitalInput
+
+export const ToggleBehavior = Enum(
+  'DIRECT',
+  'ALTERNATING',
+);
+
+// #endregion DigitalInput
+
+
 export type BlockIntfType = Enum<typeof BlockIntfType>;
 export type SystemBlockType = Enum<typeof SystemBlockType>;
 export type UserBlockType = Enum<typeof UserBlockType>;
@@ -361,3 +374,4 @@ export type SparkPlatform = Enum<typeof SparkPlatform>;
 export type TouchCalibrated = Enum<typeof TouchCalibrated>;
 export type WifiSecurityType = Enum<typeof WifiSecurityType>;
 export type WifiCipherType = Enum<typeof WifiCipherType>;
+export type ToggleBehavior = Enum<typeof ToggleBehavior>;

@@ -25,6 +25,7 @@ import {
   PwmFrequency,
   ChannelCapabilities,
   SettingMode,
+  ToggleBehavior,
 } from './spark-block-enums';
 
 // #region Block
@@ -756,3 +757,19 @@ export interface WiFiSettingsBlock extends Block {
   };
 }
 // #endregion WiFiSettings
+
+// #region DigitalInput
+export interface DigitalInputBlock extends Block {
+  type: 'DigitalInput';
+  data: {
+    hwDevice: Link;
+    channel: number;
+    state: Readonly<DigitalState | null>;
+    invert: boolean;
+    behavior: ToggleBehavior;
+    minActiveTime: Quantity;
+    hwState: Readonly<DigitalState | null>;
+  }
+}
+
+// #endregion DigitalInput
