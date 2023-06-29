@@ -515,7 +515,6 @@ export interface OneWireGpioModuleBlock extends Block {
     modulePosition: number;
     moduleStatus: GpioModuleStatus;
     useExternalPower: boolean;
-    clearFaults: boolean; // write-only
 
     pullUpDesired: Readonly<GpioPins>;
     pullUpStatus: Readonly<GpioPins>;
@@ -527,6 +526,8 @@ export interface OneWireGpioModuleBlock extends Block {
     pullDownWhenInactive: Readonly<GpioPins>;
     overCurrent: Readonly<GpioPins>;
     openLoad: Readonly<GpioPins>;
+    faultsHistory5m: GpioModuleStatus;
+    faultsHistory60m: GpioModuleStatus;
   };
 }
 // #endregion OneWireGpioModule
