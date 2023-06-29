@@ -143,6 +143,11 @@ message Block {
   ];
   bool useExternalPower = 14;
 
+  uint32 faultsHistory5m = 15
+      [ (nanopb).int_size = IS_8, (brewblox.field).bitfield = true ];
+  uint32 faultsHistory60m = 16
+      [ (nanopb).int_size = IS_8, (brewblox.field).bitfield = true ];
+
   // fault clearing is now automatic, but we keep the ignored fields for
   // backwards compatibility
   uint32 moduleStatusClear = 90
