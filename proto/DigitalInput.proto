@@ -14,6 +14,7 @@ enum ToggleBehavior {
 message Block {
   option (brewblox.msg).objtype = DigitalInput;
   option (brewblox.msg).impl = DigitalInterface;
+  option (brewblox.msg).impl = IoDriverInterface;
 
   uint32 hwDevice = 1 [
     (brewblox.field).objtype = IoArrayInterface,
