@@ -185,19 +185,25 @@ message Block {
   repeated Instruction instructions = 2;
 
   bool overrideState = 3;
-
   uint32 activeInstruction = 4
       [ (nanopb).int_size = IS_16, (brewblox.field).logged = true ];
-  uint32 activeInstructionStartedAt = 5 [
-    (nanopb).int_size = IS_32,
-    (brewblox.field).datetime = true,
-    (brewblox.field).logged = true
-  ];
-  uint32 disabledAt = 6
-      [ (nanopb).int_size = IS_32, (brewblox.field).datetime = true ];
-  uint32 disabledDuration = 7
-      [ (nanopb).int_size = IS_32, (brewblox.field).unit = Second ];
 
   SequenceStatus status = 8 [ (brewblox.field).readonly = true ];
   SequenceError error = 9 [ (brewblox.field).readonly = true ];
+
+  uint32 elapsed = 10 [
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = Second,
+    (brewblox.field).scale = 1000
+  ];
+
+  // Deprecated fields
+  uint32 activeInstructionStartedAt = 5
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  uint32 disabledAt = 6
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  uint32 disabledDuration = 7
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }

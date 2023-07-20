@@ -576,11 +576,9 @@ export interface SequenceBlock extends Block {
     enabled: boolean;
     overrideState: boolean;
     activeInstruction: number;
-    activeInstructionStartedAt: DateString | null;
-    disabledAt: DateString | null;
-    disabledDuration: Quantity;
-    status: SequenceStatus;
-    error: SequenceError;
+    status: Readonly<SequenceStatus>;
+    error: Readonly<SequenceError>;
+    elapsed: Readonly<Quantity>;
     instructions: string[];
   };
 }
@@ -770,7 +768,7 @@ export interface DigitalInputBlock extends Block {
     behavior: ToggleBehavior;
     minActiveTime: Quantity;
     hwState: Readonly<DigitalState | null>;
-  }
+  };
 }
 
 // #endregion DigitalInput
