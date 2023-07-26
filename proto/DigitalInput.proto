@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+import "IoArray.proto";
+
+package blox.DigitalInput;
+
+enum ToggleBehavior {
+  DIRECT = 0;
+  ALTERNATING = 1;
+};
+
+message Block {
+  option (brewblox.msg).objtype = DigitalInput;
+  option (brewblox.msg).impl = DigitalInterface;
+  option (brewblox.msg).impl = IoDriverInterface;
+
+  uint32 hwDevice = 1 [
+    (brewblox.field).objtype = IoArrayInterface,
+    (nanopb).int_size = IS_16
+  ];
+  uint32 channel = 2 [ (nanopb).int_size = IS_8 ];
+
+  IoArray.DigitalState state = 3
+      [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
+
+  bool invert = 4;
+  ToggleBehavior behavior = 5;
+  uint32 minActiveTime = 6
+      [ (brewblox.field).unit = Second, (brewblox.field).scale = 1000 ];
+  IoArray.DigitalState hwState = 7 [ (brewblox.field).readonly = true ];
+}

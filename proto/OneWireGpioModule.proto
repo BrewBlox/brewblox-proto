@@ -29,9 +29,9 @@ enum GpioDeviceType {
   GPIO_DEV_MOTOR_2P_BIDIRECTIONAL = 11;       // pp, pp, toggle 01 or 10
   GPIO_DEV_MOTOR_1P_HIGH_SIDE = 12;           // pu, external to GND
   GPIO_DEV_MOTOR_1P_LOW_SIDE = 13;            // pd, external to PWR
-  GPIO_DEV_LOAD_DETECT_2P = 14;               // old, old
-  GPIO_DEV_LOAD_DETECT_1P_PULL_DOWN = 15;     // old, external GND
-  GPIO_DEV_LOAD_DETECT_1P_PULL_UP = 16;       // old, external PWR
+  GPIO_DEV_SWITCH_2P = 14;                    // old, old
+  GPIO_DEV_SWITCH_1P_EXTERNAL_GND = 15;       // old, external GND
+  GPIO_DEV_SWITCH_1P_EXTERNAL_PWR = 16;       // old, external PWR
   GPIO_DEV_POWER_1P = 17;                     // pwr, without load detect
   GPIO_DEV_POWER_1P_LOAD_DETECT = 18;         // pwr, with load detect
   GPIO_DEV_GND_1P = 19;                       // gnd, without load detect
@@ -75,6 +75,8 @@ message GpioModuleChannel {
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
   ];
+  uint32 errorFlags = 8
+      [ (nanopb).int_size = IS_8, (brewblox.field).bitfield = true ];
 }
 
 message Block {
@@ -84,9 +86,9 @@ message Block {
 
   repeated GpioModuleChannel channels = 1 [ (nanopb).max_count = 8 ];
   uint32 modulePosition = 2 [ (nanopb).int_size = IS_8 ];
-  // 7 reserved | 6 overtemperature shutdown | 5 overtemperature warning | 4
-  // open load | 3 overcurrent | 2 undervoltage lockout | 1 overvoltage | 0
-  // power-on-reset
+  // 7 reserved bit used to signal spi error | 6 overtemperature shutdown | 5
+  // overtemperature warning 4 open load | 3 overcurrent | 2 undervoltage
+  // lockout | 1 overvoltage | 0 power-on-reset
   uint32 moduleStatus = 3
       [ (nanopb).int_size = IS_8, (brewblox.field).bitfield = true ];
   uint32 pullUpDesired = 4 [
@@ -141,10 +143,15 @@ message Block {
   ];
   bool useExternalPower = 14;
 
-  // Write true to clear a status flag and re-enable channels in shutdown
-  // Read value is always false
-  bool clearFaults = 32;
+  uint32 faultsHistory5m = 15
+      [ (nanopb).int_size = IS_8, (brewblox.field).bitfield = true ];
+  uint32 faultsHistory60m = 16
+      [ (nanopb).int_size = IS_8, (brewblox.field).bitfield = true ];
 
-  // Field was renamed to clearFaults
-  uint32 moduleStatusClear = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  // fault clearing is now automatic, but we keep the ignored fields for
+  // backwards compatibility
+  uint32 moduleStatusClear = 90
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool clearFaults = 32
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }

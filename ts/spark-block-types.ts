@@ -25,6 +25,7 @@ import {
   PwmFrequency,
   ChannelCapabilities,
   SettingMode,
+  ToggleBehavior,
 } from './spark-block-enums';
 
 // #region Block
@@ -514,7 +515,6 @@ export interface OneWireGpioModuleBlock extends Block {
     modulePosition: number;
     moduleStatus: GpioModuleStatus;
     useExternalPower: boolean;
-    clearFaults: boolean; // write-only
 
     pullUpDesired: Readonly<GpioPins>;
     pullUpStatus: Readonly<GpioPins>;
@@ -526,6 +526,8 @@ export interface OneWireGpioModuleBlock extends Block {
     pullDownWhenInactive: Readonly<GpioPins>;
     overCurrent: Readonly<GpioPins>;
     openLoad: Readonly<GpioPins>;
+    faultsHistory5m: GpioModuleStatus;
+    faultsHistory60m: GpioModuleStatus;
   };
 }
 // #endregion OneWireGpioModule
@@ -597,6 +599,7 @@ export interface SetpointProfileBlock extends Block {
     points: Setpoint[];
     enabled: boolean;
     targetId: Link;
+    setting: Readonly<Quantity>;
   };
 }
 // #endregion SetpointProfile
@@ -667,7 +670,10 @@ export interface SysInfoBlock extends Block {
     tempUnit: DisplayTempUnit;
     displayBrightness: number;
     voltage5: Readonly<number>;
-    voltage12: Readonly<number>;
+    voltageExternal: Readonly<number>;
+    memoryFree: Readonly<number>;
+    memoryFreeContiguous: Readonly<number>;
+    memoryFreeLowest: Readonly<number>;
   };
 }
 // #endregion SysInfo
@@ -752,3 +758,19 @@ export interface WiFiSettingsBlock extends Block {
   };
 }
 // #endregion WiFiSettings
+
+// #region DigitalInput
+export interface DigitalInputBlock extends Block {
+  type: 'DigitalInput';
+  data: {
+    hwDevice: Link;
+    channel: number;
+    state: Readonly<DigitalState | null>;
+    invert: boolean;
+    behavior: ToggleBehavior;
+    minActiveTime: Quantity;
+    hwState: Readonly<DigitalState | null>;
+  }
+}
+
+// #endregion DigitalInput

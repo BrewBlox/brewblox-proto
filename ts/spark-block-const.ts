@@ -29,6 +29,11 @@ export const COMPATIBLE_TYPES: Record<BlockIntfType, BlockType[]> = {
     BlockType.FastPwm,
   ],
   ActuatorDigitalInterface: [BlockType.DigitalActuator, BlockType.MotorValve],
+  DigitalInterface: [
+    BlockType.DigitalActuator,
+    BlockType.MotorValve,
+    BlockType.DigitalInput,
+  ],
   BalancerInterface: [BlockType.Balancer],
   MutexInterface: [BlockType.Mutex],
   OneWireBusInterface: [BlockType.OneWireGpioModule],
@@ -50,6 +55,7 @@ export const COMPATIBLE_TYPES: Record<BlockIntfType, BlockType[]> = {
     BlockType.DigitalActuator,
     BlockType.MotorValve,
     BlockType.FastPwm,
+    BlockType.DigitalInput,
   ],
   DS2408Interface: [BlockType.DS2408],
   EnablerInterface: [
