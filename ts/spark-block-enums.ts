@@ -113,15 +113,14 @@ export const GpioDeviceType = Enum(
   'GPIO_DEV_MOTOR_2P_BIDIRECTIONAL',
   'GPIO_DEV_MOTOR_1P_HIGH_SIDE',
   'GPIO_DEV_MOTOR_1P_LOW_SIDE',
-  'GPIO_DEV_SWITCH_2P',
-  'GPIO_DEV_SWITCH_1P_EXTERNAL_GND',
-  'GPIO_DEV_SWITCH_1P_EXTERNAL_PWR',
+  'GPIO_DEV_DETECT_LOW_CURRENT_2P',
+  'GPIO_DEV_DETECT_LOW_CURRENT_1P_GND',
+  'GPIO_DEV_DETECT_HIGH_CURRENT_1P_POWER',
+  'GPIO_DEV_DETECT_HIGH_CURRENT_1P_GND',
+  'GPIO_DEV_DETECT_HIGH_CURRENT_2P',
   'GPIO_DEV_POWER_1P',
-  'GPIO_DEV_POWER_1P_LOAD_DETECT',
   'GPIO_DEV_GND_1P',
-  'GPIO_DEV_GND_1P_LOAD_DETECT',
 );
-
 
 export enum GpioPins {
   NONE = 0,
@@ -337,13 +336,9 @@ export const WifiCipherType = Enum(
 
 // #region DigitalInput
 
-export const ToggleBehavior = Enum(
-  'DIRECT',
-  'ALTERNATING',
-);
+export const ToggleBehavior = Enum('DIRECT', 'ALTERNATING');
 
 // #endregion DigitalInput
-
 
 export type BlockIntfType = Enum<typeof BlockIntfType>;
 export type SystemBlockType = Enum<typeof SystemBlockType>;

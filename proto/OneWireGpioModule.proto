@@ -5,15 +5,6 @@ import "nanopb.proto";
 
 package blox.OneWireGpioModule;
 
-// pin options
-// 0: unused (x)
-// 1: always GND (gnd)
-// 2: always PWR (pwr)
-// 3: pull up (pu)
-// 4: pull down (pd)
-// 5: push/pull (pp)
-// 6: passsive open load detect only (old)
-
 enum GpioDeviceType {
   GPIO_DEV_NONE = 0;
   GPIO_DEV_SSR_2P = 1;                        // gnd, pp
@@ -29,13 +20,14 @@ enum GpioDeviceType {
   GPIO_DEV_MOTOR_2P_BIDIRECTIONAL = 11;       // pp, pp, toggle 01 or 10
   GPIO_DEV_MOTOR_1P_HIGH_SIDE = 12;           // pu, external to GND
   GPIO_DEV_MOTOR_1P_LOW_SIDE = 13;            // pd, external to PWR
-  GPIO_DEV_SWITCH_2P = 14;                    // old, old
-  GPIO_DEV_SWITCH_1P_EXTERNAL_GND = 15;       // old, external GND
-  GPIO_DEV_SWITCH_1P_EXTERNAL_PWR = 16;       // old, external PWR
-  GPIO_DEV_POWER_1P = 17;                     // pwr, without load detect
-  GPIO_DEV_POWER_1P_LOAD_DETECT = 18;         // pwr, with load detect
-  GPIO_DEV_GND_1P = 19;                       // gnd, without load detect
-  GPIO_DEV_GND_1P_LOAD_DETECT = 20;           // gnd, with load detect
+  GPIO_DEV_DETECT_LOW_CURRENT_2P = 14;        // gnd, pwr, 2-100mA
+  GPIO_DEV_DETECT_LOW_CURRENT_1P_GND = 15;    // gnd, 2-100mA
+  // GPIO_DEV_DETECT_LOW_CURRENT_1P_POWER = 16;  // not supported by hardware
+  GPIO_DEV_POWER_1P = 17;                     // pwr, 1A
+  GPIO_DEV_DETECT_HIGH_CURRENT_1P_POWER = 18; // pwr, 30-1000mA
+  GPIO_DEV_GND_1P = 19;                       // gnd
+  GPIO_DEV_DETECT_HIGH_CURRENT_1P_GND = 20;   // gnd, 30-1000mA
+  GPIO_DEV_DETECT_HIGH_CURRENT_2P = 21;       // gnd, pwr, 30-1000mA
 };
 
 // Error flags
