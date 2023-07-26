@@ -22,7 +22,7 @@ enum GpioDeviceType {
   GPIO_DEV_MOTOR_1P_LOW_SIDE = 13;            // pd, external to PWR
   GPIO_DEV_DETECT_LOW_CURRENT_2P = 14;        // gnd, pwr, 2-100mA
   GPIO_DEV_DETECT_LOW_CURRENT_1P_GND = 15;    // gnd, 2-100mA
-  GPIO_DEV_DETECT_LOW_CURRENT_1P_POWER = 16;  // pwr, 2-100mA
+  // GPIO_DEV_DETECT_LOW_CURRENT_1P_POWER = 16;  // not supported by hardware
   GPIO_DEV_POWER_1P = 17;                     // pwr, 1A
   GPIO_DEV_DETECT_HIGH_CURRENT_1P_POWER = 18; // pwr, 30-1000mA
   GPIO_DEV_GND_1P = 19;                       // gnd
