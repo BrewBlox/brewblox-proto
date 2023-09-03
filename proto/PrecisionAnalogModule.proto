@@ -15,11 +15,38 @@ enum AnalogChannelType {
 };
 
 message AnalogChannel {
-  AnalogChannelType deviceType = 1;
+  AnalogChannelType sensorType = 1;
   uint32 claimedBy = 2 [
     (brewblox.field).objtype = Any,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
+  ];
+  // for RTD: resistance and optionally leadResistance
+  // for Gauge: bridgeResistance and bridgeOutput
+
+  sint32 resistance = 4 [
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 leadResistance = 5 [
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 bridgeResistance = 6 [
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 bridgeOutput = 7 [
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
   ];
 }
 
