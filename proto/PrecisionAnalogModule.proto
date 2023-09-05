@@ -12,6 +12,7 @@ enum AnalogChannelType {
   ANALOG_CHANNEL_TYPE_RTD_2WIRE = 2;
   ANALOG_CHANNEL_TYPE_RTD_3WIRE = 3;
   ANALOG_CHANNEL_TYPE_RTD_4WIRE = 4;
+  ANALOG_CHANNEL_TYPE_RTD_3WIRE_LS = 5; // not supported now
 };
 
 message AnalogChannel {
