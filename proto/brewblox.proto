@@ -51,6 +51,7 @@ enum BlockType {
   ScanningFactoryInterface = 25;
   I2CDiscoverableInterface = 26;
   DigitalInterface = 27;
+  AnalogModuleInterface = 28;
   Any = 255;
   SysInfo = 256;
   Ticks = 257; // deprecated
@@ -85,9 +86,11 @@ enum BlockType {
   TempSensorExternal = 328;
   FastPwm = 329;
   DigitalInput = 330;
-  SgProbe = 331;
-  ChemProbe = 332;
-  ProbeConnector = 333;
+  PrecisionAnalogModule = 331;
+  TempSensorAnalog = 332;
+  ProbeConnector = 400;
+  SgProbe = 401;
+  ChemProbe = 402;
 }
 
 message MessageOpts {

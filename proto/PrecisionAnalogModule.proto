@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+import "GpioModule.proto";
+
+package blox.PrecisionAnalogModule;
+
+enum AnalogChannelType {
+  ANALOG_CHANNEL_TYPE_NONE = 0;
+  ANALOG_CHANNEL_TYPE_STRAIN_GAUGE = 1;
+  ANALOG_CHANNEL_TYPE_RTD_2WIRE = 2;
+  ANALOG_CHANNEL_TYPE_RTD_3WIRE = 3;
+  ANALOG_CHANNEL_TYPE_RTD_4WIRE = 4;
+  ANALOG_CHANNEL_TYPE_RTD_3WIRE_LS = 5; // not supported now
+};
+
+message AnalogChannel {
+  AnalogChannelType sensorType = 1;
+  uint32 claimedBy = 2 [
+    (brewblox.field).objtype = Any,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_16
+  ];
+  // for RTD: resistance and optionally leadResistance
+  // for Gauge: bridgeResistance and bridgeOutput
+
+  sint32 resistance = 4 [
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 leadResistance = 5 [
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 bridgeResistance = 6 [
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 bridgeOutput = 7 [
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+}
+
+message Block {
+  option (brewblox.msg).objtype = PrecisionAnalogModule;
+  repeated GpioModule.Channel gpioChannels = 1 [ (nanopb).max_count = 8 ];
+  uint32 modulePosition = 2 [ (nanopb).int_size = IS_8 ];
+  bool useExternalPower = 3;
+  GpioModule.Status gpioStatus = 4;
+
+  repeated AnalogChannel analogChannels = 5 [
+    (nanopb).max_count = 4,
+    (nanopb).fixed_count = true,
+    (brewblox.field).readonly = true
+  ];
+}

@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+
+package blox.TempSensorAnalog;
+
+enum TempSensorAnalogType {
+  TEMP_SENSOR_TYPE_UNSET = 0;
+  TEMP_SENSOR_TYPE_RTD_2WIRE = 1;
+  TEMP_SENSOR_TYPE_RTD_3WIRE = 2;
+  TEMP_SENSOR_TYPE_RTD_4WIRE = 3;
+}
+
+message Block {
+  option (brewblox.msg).objtype = TempSensorAnalog;
+  option (brewblox.msg).impl = TempSensorInterface;
+
+  TempSensorAnalogType type = 1;
+  uint32 moduleId = 2 [
+    (brewblox.field).objtype = PrecisionAnalogModule,
+    (nanopb).int_size = IS_16
+  ];
+
+  uint32 channel = 3 [ (nanopb).int_size = IS_8 ];
+
+  sint32 value = 4 [
+    (brewblox.field).logged = true,
+    (brewblox.field).unit = Celsius,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true
+  ];
+  sint32 offset = 5 [
+    (brewblox.field).unit = DeltaCelsius,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32
+  ];
+}
