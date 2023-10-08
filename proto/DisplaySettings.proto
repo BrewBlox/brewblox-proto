@@ -30,8 +30,8 @@ message Widget {
         [ (brewblox.field).objtype = Pid, (nanopb).int_size = IS_16 ];
     uint32 pressure = 15
         [ (brewblox.field).objtype = SgProbe, (nanopb).int_size = IS_16 ];
-    uint32 chem = 16
-        [ (brewblox.field).objtype = ChemProbe, (nanopb).int_size = IS_16 ];
+    // uint32 chem = 16
+    //     [ (brewblox.field).objtype = ChemProbe, (nanopb).int_size = IS_16 ];
   };
 }
 
@@ -42,7 +42,10 @@ message Block {
   string name = 2 [ (nanopb).max_size = 40 ];
 
   // Deprecated fields
-  bool brightness = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  bool timeZone = 91 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  bool tempUnit = 92 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool brightness = 90
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool timeZone = 91
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool tempUnit = 92
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }
