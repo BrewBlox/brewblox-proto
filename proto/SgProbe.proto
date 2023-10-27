@@ -170,12 +170,6 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
-  sint32 calibrateAir = 34 [
-    (brewblox.field).unit = MilliBar,
-    (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32
-  ];
-
   sint32 calibrateTemp = 35 [
     (brewblox.field).unit = Celsius,
     (brewblox.field).scale = 4096,
@@ -216,13 +210,3 @@ message Block {
     (brewblox.field).readonly = true
   ];
 }
-
-// message CalibrateAir {
-//   option (brewblox.msg).objtype = SgProbe;
-//   option (brewblox.msg).subtype = 1;
-//   sint32 pressure = 1 [
-//     (brewblox.field).unit = MilliBar,
-//     (brewblox.field).scale = 4096,
-//     (nanopb).int_size = IS_32
-//   ];
-// }
