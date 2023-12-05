@@ -28,11 +28,15 @@ message Block {
   State state = 2;
   uint32 link = 3 [ (brewblox.field).objtype = ActuatorAnalogInterface ];
   repeated NestedLink additionalLinks = 4;
-  repeated float listValues = 5
-      [ (brewblox.field).unit = Celsius, (brewblox.field).scale = 256 ];
+  repeated sint32 listValues = 5 [
+    (brewblox.field).unit = Celsius,
+    (brewblox.field).scale = 256,
+    (brewblox.field).sint_invalid_if = -1,
+  ];
   uint32 deltaV = 6 [
     (brewblox.field).unit = DeltaCelsiusPerSecond,
-    (brewblox.field).scale = 256
+    (brewblox.field).scale = 256,
+    (brewblox.field).uint_invalid_if = 1,
   ];
   uint32 logged = 7 [ (brewblox.field).logged = true ];
   uint32 unLogged = 8;
