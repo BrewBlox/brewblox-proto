@@ -19,6 +19,9 @@ enum UnitType {
   DeltaCelsiusMultSecond = 10;
   DeltaCelsiusMultMinute = 11;
   DeltaCelsiusMultHour = 12;
+  MilliBar = 13;
+  Volt = 14;
+  Ohm = 15;
 }
 
 enum BlockType {
@@ -109,6 +112,8 @@ message FieldOpts {
   bool bitfield = 10;
   bool datetime = 11;
   bool ipv4address = 12;
+  bool omit_if_zero = 13;
+  bool null_if_zero = 14;
 }
 
 extend google.protobuf.FieldOptions {
