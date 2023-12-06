@@ -38,7 +38,8 @@ message Block {
     (brewblox.field).scale = 256,
     (brewblox.field).null_if_zero = true
   ];
-  uint32 logged = 7 [ (brewblox.field).logged = true ];
+  uint32 logged = 7
+      [ (brewblox.field).logged = true, (brewblox.field).omit_if_zero = true ];
   uint32 unLogged = 8;
   uint32 ip = 10
       [ (brewblox.field).ipv4address = true, (nanopb).int_size = IS_32 ];
