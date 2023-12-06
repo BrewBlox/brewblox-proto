@@ -106,8 +106,8 @@ message FieldOpts {
   bool bitfield = 10;
   bool datetime = 11;
   bool ipv4address = 12;
-  uint32 uint_invalid_if = 13;
-  sint32 sint_invalid_if = 14;
+  bool omit_if_zero = 13;
+  bool null_if_zero = 14;
 }
 
 extend google.protobuf.FieldOptions {

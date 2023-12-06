@@ -31,12 +31,12 @@ message Block {
   repeated sint32 listValues = 5 [
     (brewblox.field).unit = Celsius,
     (brewblox.field).scale = 256,
-    (brewblox.field).sint_invalid_if = -1
+    (brewblox.field).omit_if_zero = true
   ];
   uint32 deltaV = 6 [
     (brewblox.field).unit = DeltaCelsiusPerSecond,
     (brewblox.field).scale = 256,
-    (brewblox.field).uint_invalid_if = 1
+    (brewblox.field).null_if_zero = true
   ];
   uint32 logged = 7 [ (brewblox.field).logged = true ];
   uint32 unLogged = 8;
