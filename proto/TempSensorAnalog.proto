@@ -2,14 +2,23 @@ syntax = "proto3";
 
 import "brewblox.proto";
 import "nanopb.proto";
+import "PrecisionAnalogModule.proto";
 
 package blox.TempSensorAnalog;
 
 enum TempSensorAnalogType {
-  TEMP_SENSOR_TYPE_UNSET = 0;
+  TEMP_SENSOR_TYPE_AUTO = 0;
   TEMP_SENSOR_TYPE_RTD_2WIRE = 1;
   TEMP_SENSOR_TYPE_RTD_3WIRE = 2;
   TEMP_SENSOR_TYPE_RTD_4WIRE = 3;
+}
+
+enum TempSensorAnalogSpec {
+  SPEC_NOT_SET = 0;
+  SPEC_PT100_385 = 1;
+  SPEC_PT100_392 = 2;
+  SPEC_PT1000_385 = 3;
+  SPEC_PT1000_392 = 4;
 }
 
 message Block {
@@ -36,4 +45,6 @@ message Block {
     (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
+
+  PrecisionAnalogModule.AnalogChannelType detected = 6;
 }
