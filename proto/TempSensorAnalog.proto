@@ -7,7 +7,7 @@ import "PrecisionAnalogModule.proto";
 package blox.TempSensorAnalog;
 
 enum TempSensorAnalogType {
-  TEMP_SENSOR_TYPE_AUTO = 0;
+  TEMP_SENSOR_TYPE_NOT_SET = 0;
   TEMP_SENSOR_TYPE_RTD_2WIRE = 1;
   TEMP_SENSOR_TYPE_RTD_3WIRE = 2;
   TEMP_SENSOR_TYPE_RTD_4WIRE = 3;
@@ -47,4 +47,5 @@ message Block {
   ];
 
   PrecisionAnalogModule.AnalogChannelType detected = 6;
+  TempSensorAnalogSpec spec = 7;
 }
