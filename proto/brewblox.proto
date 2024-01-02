@@ -90,6 +90,8 @@ enum BlockType {
   PrecisionAnalogModule = 331;
   TempSensorAnalog = 332;
   KvdwAnalogModule = 333;
+  KvdwDigitalModule = 334;
+  KvdwSensor = 335;
 }
 
 message MessageOpts {

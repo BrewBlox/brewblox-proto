@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+import "GpioModule.proto";
+
+package blox.KvdwDigitalModule;
+
+message Block {
+  option (brewblox.msg).objtype = KvdwDigitalModule;
+  option (brewblox.msg).impl = IoArrayInterface;
+
+  repeated GpioModule.Channel channels = 1 [ (nanopb).max_count = 8 ];
+  uint32 modulePosition = 2 [ (nanopb).int_size = IS_8 ];
+  GpioModule.Status status = 15;
+}
