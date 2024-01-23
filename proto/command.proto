@@ -80,18 +80,13 @@ enum MaskMode {
   EXCLUSIVE = 2;
 }
 
-message FieldMatch {
-  repeated uint32 chainedTag = 1
-      [ (nanopb).int_size = IS_16, (nanopb).max_count = 4 ];
-}
-
 message Payload {
   uint32 blockId = 1 [ (nanopb).int_size = IS_16 ];
   brewblox.BlockType blockType = 2;
   uint32 subtype = 3 [ (nanopb).int_size = IS_16 ];
   string content = 4; // Block message: proto encoded, then base64 encoded
   MaskMode maskMode = 6;
-  repeated FieldMatch maskFields = 7;
+  repeated uint64 maskFields = 7; // 4*uint16
 }
 
 message Request {
