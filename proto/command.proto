@@ -81,8 +81,7 @@ enum MaskMode {
 }
 
 message MaskField {
-  uint32 fieldTag = 1 [ (nanopb).int_size = IS_16 ];
-  repeated uint32 fieldParents = 2
+  repeated uint32 address = 2
       [ (nanopb).int_size = IS_16, (nanopb).max_count = 4 ];
 }
 
