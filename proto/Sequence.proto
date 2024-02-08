@@ -34,16 +34,22 @@ message WaitTemperatureRange {
     (brewblox.field).objtype = TempSensorInterface,
     (nanopb).int_size = IS_16
   ];
-  sint32 lower = 2 [
-    (brewblox.field).unit = Celsius,
-    (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32
-  ];
-  sint32 upper = 3 [
-    (brewblox.field).unit = Celsius,
-    (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32
-  ];
+  oneof lower_oneof {
+    sint32 lower = 2 [
+      (brewblox.field).unit = Celsius,
+      (brewblox.field).scale = 4096,
+      (nanopb).int_size = IS_32
+    ];
+    string lower_var = 4 [ (nanopb).max_size = 16 ];
+  }
+  oneof upper_oneof {
+    sint32 upper = 3 [
+      (brewblox.field).unit = Celsius,
+      (brewblox.field).scale = 4096,
+      (nanopb).int_size = IS_32
+    ];
+    string upper_var = 5 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message WaitTemperatureBoundary {
@@ -51,11 +57,14 @@ message WaitTemperatureBoundary {
     (brewblox.field).objtype = TempSensorInterface,
     (nanopb).int_size = IS_16
   ];
-  sint32 value = 2 [
-    (brewblox.field).unit = Celsius,
-    (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32
-  ];
+  oneof value_oneof {
+    sint32 value = 2 [
+      (brewblox.field).unit = Celsius,
+      (brewblox.field).scale = 4096,
+      (nanopb).int_size = IS_32
+    ];
+    string value_var = 3 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message SetSetpoint {
@@ -63,11 +72,14 @@ message SetSetpoint {
     (brewblox.field).objtype = SetpointSensorPairInterface,
     (nanopb).int_size = IS_16
   ];
-  sint32 setting = 2 [
-    (brewblox.field).unit = Celsius,
-    (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32
-  ];
+  oneof setting_oneof {
+    sint32 setting = 2 [
+      (brewblox.field).unit = Celsius,
+      (brewblox.field).scale = 4096,
+      (nanopb).int_size = IS_32
+    ];
+    string setting_var = 3 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message WaitSetpoint {
@@ -75,11 +87,14 @@ message WaitSetpoint {
     (brewblox.field).objtype = SetpointSensorPairInterface,
     (nanopb).int_size = IS_16
   ];
-  sint32 precision = 2 [
-    (brewblox.field).unit = DeltaCelsius,
-    (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32
-  ];
+  oneof precision_oneof {
+    sint32 precision = 2 [
+      (brewblox.field).unit = DeltaCelsius,
+      (brewblox.field).scale = 4096,
+      (nanopb).int_size = IS_32
+    ];
+    string precision_var = 3 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message SetDigital {
@@ -87,7 +102,10 @@ message SetDigital {
     (brewblox.field).objtype = ActuatorDigitalInterface,
     (nanopb).int_size = IS_16
   ];
-  IoArray.DigitalState setting = 2;
+  oneof setting_oneof {
+    IoArray.DigitalState setting = 2;
+    string setting_var = 3 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message WaitDigital {
@@ -102,7 +120,10 @@ message WaitDigitalState {
     (brewblox.field).objtype = DigitalInterface,
     (nanopb).int_size = IS_16
   ];
-  IoArray.DigitalState state = 2;
+  oneof state_oneof {
+    IoArray.DigitalState state = 2;
+    string state_var = 3 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message SetPwm {
@@ -110,8 +131,11 @@ message SetPwm {
     (brewblox.field).objtype = ActuatorAnalogInterface,
     (nanopb).int_size = IS_16
   ];
-  sint32 setting = 2
-      [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
+  oneof setting_oneof {
+    sint32 setting = 2
+        [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
+    string setting_var = 3 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message TargetProfile {
@@ -183,6 +207,10 @@ message Block {
 
   bool enabled = 1 [ (brewblox.field).logged = true ];
   repeated Instruction instructions = 2;
+  uint32 variablesId = 11 [
+    (brewblox.field).objtype = SequenceVariables,
+    (nanopb).int_size = IS_16
+  ];
 
   bool overrideState = 3;
   uint32 activeInstruction = 4
