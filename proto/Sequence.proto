@@ -11,147 +11,196 @@ message Comment { string text = 1; }
 message Restart {}
 
 message EnableDisable {
-  uint32 target = 1 [
-    (brewblox.field).objtype = EnablerInterface,
-    (nanopb).int_size = IS_16
-  ];
+  oneof target {
+    uint32 target__raw__ = 1 [
+      (brewblox.field).objtype = EnablerInterface,
+      (nanopb).int_size = IS_16
+    ];
+    string target__var__ = 2 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message Wait {}
 
 message WaitDuration {
-  uint32 duration = 1
-      [ (brewblox.field).unit = Second, (nanopb).int_size = IS_32 ];
+  oneof duration {
+    uint32 duration__raw__ = 1
+        [ (brewblox.field).unit = Second, (nanopb).int_size = IS_32 ];
+    string duration__var__ = 2 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message WaitUntil {
-  uint32 time = 1
-      [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
+  oneof time {
+    uint32 time__raw__ = 1
+        [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
+    string time__var__ = 2 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message WaitTemperatureRange {
-  uint32 target = 1 [
-    (brewblox.field).objtype = TempSensorInterface,
-    (nanopb).int_size = IS_16
-  ];
-  oneof lower_oneof {
-    sint32 lower = 2 [
-      (brewblox.field).unit = Celsius,
-      (brewblox.field).scale = 4096,
-      (nanopb).int_size = IS_32
+  oneof target {
+    uint32 target__raw__ = 1 [
+      (brewblox.field).objtype = TempSensorInterface,
+      (nanopb).int_size = IS_16
     ];
-    string lower_var = 4 [ (nanopb).max_size = 16 ];
+    string target__var__ = 4 [ (nanopb).max_size = 16 ];
   }
-  oneof upper_oneof {
-    sint32 upper = 3 [
+
+  oneof lower {
+    sint32 lower__raw__ = 2 [
       (brewblox.field).unit = Celsius,
       (brewblox.field).scale = 4096,
       (nanopb).int_size = IS_32
     ];
-    string upper_var = 5 [ (nanopb).max_size = 16 ];
+    string lower__var__ = 5 [ (nanopb).max_size = 16 ];
+  }
+
+  oneof upper {
+    sint32 upper__raw__ = 3 [
+      (brewblox.field).unit = Celsius,
+      (brewblox.field).scale = 4096,
+      (nanopb).int_size = IS_32
+    ];
+    string upper__var__ = 6 [ (nanopb).max_size = 16 ];
   }
 }
 
 message WaitTemperatureBoundary {
-  uint32 target = 1 [
-    (brewblox.field).objtype = TempSensorInterface,
-    (nanopb).int_size = IS_16
-  ];
-  oneof value_oneof {
-    sint32 value = 2 [
+  oneof target {
+    uint32 target__raw__ = 1 [
+      (brewblox.field).objtype = TempSensorInterface,
+      (nanopb).int_size = IS_16
+    ];
+    string target__var__ = 3 [ (nanopb).max_size = 16 ];
+  }
+
+  oneof value {
+    sint32 value__raw__ = 2 [
       (brewblox.field).unit = Celsius,
       (brewblox.field).scale = 4096,
       (nanopb).int_size = IS_32
     ];
-    string value_var = 3 [ (nanopb).max_size = 16 ];
+    string value__var__ = 4 [ (nanopb).max_size = 16 ];
   }
 }
 
 message SetSetpoint {
-  uint32 target = 1 [
-    (brewblox.field).objtype = SetpointSensorPairInterface,
-    (nanopb).int_size = IS_16
-  ];
-  oneof setting_oneof {
-    sint32 setting = 2 [
+  oneof target {
+    uint32 target__raw__ = 1 [
+      (brewblox.field).objtype = SetpointSensorPairInterface,
+      (nanopb).int_size = IS_16
+    ];
+    string target__var__ = 3 [ (nanopb).max_size = 16 ];
+  }
+
+  oneof setting {
+    sint32 setting__raw__ = 2 [
       (brewblox.field).unit = Celsius,
       (brewblox.field).scale = 4096,
       (nanopb).int_size = IS_32
     ];
-    string setting_var = 3 [ (nanopb).max_size = 16 ];
+    string setting__var__ = 4 [ (nanopb).max_size = 16 ];
   }
 }
 
 message WaitSetpoint {
-  uint32 target = 1 [
-    (brewblox.field).objtype = SetpointSensorPairInterface,
-    (nanopb).int_size = IS_16
-  ];
-  oneof precision_oneof {
-    sint32 precision = 2 [
+  oneof target {
+    uint32 target__raw__ = 1 [
+      (brewblox.field).objtype = SetpointSensorPairInterface,
+      (nanopb).int_size = IS_16
+    ];
+    string target__var__ = 3 [ (nanopb).max_size = 16 ];
+  }
+
+  oneof precision {
+    sint32 precision__raw__ = 2 [
       (brewblox.field).unit = DeltaCelsius,
       (brewblox.field).scale = 4096,
       (nanopb).int_size = IS_32
     ];
-    string precision_var = 3 [ (nanopb).max_size = 16 ];
+    string precision__var__ = 4 [ (nanopb).max_size = 16 ];
   }
 }
 
 message SetDigital {
-  uint32 target = 1 [
-    (brewblox.field).objtype = ActuatorDigitalInterface,
-    (nanopb).int_size = IS_16
-  ];
-  oneof setting_oneof {
-    IoArray.DigitalState setting = 2;
-    string setting_var = 3 [ (nanopb).max_size = 16 ];
+  oneof target {
+    uint32 target__raw__ = 1 [
+      (brewblox.field).objtype = ActuatorDigitalInterface,
+      (nanopb).int_size = IS_16
+    ];
+    string target__var__ = 3 [ (nanopb).max_size = 16 ];
+  }
+
+  oneof setting {
+    IoArray.DigitalState setting__raw__ = 2;
+    string setting__var__ = 4 [ (nanopb).max_size = 16 ];
   }
 }
 
 message WaitDigital {
-  uint32 target = 1 [
-    (brewblox.field).objtype = ActuatorDigitalInterface,
-    (nanopb).int_size = IS_16
-  ];
+  oneof target {
+    uint32 target__raw__ = 1 [
+      (brewblox.field).objtype = ActuatorDigitalInterface,
+      (nanopb).int_size = IS_16
+    ];
+    string target__var__ = 2 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message WaitDigitalState {
-  uint32 target = 1 [
-    (brewblox.field).objtype = DigitalInterface,
-    (nanopb).int_size = IS_16
-  ];
-  oneof state_oneof {
-    IoArray.DigitalState state = 2;
-    string state_var = 3 [ (nanopb).max_size = 16 ];
+  oneof target {
+    uint32 target__raw__ = 1 [
+      (brewblox.field).objtype = DigitalInterface,
+      (nanopb).int_size = IS_16
+    ];
+    string target__var__ = 3 [ (nanopb).max_size = 16 ];
+  }
+
+  oneof state {
+    IoArray.DigitalState state__raw__ = 2;
+    string state__var__ = 4 [ (nanopb).max_size = 16 ];
   }
 }
 
 message SetPwm {
-  uint32 target = 1 [
-    (brewblox.field).objtype = ActuatorAnalogInterface,
-    (nanopb).int_size = IS_16
-  ];
-  oneof setting_oneof {
-    sint32 setting = 2
+  oneof target {
+    uint32 target__raw__ = 1 [
+      (brewblox.field).objtype = ActuatorAnalogInterface,
+      (nanopb).int_size = IS_16
+    ];
+    string target__var__ = 3 [ (nanopb).max_size = 16 ];
+  }
+
+  oneof setting {
+    sint32 setting__raw__ = 2
         [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
-    string setting_var = 3 [ (nanopb).max_size = 16 ];
+    string setting__var__ = 4 [ (nanopb).max_size = 16 ];
   }
 }
 
 message TargetProfile {
-  uint32 target = 1
-      [ (brewblox.field).objtype = SetpointProfile, (nanopb).int_size = IS_16 ];
+  oneof target {
+    uint32 target__raw__ = 1 [
+      (brewblox.field).objtype = SetpointProfile,
+      (nanopb).int_size = IS_16
+    ];
+    string target__var__ = 2 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message TargetSequence {
-  uint32 target = 1
-      [ (brewblox.field).objtype = Sequence, (nanopb).int_size = IS_16 ];
+  oneof target {
+    uint32 target__raw__ = 1
+        [ (brewblox.field).objtype = Sequence, (nanopb).int_size = IS_16 ];
+    string target__var__ = 2 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message Instruction {
   option (nanopb_msgopt).submsg_callback = true;
 
-  oneof instruction_oneof {
+  oneof instruction {
     Restart RESTART = 1;
     EnableDisable ENABLE = 2;
     EnableDisable DISABLE = 3;

@@ -8,7 +8,7 @@ package blox.SequenceVariables;
 
 message VarContainer {
   oneof var {
-    bool deleted = 1;
+    bool empty = 1;
 
     IoArray.DigitalState digital = 10;
     sint32 analog = 11
@@ -29,6 +29,9 @@ message VarContainer {
         [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
     uint32 duration = 31
         [ (brewblox.field).unit = Second, (nanopb).int_size = IS_32 ];
+
+    uint32 link = 40
+        [ (brewblox.field).objtype = Any, (nanopb).int_size = IS_16 ];
   }
 }
 
