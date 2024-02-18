@@ -8,7 +8,7 @@ package blox.Variables;
 
 message VarContainer {
   oneof var {
-    boolean empty = 1;
+    bool empty = 1;
 
     IoArray.DigitalState digital = 10;
     sint32 analog = 11
