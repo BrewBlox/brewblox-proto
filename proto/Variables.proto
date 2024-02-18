@@ -4,7 +4,7 @@ import "brewblox.proto";
 import "nanopb.proto";
 import "IoArray.proto";
 
-package blox.SequenceVariables;
+package blox.Variables;
 
 message VarContainer {
   oneof var {
@@ -34,7 +34,7 @@ message VarContainer {
 }
 
 message Block {
-  option (brewblox.msg).objtype = SequenceVariables;
+  option (brewblox.msg).objtype = Variables;
 
   map<string, VarContainer> variables = 1;
 }

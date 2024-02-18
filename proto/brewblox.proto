@@ -83,7 +83,7 @@ enum BlockType {
   TempSensorExternal = 328;
   FastPwm = 329;
   DigitalInput = 330;
-  SequenceVariables = 331;
+  Variables = 331;
 }
 
 message MessageOpts {
