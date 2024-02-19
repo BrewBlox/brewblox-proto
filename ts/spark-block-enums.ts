@@ -65,6 +65,7 @@ export const UserBlockType = Enum(
   'TempSensorExternal',
   'TempSensorMock',
   'TempSensorOneWire',
+  'Variables',
 );
 
 export const BlockType = Enum(
