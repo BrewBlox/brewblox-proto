@@ -757,6 +757,25 @@ export interface TouchSettingsBlock extends Block {
 }
 // #endregion TouchSettings
 
+// #region Variables
+export type VarContainer =
+  | { empty: boolean }
+  | { digital: DigitalState }
+  | { analog: number }
+  | { temp: Quantity }
+  | { deltaTemp: Quantity }
+  | { timestamp: DateString }
+  | { duration: Quantity }
+  | { link: Link };
+
+export interface VariablesBlock extends Block {
+  type: 'Variables';
+  data: {
+    variables: { [key: string]: VarContainer };
+  };
+}
+// #endregion Variables
+
 // #region WiFiSettings
 export interface WiFiSettingsBlock extends Block {
   type: 'WiFiSettings';
