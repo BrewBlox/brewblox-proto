@@ -595,6 +595,7 @@ export interface SequenceBlock extends Block {
     error: Readonly<SequenceError>;
     elapsed: Readonly<Quantity>;
     instructions: string[];
+    variablesId: Link;
   };
 }
 // #endregion Sequence
