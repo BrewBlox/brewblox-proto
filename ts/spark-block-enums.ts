@@ -288,6 +288,9 @@ export const SequenceError = Enum(
   'INACTIVE_TARGET',
   'DISABLED_TARGET',
   'SYSTEM_TIME_NOT_AVAILABLE',
+  'VARIABLES_NOT_SUPPORTED',
+  'UNDEFINED_VARIABLE',
+  'INVALID_VARIABLE',
 );
 // #endregion SequenceError
 
