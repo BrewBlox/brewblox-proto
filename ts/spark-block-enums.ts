@@ -294,6 +294,17 @@ export const SequenceError = Enum(
 );
 // #endregion SequenceError
 
+// #region SequenceStoreMode
+export const SequenceStoreMode = Enum(
+  'AT_RESTORE_INSTRUCTION_RESTORE_ENABLED',
+  'AT_RESTORE_INSTRUCTION_ALWAYS_ENABLED',
+  'AT_RESTORE_INSTRUCTION_NEVER_ENABLED',
+  'AT_FIRST_INSTRUCTION_RESTORE_ENABLED',
+  'AT_FIRST_INSTRUCTION_ALWAYS_ENABLED',
+  'AT_FIRST_INSTRUCTION_NEVER_ENABLED',
+);
+// #endregion SequenceStoreMode
+
 // #region Spark2Hardware
 export const Spark2Hardware = Enum('HW_UNKNOWN', 'HW_SPARK1', 'HW_SPARK2');
 // #endregion Spark2Hardware
@@ -368,6 +379,7 @@ export type FilterChoice = Enum<typeof FilterChoice>;
 export type SensorCombiFunc = Enum<typeof SensorCombiFunc>;
 export type SequenceStatus = Enum<typeof SequenceStatus>;
 export type SequenceError = Enum<typeof SequenceError>;
+export type SequenceStoreMode = Enum<typeof SequenceStoreMode>;
 export type Spark2Hardware = Enum<typeof Spark2Hardware>;
 export type SparkPlatform = Enum<typeof SparkPlatform>;
 export type TouchCalibrated = Enum<typeof TouchCalibrated>;

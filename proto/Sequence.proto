@@ -253,6 +253,15 @@ enum SequenceError {
   INVALID_VARIABLE = 8;
 }
 
+enum SequenceStoreMode {
+  AT_RESTORE_INSTRUCTION_RESTORE_ENABLED = 0;
+  AT_RESTORE_INSTRUCTION_ALWAYS_ENABLED = 1;
+  AT_RESTORE_INSTRUCTION_NEVER_ENABLED = 2;
+  AT_FIRST_INSTRUCTION_RESTORE_ENABLED = 3;
+  AT_FIRST_INSTRUCTION_ALWAYS_ENABLED = 4;
+  AT_FIRST_INSTRUCTION_NEVER_ENABLED = 5;
+}
+
 message Block {
   option (brewblox.msg).objtype = Sequence;
   option (brewblox.msg).impl = EnablerInterface;
@@ -265,6 +274,8 @@ message Block {
   bool overrideState = 3;
   uint32 activeInstruction = 4
       [ (nanopb).int_size = IS_16, (brewblox.field).logged = true ];
+
+  SequenceStoreMode storeMode = 12;
 
   SequenceStatus status = 8 [ (brewblox.field).readonly = true ];
   SequenceError error = 9 [ (brewblox.field).readonly = true ];

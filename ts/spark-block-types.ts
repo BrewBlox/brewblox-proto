@@ -26,6 +26,7 @@ import {
   ChannelCapabilities,
   SettingMode,
   ToggleBehavior,
+  SequenceStoreMode,
 } from './spark-block-enums';
 
 // #region Block
@@ -591,6 +592,7 @@ export interface SequenceBlock extends Block {
     enabled: boolean;
     overrideState: boolean;
     activeInstruction: number;
+    storeMode: SequenceStoreMode;
     status: Readonly<SequenceStatus>;
     error: Readonly<SequenceError>;
     elapsed: Readonly<Quantity>;
