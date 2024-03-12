@@ -11,123 +11,196 @@ message Comment { string text = 1; }
 message Restart {}
 
 message EnableDisable {
-  uint32 target = 1 [
-    (brewblox.field).objtype = EnablerInterface,
-    (nanopb).int_size = IS_16
-  ];
+  oneof target {
+    uint32 __raw__target = 1 [
+      (brewblox.field).objtype = EnablerInterface,
+      (nanopb).int_size = IS_16
+    ];
+    string __var__target = 2 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message Wait {}
 
 message WaitDuration {
-  uint32 duration = 1
-      [ (brewblox.field).unit = Second, (nanopb).int_size = IS_32 ];
+  oneof duration {
+    uint32 __raw__duration = 1
+        [ (brewblox.field).unit = Second, (nanopb).int_size = IS_32 ];
+    string __var__duration = 2 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message WaitUntil {
-  uint32 time = 1
-      [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
+  oneof time {
+    uint32 __raw__time = 1
+        [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
+    string __var__time = 2 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message WaitTemperatureRange {
-  uint32 target = 1 [
-    (brewblox.field).objtype = TempSensorInterface,
-    (nanopb).int_size = IS_16
-  ];
-  sint32 lower = 2 [
-    (brewblox.field).unit = Celsius,
-    (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32
-  ];
-  sint32 upper = 3 [
-    (brewblox.field).unit = Celsius,
-    (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32
-  ];
+  oneof target {
+    uint32 __raw__target = 1 [
+      (brewblox.field).objtype = TempSensorInterface,
+      (nanopb).int_size = IS_16
+    ];
+    string __var__target = 4 [ (nanopb).max_size = 16 ];
+  }
+
+  oneof lower {
+    sint32 __raw__lower = 2 [
+      (brewblox.field).unit = Celsius,
+      (brewblox.field).scale = 4096,
+      (nanopb).int_size = IS_32
+    ];
+    string __var__lower = 5 [ (nanopb).max_size = 16 ];
+  }
+
+  oneof upper {
+    sint32 __raw__upper = 3 [
+      (brewblox.field).unit = Celsius,
+      (brewblox.field).scale = 4096,
+      (nanopb).int_size = IS_32
+    ];
+    string __var__upper = 6 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message WaitTemperatureBoundary {
-  uint32 target = 1 [
-    (brewblox.field).objtype = TempSensorInterface,
-    (nanopb).int_size = IS_16
-  ];
-  sint32 value = 2 [
-    (brewblox.field).unit = Celsius,
-    (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32
-  ];
+  oneof target {
+    uint32 __raw__target = 1 [
+      (brewblox.field).objtype = TempSensorInterface,
+      (nanopb).int_size = IS_16
+    ];
+    string __var__target = 3 [ (nanopb).max_size = 16 ];
+  }
+
+  oneof value {
+    sint32 __raw__value = 2 [
+      (brewblox.field).unit = Celsius,
+      (brewblox.field).scale = 4096,
+      (nanopb).int_size = IS_32
+    ];
+    string __var__value = 4 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message SetSetpoint {
-  uint32 target = 1 [
-    (brewblox.field).objtype = SetpointSensorPairInterface,
-    (nanopb).int_size = IS_16
-  ];
-  sint32 setting = 2 [
-    (brewblox.field).unit = Celsius,
-    (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32
-  ];
+  oneof target {
+    uint32 __raw__target = 1 [
+      (brewblox.field).objtype = SetpointSensorPairInterface,
+      (nanopb).int_size = IS_16
+    ];
+    string __var__target = 3 [ (nanopb).max_size = 16 ];
+  }
+
+  oneof setting {
+    sint32 __raw__setting = 2 [
+      (brewblox.field).unit = Celsius,
+      (brewblox.field).scale = 4096,
+      (nanopb).int_size = IS_32
+    ];
+    string __var__setting = 4 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message WaitSetpoint {
-  uint32 target = 1 [
-    (brewblox.field).objtype = SetpointSensorPairInterface,
-    (nanopb).int_size = IS_16
-  ];
-  sint32 precision = 2 [
-    (brewblox.field).unit = DeltaCelsius,
-    (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32
-  ];
+  oneof target {
+    uint32 __raw__target = 1 [
+      (brewblox.field).objtype = SetpointSensorPairInterface,
+      (nanopb).int_size = IS_16
+    ];
+    string __var__target = 3 [ (nanopb).max_size = 16 ];
+  }
+
+  oneof precision {
+    sint32 __raw__precision = 2 [
+      (brewblox.field).unit = DeltaCelsius,
+      (brewblox.field).scale = 4096,
+      (nanopb).int_size = IS_32
+    ];
+    string __var__precision = 4 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message SetDigital {
-  uint32 target = 1 [
-    (brewblox.field).objtype = ActuatorDigitalInterface,
-    (nanopb).int_size = IS_16
-  ];
-  IoArray.DigitalState setting = 2;
+  oneof target {
+    uint32 __raw__target = 1 [
+      (brewblox.field).objtype = ActuatorDigitalInterface,
+      (nanopb).int_size = IS_16
+    ];
+    string __var__target = 3 [ (nanopb).max_size = 16 ];
+  }
+
+  oneof setting {
+    IoArray.DigitalState __raw__setting = 2;
+    string __var__setting = 4 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message WaitDigital {
-  uint32 target = 1 [
-    (brewblox.field).objtype = ActuatorDigitalInterface,
-    (nanopb).int_size = IS_16
-  ];
+  oneof target {
+    uint32 __raw__target = 1 [
+      (brewblox.field).objtype = ActuatorDigitalInterface,
+      (nanopb).int_size = IS_16
+    ];
+    string __var__target = 2 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message WaitDigitalState {
-  uint32 target = 1 [
-    (brewblox.field).objtype = DigitalInterface,
-    (nanopb).int_size = IS_16
-  ];
-  IoArray.DigitalState state = 2;
+  oneof target {
+    uint32 __raw__target = 1 [
+      (brewblox.field).objtype = DigitalInterface,
+      (nanopb).int_size = IS_16
+    ];
+    string __var__target = 3 [ (nanopb).max_size = 16 ];
+  }
+
+  oneof state {
+    IoArray.DigitalState __raw__state = 2;
+    string __var__state = 4 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message SetPwm {
-  uint32 target = 1 [
-    (brewblox.field).objtype = ActuatorAnalogInterface,
-    (nanopb).int_size = IS_16
-  ];
-  sint32 setting = 2
-      [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
+  oneof target {
+    uint32 __raw__target = 1 [
+      (brewblox.field).objtype = ActuatorAnalogInterface,
+      (nanopb).int_size = IS_16
+    ];
+    string __var__target = 3 [ (nanopb).max_size = 16 ];
+  }
+
+  oneof setting {
+    sint32 __raw__setting = 2
+        [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
+    string __var__setting = 4 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message TargetProfile {
-  uint32 target = 1
-      [ (brewblox.field).objtype = SetpointProfile, (nanopb).int_size = IS_16 ];
+  oneof target {
+    uint32 __raw__target = 1 [
+      (brewblox.field).objtype = SetpointProfile,
+      (nanopb).int_size = IS_16
+    ];
+    string __var__target = 2 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message TargetSequence {
-  uint32 target = 1
-      [ (brewblox.field).objtype = Sequence, (nanopb).int_size = IS_16 ];
+  oneof target {
+    uint32 __raw__target = 1
+        [ (brewblox.field).objtype = Sequence, (nanopb).int_size = IS_16 ];
+    string __var__target = 2 [ (nanopb).max_size = 16 ];
+  }
 }
 
 message Instruction {
   option (nanopb_msgopt).submsg_callback = true;
 
-  oneof instruction_oneof {
+  oneof instruction {
     Restart RESTART = 1;
     EnableDisable ENABLE = 2;
     EnableDisable DISABLE = 3;
@@ -175,6 +248,18 @@ enum SequenceError {
   INACTIVE_TARGET = 3;
   DISABLED_TARGET = 4;
   SYSTEM_TIME_NOT_AVAILABLE = 5;
+  VARIABLES_NOT_SUPPORTED = 6;
+  UNDEFINED_VARIABLE = 7;
+  INVALID_VARIABLE = 8;
+}
+
+enum SequenceStoreMode {
+  AT_RESTORE_INSTRUCTION_RESTORE_ENABLED = 0;
+  AT_RESTORE_INSTRUCTION_ALWAYS_ENABLED = 1;
+  AT_RESTORE_INSTRUCTION_NEVER_ENABLED = 2;
+  AT_FIRST_INSTRUCTION_RESTORE_ENABLED = 3;
+  AT_FIRST_INSTRUCTION_ALWAYS_ENABLED = 4;
+  AT_FIRST_INSTRUCTION_NEVER_ENABLED = 5;
 }
 
 message Block {
@@ -183,10 +268,14 @@ message Block {
 
   bool enabled = 1 [ (brewblox.field).logged = true ];
   repeated Instruction instructions = 2;
+  uint32 variablesId = 11
+      [ (brewblox.field).objtype = Variables, (nanopb).int_size = IS_16 ];
 
   bool overrideState = 3;
   uint32 activeInstruction = 4
       [ (nanopb).int_size = IS_16, (brewblox.field).logged = true ];
+
+  SequenceStoreMode storeMode = 12;
 
   SequenceStatus status = 8 [ (brewblox.field).readonly = true ];
   SequenceError error = 9 [ (brewblox.field).readonly = true ];

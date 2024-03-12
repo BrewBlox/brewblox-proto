@@ -26,6 +26,7 @@ import {
   ChannelCapabilities,
   SettingMode,
   ToggleBehavior,
+  SequenceStoreMode,
 } from './spark-block-enums';
 
 // #region Block
@@ -362,6 +363,21 @@ export interface DigitalActuatorBlock extends Block {
 }
 // #endregion DigitalActuator
 
+// #region DigitalInput
+export interface DigitalInputBlock extends Block {
+  type: 'DigitalInput';
+  data: {
+    hwDevice: Link;
+    channel: number;
+    state: Readonly<DigitalState | null>;
+    invert: boolean;
+    behavior: ToggleBehavior;
+    minActiveTime: Quantity;
+    hwState: Readonly<DigitalState | null>;
+  };
+}
+// #endregion DigitalInput
+
 // #region DisplaySettings
 export interface DisplaySlot {
   pos: number; // 1-indexed
@@ -576,10 +592,12 @@ export interface SequenceBlock extends Block {
     enabled: boolean;
     overrideState: boolean;
     activeInstruction: number;
+    storeMode: SequenceStoreMode;
     status: Readonly<SequenceStatus>;
     error: Readonly<SequenceError>;
     elapsed: Readonly<Quantity>;
     instructions: string[];
+    variablesId: Link;
   };
 }
 // #endregion Sequence
@@ -742,6 +760,25 @@ export interface TouchSettingsBlock extends Block {
 }
 // #endregion TouchSettings
 
+// #region Variables
+export type VarContainer =
+  | { empty: boolean }
+  | { digital: DigitalState }
+  | { analog: number }
+  | { temp: Quantity }
+  | { deltaTemp: Quantity }
+  | { timestamp: DateString }
+  | { duration: Quantity }
+  | { link: Link };
+
+export interface VariablesBlock extends Block {
+  type: 'Variables';
+  data: {
+    variables: { [key: string]: VarContainer };
+  };
+}
+// #endregion Variables
+
 // #region WiFiSettings
 export interface WiFiSettingsBlock extends Block {
   type: 'WiFiSettings';
@@ -756,19 +793,3 @@ export interface WiFiSettingsBlock extends Block {
   };
 }
 // #endregion WiFiSettings
-
-// #region DigitalInput
-export interface DigitalInputBlock extends Block {
-  type: 'DigitalInput';
-  data: {
-    hwDevice: Link;
-    channel: number;
-    state: Readonly<DigitalState | null>;
-    invert: boolean;
-    behavior: ToggleBehavior;
-    minActiveTime: Quantity;
-    hwState: Readonly<DigitalState | null>;
-  };
-}
-
-// #endregion DigitalInput
