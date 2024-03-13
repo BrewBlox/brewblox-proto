@@ -118,6 +118,8 @@ message Block {
   SetpointSensorPair.FilterChoice derivativeFilter = 27
       [ (brewblox.field).readonly = true ];
 
+  SetpointSensorPair.FilterChoice derivativeFilterChoice = 28;
+
   // Deprecated field
   bool drivenOutputId = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }
