@@ -19,6 +19,9 @@ enum UnitType {
   DeltaCelsiusMultSecond = 10;
   DeltaCelsiusMultMinute = 11;
   DeltaCelsiusMultHour = 12;
+  MilliBar = 13;
+  Volt = 14;
+  Ohm = 15;
 }
 
 enum BlockType {
@@ -49,6 +52,7 @@ enum BlockType {
   ScanningFactoryInterface = 25;
   I2CDiscoverableInterface = 26;
   DigitalInterface = 27;
+  AnalogModuleInterface = 28;
   Any = 255;
   SysInfo = 256;
   Ticks = 257; // deprecated
@@ -83,7 +87,10 @@ enum BlockType {
   TempSensorExternal = 328;
   FastPwm = 329;
   DigitalInput = 330;
-  Variables = 331;
+  PrecisionAnalogModule = 331;
+  TempSensorAnalog = 332;
+  Variables = 333;
+  // 16001 - 16005 reserved
 }
 
 message MessageOpts {
