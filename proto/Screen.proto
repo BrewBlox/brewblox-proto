@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "nanopb.proto";
+import "brewblox.proto";
 
 package screen;
 
@@ -31,6 +32,34 @@ message NumericValueWidget {
   string label = 3 [(nanopb).max_length = 40];
 }
 
+message TitleWidget {
+  Color color = 1;
+  string value = 2 [(nanopb).max_length = 40];
+  string label = 3 [(nanopb).max_length = 40];
+}
+
+message TemperatureWidget {
+  Color color = 1;
+  string label = 2 [(nanopb).max_length = 40];
+  uint32 tempSensor = 3 [
+      (brewblox.field).objtype = TempSensorInterface,
+      (nanopb).int_size = IS_16
+    ];
+}
+
+message SetpointSensorPairWidget {
+  Color color = 1;
+  string label = 2 [(nanopb).max_length = 40];
+  uint32 setpointSensorPair = 3 [
+      (brewblox.field).objtype = SetpointSensorPairInterface,
+      (nanopb).int_size = IS_16
+    ];
+}
+message DigitalClockWidget {
+  Color color = 1;
+  bool showSeconds = 2;
+}
+
 message ColorWidget {
   Color color = 1;
 }
@@ -40,10 +69,33 @@ message ContentNode {
   oneof content {
     NumericValueWidget numericValueWidget = 2;
     ColorWidget colorWidget = 3;
+    TemperatureWidget temperatureWidget = 4;
+    SetpointSensorPairWidget setpointSensorPairWidget = 5;
+    DigitalClockWidget digitalClockWidget = 6;
+    TitleWidget titleWidget =7;
   }
 }
 
-message Config {
-  repeated LayoutNode layoutNodes = 1 ;
+
+enum TemperatureUnit {
+  TEMP_CELSIUS = 0;
+  TEMP_FAHRENHEIT = 1;
+};
+
+
+message Page {
+  repeated LayoutNode layoutNodes = 1;
   repeated ContentNode contentNodes = 2;
+  string name = 3 [ (nanopb).max_size = 20 ];
+  uint32 id = 4;
+}
+
+
+message Block {
+  option (brewblox.msg).objtype = ScreenConfig;
+  repeated Page pages = 1;
+  string name = 2 [ (nanopb).max_size = 40 ];
+  TemperatureUnit tempUnit = 3;
+  uint32 brightness = 4 [ (nanopb).int_size = IS_8 ];
+  string timeZone = 5 [ (nanopb).max_size = 32 ];
 }

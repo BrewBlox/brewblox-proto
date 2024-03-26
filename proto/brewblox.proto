@@ -84,6 +84,7 @@ enum BlockType {
   TempSensorCombi = 324;
   OneWireGpioModule = 325;
   Sequence = 326;
+  ScreenConfig = 327;
   TempSensorExternal = 328;
   FastPwm = 329;
   DigitalInput = 330;
