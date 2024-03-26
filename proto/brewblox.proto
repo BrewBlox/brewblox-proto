@@ -89,9 +89,10 @@ enum BlockType {
   DigitalInput = 330;
   PrecisionAnalogModule = 331;
   TempSensorAnalog = 332;
+  Variables = 333;
   ProbeConnector = 400;
   SgProbe = 401;
-  Variables = 331;
+  // 16001 - 16005 reserved
 }
 
 message MessageOpts {
