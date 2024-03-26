@@ -91,6 +91,7 @@ enum BlockType {
   TempSensorAnalog = 332;
   ProbeConnector = 400;
   SgProbe = 401;
+  Variables = 331;
 }
 
 message MessageOpts {
