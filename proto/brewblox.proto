@@ -70,7 +70,7 @@ enum BlockType {
   Mutex = 310;
   SetpointProfile = 311;
   WiFiSettings = 312;
-  TouchSettings = 313;
+  TouchSettings = 313; // deprecated
   DisplaySettings = 314;
   DS2413 = 315;
   ActuatorOneWire = 316; // deprecated
