@@ -15,8 +15,6 @@ enum Opcode {
   BLOCK_CREATE = 13;
   BLOCK_DELETE = 14;
   BLOCK_DISCOVER = 15;
-  BLOCK_STORED_READ = 16;
-  BLOCK_STORED_READ_ALL = 17;
 
   STORAGE_READ = 20;
   STORAGE_READ_ALL = 21;
@@ -80,6 +78,12 @@ enum MaskMode {
   EXCLUSIVE = 2;
 }
 
+enum ReadMode {
+  DEFAULT = 0;
+  STORED = 1;
+  LOGGED = 2;
+}
+
 message MaskField {
   repeated uint32 address = 2
       [ (nanopb).int_size = IS_16, (nanopb).max_count = 4 ];
@@ -95,13 +99,15 @@ message Payload {
 }
 
 message Request {
-  uint32 msgId = 1;
+  int32 msgId = 1;
   Opcode opcode = 2;
   Payload payload = 3;
+  ReadMode mode = 4;
 }
 
 message Response {
-  uint32 msgId = 1;
+  int32 msgId = 1;
   ErrorCode error = 2;
   repeated Payload payload = 3;
+  ReadMode mode = 4;
 }
