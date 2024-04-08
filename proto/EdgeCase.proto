@@ -26,16 +26,21 @@ message NestedLink {
 message Block {
   Settings settings = 1;
   State state = 2;
-  uint32 link = 3 [ (brewblox.field).objtype = ActuatorAnalogInterface ];
+  uint32 link = 3 [
+    (brewblox.field).objtype = ActuatorAnalogInterface,
+    (brewblox.field).stored = true
+  ];
   repeated NestedLink additionalLinks = 4;
   repeated sint32 listValues = 5 [
     (brewblox.field).unit = Celsius,
     (brewblox.field).scale = 256,
+    (brewblox.field).stored = true,
     (brewblox.field).omit_if_zero = true
   ];
   uint32 deltaV = 6 [
     (brewblox.field).unit = DeltaCelsiusPerSecond,
     (brewblox.field).scale = 256,
+    (brewblox.field).stored = true,
     (brewblox.field).null_if_zero = true
   ];
   uint32 logged = 7

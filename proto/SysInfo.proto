@@ -23,9 +23,9 @@ message Block {
   option (brewblox.msg).objtype = SysInfo;
 
   bytes deviceId = 1 [
+    (brewblox.field).hexstr = true,
     (brewblox.field).readonly = true,
-    (nanopb).max_size = 12,
-    (brewblox.field).hexstr = true
+    (nanopb).max_size = 12
   ];
   string version = 2
       [ (brewblox.field).readonly = true, (nanopb).max_size = 12 ];
@@ -39,53 +39,60 @@ message Block {
       [ (brewblox.field).readonly = true, (nanopb).max_size = 12 ];
 
   uint32 ip = 10 [
-    (brewblox.field).readonly = true,
     (brewblox.field).ipv4address = true,
+    (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
 
   uint32 uptime = 11 [
-    (brewblox.field).readonly = true,
-    (brewblox.field).logged = true,
     (brewblox.field).unit = Second,
     (brewblox.field).scale = 1000,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true,
     (nanopb).int_size = IS_32
   ];
 
   uint32 updatesPerSecond = 12 [
+    (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
-    (brewblox.field).scale = 1000,
     (nanopb).int_size = IS_32
   ];
 
   uint32 systemTime = 13
       [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
 
-  string timeZone = 14 [ (nanopb).max_size = 32 ];
+  string timeZone = 14
+      [ (brewblox.field).stored = true, (nanopb).max_size = 32 ];
 
-  TemperatureUnit tempUnit = 15;
+  TemperatureUnit tempUnit = 15 [ (brewblox.field).stored = true ];
 
-  uint32 displayBrightness = 16 [ (nanopb).int_size = IS_8 ];
+  uint32 displayBrightness = 16
+      [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
 
   uint32 voltage5 = 17 [
+    (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
-    (nanopb).int_size = IS_16,
-    (brewblox.field).scale = 1000
+    (nanopb).int_size = IS_16
   ];
   uint32 voltageExternal = 18 [
+    (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
-    (nanopb).int_size = IS_16,
-    (brewblox.field).scale = 1000
+    (nanopb).int_size = IS_16
   ];
 
-  uint32 memoryFree = 19 [ (brewblox.field).readonly = true, (brewblox.field).logged = true ];
-  uint32 memoryFreeContiguous = 20 [ (brewblox.field).readonly = true, (brewblox.field).logged = true];
-  uint32 memoryFreeLowest = 21 [ (brewblox.field).readonly = true, (brewblox.field).logged = true];
+  uint32 memoryFree = 19
+      [ (brewblox.field).readonly = true, (brewblox.field).logged = true ];
+  uint32 memoryFreeContiguous = 20
+      [ (brewblox.field).readonly = true, (brewblox.field).logged = true ];
+  uint32 memoryFreeLowest = 21
+      [ (brewblox.field).readonly = true, (brewblox.field).logged = true ];
 
   // Deprecated fields
-  bool command = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  bool trace = 91 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool command = 90
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool trace = 91
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }
