@@ -6,39 +6,50 @@ import "nanopb.proto";
 package blox.DisplaySettings;
 
 message Widget {
-  uint32 pos = 1 [ (nanopb).int_size = IS_8 ];
+  uint32 pos = 1 [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
   bytes color = 2 [
+    (brewblox.field).hexstr = true,
+    (brewblox.field).stored = true,
     (nanopb).max_size = 3,
-    (nanopb).fixed_length = true,
-    (brewblox.field).hexstr = true
+    (nanopb).fixed_length = true
   ];
-  string name = 3 [ (nanopb).max_size = 16 ];
+  string name = 3 [ (brewblox.field).stored = true, (nanopb).max_size = 16 ];
   oneof WidgetType {
     uint32 tempSensor = 10 [
       (brewblox.field).objtype = TempSensorInterface,
+      (brewblox.field).stored = true,
       (nanopb).int_size = IS_16
     ];
     uint32 setpointSensorPair = 11 [
       (brewblox.field).objtype = SetpointSensorPairInterface,
+      (brewblox.field).stored = true,
       (nanopb).int_size = IS_16
     ];
     uint32 actuatorAnalog = 12 [
       (brewblox.field).objtype = ActuatorAnalogInterface,
+      (brewblox.field).stored = true,
       (nanopb).int_size = IS_16
     ];
-    uint32 pid = 14
-        [ (brewblox.field).objtype = Pid, (nanopb).int_size = IS_16 ];
+    uint32 pid = 14 [
+      (brewblox.field).objtype = Pid,
+      (brewblox.field).stored = true,
+      (nanopb).int_size = IS_16
+    ];
   };
 }
 
 message Block {
   option (brewblox.msg).objtype = DisplaySettings;
 
-  repeated Widget widgets = 1 [ (nanopb).max_count = 6 ];
-  string name = 2 [ (nanopb).max_size = 40 ];
+  repeated Widget widgets = 1
+      [ (brewblox.field).stored = true, (nanopb).max_count = 6 ];
+  string name = 2 [ (brewblox.field).stored = true, (nanopb).max_size = 40 ];
 
   // Deprecated fields
-  bool brightness = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  bool timeZone = 91 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  bool tempUnit = 92 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool brightness = 90
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool timeZone = 91
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool tempUnit = 92
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }

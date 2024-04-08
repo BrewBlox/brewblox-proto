@@ -18,16 +18,21 @@ message Block {
 
   uint32 hwDevice = 1 [
     (brewblox.field).objtype = IoArrayInterface,
+    (brewblox.field).stored = true,
     (nanopb).int_size = IS_16
   ];
-  uint32 channel = 2 [ (nanopb).int_size = IS_8 ];
+  uint32 channel = 2
+      [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
 
   IoArray.DigitalState state = 3
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
 
-  bool invert = 4;
-  ToggleBehavior behavior = 5;
-  uint32 minActiveTime = 6
-      [ (brewblox.field).unit = Second, (brewblox.field).scale = 1000 ];
+  bool invert = 4 [ (brewblox.field).stored = true ];
+  ToggleBehavior behavior = 5 [ (brewblox.field).stored = true ];
+  uint32 minActiveTime = 6 [
+    (brewblox.field).unit = Second,
+    (brewblox.field).scale = 1000,
+    (brewblox.field).stored = true
+  ];
   IoArray.DigitalState hwState = 7 [ (brewblox.field).readonly = true ];
 }

@@ -19,44 +19,50 @@ message Block {
 
   uint32 actuatorId = 1 [
     (brewblox.field).objtype = ActuatorDigitalInterface,
+    (brewblox.field).stored = true,
     (nanopb).int_size = IS_16
   ];
 
   sint32 storedSetting = 11 [
-    (brewblox.field).logged = true,
     (brewblox.field).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
   sint32 desiredSetting = 9 [
+    (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
-    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
   sint32 setting = 4 [
+    (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
-    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
   sint32 value = 5 [
-    (brewblox.field).logged = true,
     (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32,
-    (brewblox.field).readonly = true
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_32
   ];
 
-  uint32 period = 3
-      [ (brewblox.field).unit = Second, (brewblox.field).scale = 1000 ];
+  uint32 period = 3 [
+    (brewblox.field).unit = Second,
+    (brewblox.field).scale = 1000,
+    (brewblox.field).stored = true
+  ];
   Constraints.DeprecatedAnalogConstraints constrainedBy = 6;
-  Constraints.AnalogConstraints constraints = 13;
+  Constraints.AnalogConstraints constraints = 13
+      [ (brewblox.field).stored = true ];
 
   uint32 claimedBy = 10 [
     (brewblox.field).objtype = Any,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
   ];
-  Claims.SettingMode settingMode = 12;
+  Claims.SettingMode settingMode = 12 [ (brewblox.field).stored = true ];
 
   // Deprecated field
   bool drivenActuatorId = 90

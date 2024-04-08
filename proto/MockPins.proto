@@ -23,9 +23,9 @@ message Block {
   option (brewblox.msg).impl = IoArrayInterface;
 
   repeated IoArray.IoChannel channels = 2 [
+    (brewblox.field).readonly = true,
     (nanopb).max_count = 8,
-    (nanopb).fixed_length = true,
-    (brewblox.field).readonly = true
+    (nanopb).fixed_length = true
   ];
 
   // "pins" was renamed to "channels".

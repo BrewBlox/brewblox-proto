@@ -19,26 +19,26 @@ message Block {
   option (brewblox.msg).objtype = Spark3Pins;
   option (brewblox.msg).impl = IoArrayInterface;
 
-  bool enableIoSupply5V = 2;
-  bool enableIoSupply12V = 3;
+  bool enableIoSupply5V = 2 [ (brewblox.field).stored = true ];
+  bool enableIoSupply12V = 3 [ (brewblox.field).stored = true ];
   bool soundAlarm = 5;
   uint32 voltage5 = 6 [
+    (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
-    (nanopb).int_size = IS_16,
-    (brewblox.field).scale = 1000
+    (nanopb).int_size = IS_16
   ];
   uint32 voltage12 = 7 [
+    (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
-    (nanopb).int_size = IS_16,
-    (brewblox.field).scale = 1000
+    (nanopb).int_size = IS_16
   ];
   repeated IoArray.IoChannel channels = 8 [
+    (brewblox.field).readonly = true,
     (nanopb).max_count = 5,
-    (nanopb).fixed_length = true,
-    (brewblox.field).readonly = true
+    (nanopb).fixed_length = true
   ];
 
   // "pins" was renamed to "channels".
   // Keep an explicitly ignored field around to avoid import errors
-  bool pins = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE];
+  bool pins = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }

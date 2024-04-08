@@ -11,10 +11,12 @@ message Block {
   option (brewblox.msg).impl = IoArrayInterface;
   option (brewblox.msg).impl = OneWireBusInterface;
 
-  repeated GpioModule.Channel channels = 1 [ (nanopb).max_count = 8 ];
-  uint32 modulePosition = 2 [ (nanopb).int_size = IS_8 ];
-  bool useExternalPower = 14;
-  GpioModule.Status status = 15;
+  repeated GpioModule.Channel channels = 1
+      [ (brewblox.field).stored = true, (nanopb).max_count = 8 ];
+  uint32 modulePosition = 2
+      [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
+  bool useExternalPower = 14 [ (brewblox.field).stored = true ];
+  GpioModule.Status status = 15 [ (brewblox.field).readonly = true ];
 
   // fault clearing is now automatic, but we keep the ignored fields for
   // backwards compatibility

@@ -25,27 +25,31 @@ message Block {
   option (brewblox.msg).objtype = TempSensorAnalog;
   option (brewblox.msg).impl = TempSensorInterface;
 
-  TempSensorAnalogType type = 1;
+  TempSensorAnalogType type = 1 [ (brewblox.field).stored = true ];
   uint32 moduleId = 2 [
     (brewblox.field).objtype = PrecisionAnalogModule,
+    (brewblox.field).stored = true,
     (nanopb).int_size = IS_16
   ];
 
-  uint32 channel = 3 [ (nanopb).int_size = IS_8 ];
+  uint32 channel = 3
+      [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
 
   sint32 value = 4 [
-    (brewblox.field).logged = true,
     (brewblox.field).unit = Celsius,
     (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32,
-    (brewblox.field).readonly = true
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_32
   ];
   sint32 offset = 5 [
     (brewblox.field).unit = DeltaCelsius,
     (brewblox.field).scale = 4096,
+    (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
 
-  PrecisionAnalogModule.AnalogChannelType detected = 6;
-  TempSensorAnalogSpec spec = 7;
+  PrecisionAnalogModule.AnalogChannelType detected = 6
+      [ (brewblox.field).readonly = true ];
+  TempSensorAnalogSpec spec = 7 [ (brewblox.field).stored = true ];
 }

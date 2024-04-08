@@ -18,45 +18,59 @@ message Block {
   bool enabled = 13;
 
   sint32 storedSetting = 11 [
-    (brewblox.field).logged = true,
     (brewblox.field).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
   sint32 desiredSetting = 9 [
+    (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
-    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
   sint32 setting = 1 [
+    (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
-    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
   sint32 value = 2 [
+    (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
-    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
 
-  sint32 minSetting = 4
-      [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
-  sint32 maxSetting = 5
-      [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
-  sint32 minValue = 6
-      [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
-  sint32 maxValue = 7
-      [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
+  sint32 minSetting = 4 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).stored = true,
+    (nanopb).int_size = IS_32
+  ];
+  sint32 maxSetting = 5 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).stored = true,
+    (nanopb).int_size = IS_32
+  ];
+  sint32 minValue = 6 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).stored = true,
+    (nanopb).int_size = IS_32
+  ];
+  sint32 maxValue = 7 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).stored = true,
+    (nanopb).int_size = IS_32
+  ];
 
   Constraints.DeprecatedAnalogConstraints constrainedBy = 8;
-  Constraints.AnalogConstraints constraints = 14;
+  Constraints.AnalogConstraints constraints = 14
+      [ (brewblox.field).stored = true ];
 
   uint32 claimedBy = 10 [
     (brewblox.field).objtype = Any,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
   ];
-  Claims.SettingMode settingMode = 12;
+  Claims.SettingMode settingMode = 12 [ (brewblox.field).stored = true ];
 }
