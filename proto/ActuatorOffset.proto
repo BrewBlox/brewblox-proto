@@ -20,7 +20,7 @@ message Block {
   option (brewblox.msg).impl = EnablerInterface;
   option (brewblox.msg).impl = ClaimableInterface;
 
-  bool enabled = 10;
+  bool enabled = 10 [ (brewblox.field).stored = true ];
 
   uint32 targetId = 1 [
     (brewblox.field).objtype = SetpointSensorPairInterface,

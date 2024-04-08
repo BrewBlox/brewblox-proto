@@ -15,7 +15,7 @@ message Block {
   option (brewblox.msg).impl = EnablerInterface;
   option (brewblox.msg).impl = ClaimableInterface;
 
-  bool enabled = 8;
+  bool enabled = 8 [ (brewblox.field).stored = true ];
 
   uint32 actuatorId = 1 [
     (brewblox.field).objtype = ActuatorDigitalInterface,

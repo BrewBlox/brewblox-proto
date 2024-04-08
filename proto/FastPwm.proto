@@ -17,7 +17,7 @@ message Block {
   option (brewblox.msg).impl = ClaimableInterface;
   option (brewblox.msg).impl = IoDriverInterface;
 
-  bool enabled = 8;
+  bool enabled = 8 [ (brewblox.field).stored = true ];
 
   uint32 hwDevice = 1 [
     (brewblox.field).objtype = IoArrayInterface,
