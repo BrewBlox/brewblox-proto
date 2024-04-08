@@ -15,7 +15,7 @@ message Block {
   option (brewblox.msg).impl = EnablerInterface;
   option (brewblox.msg).impl = ClaimableInterface;
 
-  bool enabled = 13;
+  bool enabled = 13 [ (brewblox.field).stored = true ];
 
   sint32 storedSetting = 11 [
     (brewblox.field).scale = 4096,
