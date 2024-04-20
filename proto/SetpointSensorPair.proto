@@ -28,8 +28,7 @@ message Block {
 
   uint32 sensorId = 2 [
     (brewblox.field).objtype = TempSensorInterface,
-    (brewblox.field).stored = true,
-    (nanopb).int_size = IS_16
+    (brewblox.field).stored = true
   ];
 
   sint32 storedSetting = 8 [
@@ -79,11 +78,8 @@ message Block {
 
   bool resetFilter = 12;
 
-  uint32 claimedBy = 13 [
-    (brewblox.field).objtype = Any,
-    (brewblox.field).readonly = true,
-    (nanopb).int_size = IS_16
-  ];
+  uint32 claimedBy = 13
+      [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
   Claims.SettingMode settingMode = 14 [ (brewblox.field).stored = true ];
 
   // Renamed field

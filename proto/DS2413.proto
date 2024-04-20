@@ -23,8 +23,7 @@ message Block {
 
   uint32 oneWireBusId = 8 [
     (brewblox.field).objtype = OneWireBus,
-    (brewblox.field).readonly = true,
-    (nanopb).int_size = IS_16
+    (brewblox.field).readonly = true
   ];
   repeated IoArray.IoChannel channels = 9 [
     (brewblox.field).readonly = true,

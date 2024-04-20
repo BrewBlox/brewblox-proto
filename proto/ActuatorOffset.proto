@@ -24,13 +24,11 @@ message Block {
 
   uint32 targetId = 1 [
     (brewblox.field).objtype = SetpointSensorPairInterface,
-    (brewblox.field).stored = true,
-    (nanopb).int_size = IS_16
+    (brewblox.field).stored = true
   ];
   uint32 referenceId = 3 [
     (brewblox.field).objtype = SetpointSensorPairInterface,
-    (brewblox.field).stored = true,
-    (nanopb).int_size = IS_16
+    (brewblox.field).stored = true
   ];
 
   sint32 storedSetting = 13 [
@@ -67,11 +65,8 @@ message Block {
   Constraints.AnalogConstraints constraints = 15
       [ (brewblox.field).stored = true ];
 
-  uint32 claimedBy = 12 [
-    (brewblox.field).objtype = Any,
-    (brewblox.field).readonly = true,
-    (nanopb).int_size = IS_16
-  ];
+  uint32 claimedBy = 12
+      [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
   Claims.SettingMode settingMode = 14 [ (brewblox.field).stored = true ];
 
   // Deprecated field

@@ -41,8 +41,7 @@ message Block {
   PinConnectMode connectMode = 9 [ (brewblox.field).stored = true ];
   uint32 oneWireBusId = 10 [
     (brewblox.field).objtype = OneWireBus,
-    (brewblox.field).readonly = true,
-    (nanopb).int_size = IS_16
+    (brewblox.field).readonly = true
   ];
 
   // if connectMode is valve, the channels are [1,5]. Each valve uses 4 pins

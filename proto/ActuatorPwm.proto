@@ -19,8 +19,7 @@ message Block {
 
   uint32 actuatorId = 1 [
     (brewblox.field).objtype = ActuatorDigitalInterface,
-    (brewblox.field).stored = true,
-    (nanopb).int_size = IS_16
+    (brewblox.field).stored = true
   ];
 
   sint32 storedSetting = 11 [
@@ -57,11 +56,8 @@ message Block {
   Constraints.AnalogConstraints constraints = 13
       [ (brewblox.field).stored = true ];
 
-  uint32 claimedBy = 10 [
-    (brewblox.field).objtype = Any,
-    (brewblox.field).readonly = true,
-    (nanopb).int_size = IS_16
-  ];
+  uint32 claimedBy = 10
+      [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
   Claims.SettingMode settingMode = 12 [ (brewblox.field).stored = true ];
 
   // Deprecated field

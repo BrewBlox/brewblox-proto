@@ -21,8 +21,7 @@ message Block {
 
   uint32 hwDevice = 1 [
     (brewblox.field).objtype = IoArrayInterface,
-    (brewblox.field).stored = true,
-    (nanopb).int_size = IS_16
+    (brewblox.field).stored = true
   ];
   uint32 channel = 2
       [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
@@ -71,10 +70,7 @@ message Block {
     (brewblox.field).readonly = true
   ];
 
-  uint32 claimedBy = 13 [
-    (brewblox.field).objtype = Any,
-    (brewblox.field).readonly = true,
-    (nanopb).int_size = IS_16
-  ];
+  uint32 claimedBy = 13
+      [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
   Claims.SettingMode settingMode = 15 [ (brewblox.field).stored = true ];
 }

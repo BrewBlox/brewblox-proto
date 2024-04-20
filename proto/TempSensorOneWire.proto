@@ -27,7 +27,6 @@ message Block {
       [ (brewblox.field).hexed = true, (brewblox.field).stored = true ];
   uint32 oneWireBusId = 5 [
     (brewblox.field).objtype = OneWireBus,
-    (brewblox.field).readonly = true,
-    (nanopb).int_size = IS_16
+    (brewblox.field).readonly = true
   ];
 }

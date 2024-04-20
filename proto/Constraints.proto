@@ -20,8 +20,7 @@ message ValueConstraint {
 message BalancedConstraint {
   uint32 balancerId = 1 [
     (brewblox.field).objtype = BalancerInterface,
-    (brewblox.field).stored = true,
-    (nanopb).int_size = IS_16
+    (brewblox.field).stored = true
   ];
   uint32 granted = 2
       [ (brewblox.field).scale = 4096, (brewblox.field).readonly = true ];
@@ -56,8 +55,7 @@ message DurationConstraint {
 message MutexedConstraint {
   uint32 mutexId = 1 [
     (brewblox.field).objtype = MutexInterface,
-    (brewblox.field).stored = true,
-    (nanopb).int_size = IS_16
+    (brewblox.field).stored = true
   ];
   uint32 extraHoldTime = 2 [
     (brewblox.field).unit = Second,
@@ -139,10 +137,7 @@ message DeprecatedDigitalConstraint {
     ];
 
     // deprecated format, will automatically be converted to nr 4
-    uint32 mutex = 3 [
-      (brewblox.field).objtype = MutexInterface,
-      (nanopb).int_size = IS_16
-    ];
+    uint32 mutex = 3 [ (brewblox.field).objtype = MutexInterface ];
   }
 
   uint32 limiting = 100

@@ -17,24 +17,18 @@ message Widget {
   oneof WidgetType {
     uint32 tempSensor = 10 [
       (brewblox.field).objtype = TempSensorInterface,
-      (brewblox.field).stored = true,
-      (nanopb).int_size = IS_16
+      (brewblox.field).stored = true
     ];
     uint32 setpointSensorPair = 11 [
       (brewblox.field).objtype = SetpointSensorPairInterface,
-      (brewblox.field).stored = true,
-      (nanopb).int_size = IS_16
+      (brewblox.field).stored = true
     ];
     uint32 actuatorAnalog = 12 [
       (brewblox.field).objtype = ActuatorAnalogInterface,
-      (brewblox.field).stored = true,
-      (nanopb).int_size = IS_16
+      (brewblox.field).stored = true
     ];
-    uint32 pid = 14 [
-      (brewblox.field).objtype = Pid,
-      (brewblox.field).stored = true,
-      (nanopb).int_size = IS_16
-    ];
+    uint32 pid = 14
+        [ (brewblox.field).objtype = Pid, (brewblox.field).stored = true ];
   };
 }
 

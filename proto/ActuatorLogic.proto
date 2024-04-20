@@ -43,8 +43,7 @@ message DigitalCompare {
   Result result = 2 [ (brewblox.field).readonly = true ];
   uint32 id = 3 [
     (brewblox.field).objtype = DigitalInterface,
-    (brewblox.field).stored = true,
-    (nanopb).int_size = IS_16
+    (brewblox.field).stored = true
   ];
   IoArray.DigitalState rhs = 4 [ (brewblox.field).stored = true ];
 };
@@ -54,8 +53,7 @@ message AnalogCompare {
   Result result = 2 [ (brewblox.field).readonly = true ];
   uint32 id = 3 [
     (brewblox.field).objtype = ProcessValueInterface,
-    (brewblox.field).stored = true,
-    (nanopb).int_size = IS_16
+    (brewblox.field).stored = true
   ];
   sint32 rhs = 4 [
     (brewblox.field).scale = 4096,
@@ -70,8 +68,7 @@ message Block {
 
   uint32 targetId = 1 [
     (brewblox.field).objtype = ActuatorDigitalInterface,
-    (brewblox.field).stored = true,
-    (nanopb).int_size = IS_16
+    (brewblox.field).stored = true
   ];
   bool enabled = 3 [ (brewblox.field).stored = true ];
   Result result = 4

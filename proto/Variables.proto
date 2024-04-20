@@ -41,11 +41,8 @@ message VarContainer {
       (nanopb).int_size = IS_32
     ];
 
-    uint32 link = 40 [
-      (brewblox.field).objtype = Any,
-      (brewblox.field).stored = true,
-      (nanopb).int_size = IS_16
-    ];
+    uint32 link = 40
+        [ (brewblox.field).objtype = Any, (brewblox.field).stored = true ];
   }
 }
 

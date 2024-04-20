@@ -28,7 +28,6 @@ message Block {
   repeated uint32 sensors = 3 [
     (brewblox.field).objtype = TempSensorInterface,
     (brewblox.field).stored = true,
-    (nanopb).int_size = IS_16,
     (nanopb).max_count = 8
   ];
 }

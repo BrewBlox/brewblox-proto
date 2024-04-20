@@ -67,10 +67,7 @@ message Block {
   Constraints.AnalogConstraints constraints = 14
       [ (brewblox.field).stored = true ];
 
-  uint32 claimedBy = 10 [
-    (brewblox.field).objtype = Any,
-    (brewblox.field).readonly = true,
-    (nanopb).int_size = IS_16
-  ];
+  uint32 claimedBy = 10
+      [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
   Claims.SettingMode settingMode = 12 [ (brewblox.field).stored = true ];
 }

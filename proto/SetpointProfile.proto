@@ -31,8 +31,7 @@ message Block {
   bool enabled = 3 [ (brewblox.field).stored = true ];
   uint32 targetId = 4 [
     (brewblox.field).objtype = SetpointSensorPair,
-    (brewblox.field).stored = true,
-    (nanopb).int_size = IS_16
+    (brewblox.field).stored = true
   ];
   sint32 setting = 5 [
     (brewblox.field).unit = Celsius,
