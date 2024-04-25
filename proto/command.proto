@@ -63,6 +63,7 @@ enum ErrorCode {
   INVALID_BLOCK_TYPE = 42;
   INVALID_BLOCK_SUBTYPE = 43;
   INVALID_BLOCK_CONTENT = 44;
+  INVALID_BLOCK_NAME = 45;
 
   // Invalid stored block data
   INVALID_STORED_BLOCK = 50;
@@ -70,6 +71,7 @@ enum ErrorCode {
   INVALID_STORED_BLOCK_TYPE = 52;
   INVALID_STORED_BLOCK_SUBTYPE = 53;
   INVALID_STORED_BLOCK_CONTENT = 54;
+  INVALID_STORED_BLOCK_NAME = 55;
 }
 
 enum MaskMode {
@@ -92,7 +94,7 @@ message MaskField {
 message Payload {
   uint32 blockId = 1;
   brewblox.BlockType blockType = 2;
-  uint32 subtype = 3 [ (nanopb).int_size = IS_16 ];
+  string name = 3;
   string content = 4; // Block message: proto encoded, then base64 encoded
   MaskMode maskMode = 6;
   repeated MaskField maskFields = 7;
