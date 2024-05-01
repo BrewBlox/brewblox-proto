@@ -92,6 +92,7 @@ enum BlockType {
   Variables = 333;
   Names = 334;
   // 16001 - 16005 reserved
+  Deprecated = 65533;
 }
 
 message MessageOpts {
