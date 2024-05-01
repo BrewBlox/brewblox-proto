@@ -90,7 +90,6 @@ enum BlockType {
   PrecisionAnalogModule = 331;
   TempSensorAnalog = 332;
   Variables = 333;
-  Names = 334;
   // 16001 - 16005 reserved
   Deprecated = 65533;
 }
