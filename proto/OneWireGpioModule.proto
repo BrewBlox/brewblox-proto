@@ -23,19 +23,19 @@ message Block {
       [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
   uint32 pullUpDesired = 4
       [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  uint32 PullUpStatus = 5
+  uint32 pullUpStatus = 5
       [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  uint32 PullUpWhenActive = 6
+  uint32 pullUpWhenActive = 6
       [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  uint32 PullUpWhenInactive = 7
+  uint32 pullUpWhenInactive = 7
       [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
   uint32 pullDownDesired = 8
       [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  uint32 PullDownStatus = 9
+  uint32 pullDownStatus = 9
       [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  uint32 PullDownWhenActive = 10
+  uint32 pullDownWhenActive = 10
       [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  uint32 PullDownWhenInactive = 11
+  uint32 pullDownWhenInactive = 11
       [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
   uint32 overCurrent = 12
       [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
