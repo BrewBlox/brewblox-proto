@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+
+package blox.PressureSensor;
+
+enum PressureSensorType {
+  PRESSURE_SENSOR_TYPE_NOT_SET = 0;
+  PRESSURE_SENSOR_TYPE_GAUGE_ABSOLUTE = 1;
+  PRESSURE_SENSOR_TYPE_GAUGE_RELATIVE = 2;
+
+}
+
+message Block {
+  option (brewblox.msg).objtype = PressureSensor;
+
+  PressureSensorType type = 1;
+  uint32 moduleId = 2 [
+    (brewblox.field).objtype = PrecisionAnalogModule,
+    (nanopb).int_size = IS_16
+  ];
+
+  uint32 channel = 3 [ (nanopb).int_size = IS_8 ];
+
+  sint32 raw = 4 [
+    (brewblox.field).scale = 262144,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true
+  ];
+  sint32 offset = 5 [
+    (brewblox.field).scale = 262144
+  ];
+  sint32 scale = 6 [
+    (brewblox.field).scale = 16384
+  ];
+  sint32 correctionSlope = 7 [
+    (brewblox.field).scale = 262144
+  ];
+  sint32 calibratedResistance = 8 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).unit = Ohm
+  ];
+  sint32 resistance = 9 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).unit = Ohm
+  ];
+  sint32 pressureAbsolute = 10 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).unit = MilliBar
+  ];
+  sint32 pressureRelative = 11 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).unit = MilliBar
+  ];
+}

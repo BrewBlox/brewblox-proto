@@ -90,6 +90,7 @@ enum BlockType {
   PrecisionAnalogModule = 331;
   TempSensorAnalog = 332;
   Variables = 333;
+  PressureSensor = 334;
   // 16001 - 16005 reserved
 }
 
