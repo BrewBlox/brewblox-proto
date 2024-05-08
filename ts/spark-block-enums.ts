@@ -135,7 +135,7 @@ export enum GpioPins {
   PIN_8 = 1 << 7,
 }
 
-export enum GpioModuleStatus {
+export enum GpioErrorFlags {
   NONE = 0,
   POWER_ON_RESET = 1 << 0,
   OVERVOLTAGE = 1 << 1,
