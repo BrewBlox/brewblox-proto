@@ -548,7 +548,6 @@ export interface OneWireGpioModuleBlock extends Block {
   data: {
     channels: GpioModuleChannel[];
     modulePosition: number;
-    moduleStatus: GpioErrorFlags;
     useExternalPower: boolean;
     status: GpioModuleStatus;
   };
