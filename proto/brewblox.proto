@@ -91,6 +91,8 @@ enum BlockType {
   TempSensorAnalog = 332;
   Variables = 333;
   // 16001 - 16005 reserved
+  Corrupted = 65532;
+  Deprecated = 65533;
 }
 
 message MessageOpts {
