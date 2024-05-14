@@ -13,7 +13,7 @@ message Block {
   option (brewblox.msg).impl = ActuatorDigitalInterface;
   option (brewblox.msg).impl = StoredDigitalInterface;
   option (brewblox.msg).impl = ClaimableInterface;
-  option (brewblox.msg).impl = IoDriverInterface;
+  option (brewblox.msg).impl = IoClaimerInterface;
 
   uint32 hwDevice = 1 [
     (brewblox.field).objtype = IoArrayInterface,

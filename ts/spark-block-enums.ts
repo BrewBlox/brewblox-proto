@@ -21,7 +21,9 @@ export const BlockIntfType = Enum(
   'OneWireDeviceInterface',
   'IoModuleInterface',
   'IoArrayInterface',
-  'IoDriverInterface',
+  'IoClaimerInterface',
+  'AnalogArrayInterface',
+  'AnalogClaimerInterface',
   'DS2408Interface',
   'EnablerInterface',
   'ClaimableInterface',
@@ -39,6 +41,7 @@ export const SystemBlockType = Enum(
   'Spark2Pins',
   'Spark3Pins',
   'OneWireGpioModule',
+  'AnalogGpioModule',
 );
 
 export const UserBlockType = Enum(
@@ -61,6 +64,7 @@ export const UserBlockType = Enum(
   'Sequence',
   'SetpointProfile',
   'SetpointSensorPair',
+  'TempSensorAnalog',
   'TempSensorCombi',
   'TempSensorExternal',
   'TempSensorMock',
@@ -98,7 +102,7 @@ export const AnyConstraintKey = Enum(
 export const SettingMode = Enum('STORED', 'CLAIMED');
 // #endregion SettingMode
 
-// #region Gpio
+// #region GpioModule
 export const GpioDeviceType = Enum(
   'GPIO_DEV_NONE',
   'GPIO_DEV_SSR_2P',
@@ -146,7 +150,18 @@ export enum GpioErrorFlags {
   OVERTEMPERATURE_SHUTDOWN = 1 << 6,
   SPI_ERROR = 1 << 7,
 }
-// #endregion Gpio
+// #endregion GpioModule
+
+// #region AnalogModule
+export const AnalogSensorType = Enum(
+  'ANALOG_SENSOR_TYPE_NONE',
+  'ANALOG_SENSOR_TYPE_STRAIN_GAUGE',
+  'ANALOG_SENSOR_TYPE_RTD_2WIRE',
+  'ANALOG_SENSOR_TYPE_RTD_3WIRE',
+  'ANALOG_SENSOR_TYPE_RTD_4WIRE',
+  'ANALOG_SENSOR_TYPE_RTD_3WIRE_LS', // not supported now
+);
+// #endregion AnalogModule
 
 // #region DigitalState
 export const DigitalState = Enum(
@@ -350,10 +365,25 @@ export const WifiCipherType = Enum(
 // #endregion Wifi
 
 // #region DigitalInput
-
 export const ToggleBehavior = Enum('DIRECT', 'ALTERNATING');
-
 // #endregion DigitalInput
+
+// #region TempSensorAnalog
+export const TempSensorAnalogType = Enum(
+  'TEMP_SENSOR_TYPE_NOT_SET',
+  'TEMP_SENSOR_TYPE_RTD_2WIRE',
+  'TEMP_SENSOR_TYPE_RTD_3WIRE',
+  'TEMP_SENSOR_TYPE_RTD_4WIRE',
+);
+
+export const TempSensorAnalogSpec = Enum(
+  'SPEC_NOT_SET',
+  'SPEC_PT100_385',
+  'SPEC_PT100_392',
+  'SPEC_PT1000_385',
+  'SPEC_PT1000_392',
+);
+// #endregion TempSensorAnalog
 
 export type BlockIntfType = Enum<typeof BlockIntfType>;
 export type SystemBlockType = Enum<typeof SystemBlockType>;
@@ -365,6 +395,7 @@ export type AnalogConstraintKey = Enum<typeof AnalogConstraintKey>;
 export type AnyConstraintKey = Enum<typeof AnyConstraintKey>;
 export type SettingMode = Enum<typeof SettingMode>;
 export type GpioDeviceType = Enum<typeof GpioDeviceType>;
+export type AnalogSensorType = Enum<typeof AnalogSensorType>;
 export type DigitalState = Enum<typeof DigitalState>;
 export type TransitionDurationPreset = Enum<typeof TransitionDurationPreset>;
 export type PwmFrequency = Enum<typeof PwmFrequency>;
@@ -386,3 +417,5 @@ export type TouchCalibrated = Enum<typeof TouchCalibrated>;
 export type WifiSecurityType = Enum<typeof WifiSecurityType>;
 export type WifiCipherType = Enum<typeof WifiCipherType>;
 export type ToggleBehavior = Enum<typeof ToggleBehavior>;
+export type TempSensorAnalogType = Enum<typeof TempSensorAnalogType>;
+export type TempSensorAnalogSpec = Enum<typeof TempSensorAnalogSpec>;

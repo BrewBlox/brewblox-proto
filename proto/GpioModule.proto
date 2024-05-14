@@ -65,8 +65,10 @@ message Channel {
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
   ];
-  uint32 claimedBy = 7
-      [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
+  uint32 claimedBy = 7 [
+    (brewblox.field).objtype = IoClaimerInterface,
+    (brewblox.field).readonly = true
+  ];
   uint32 errorFlags = 8 [
     (brewblox.field).bitfield = true,
     (brewblox.field).stored = true,
