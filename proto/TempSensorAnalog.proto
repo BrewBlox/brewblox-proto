@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "brewblox.proto";
 import "nanopb.proto";
-import "PrecisionAnalogModule.proto";
+import "AnalogGpioModule.proto";
 
 package blox.TempSensorAnalog;
 
@@ -24,14 +24,15 @@ enum TempSensorAnalogSpec {
 message Block {
   option (brewblox.msg).objtype = TempSensorAnalog;
   option (brewblox.msg).impl = TempSensorInterface;
+  option (brewblox.msg).impl = AnalogClaimerInterface;
 
-  TempSensorAnalogType type = 1 [ (brewblox.field).stored = true ];
-  uint32 moduleId = 2 [
-    (brewblox.field).objtype = PrecisionAnalogModule,
+  TempSensorAnalogType sensorType = 1 [ (brewblox.field).stored = true ];
+
+  uint32 analogDevice = 2 [
+    (brewblox.field).objtype = AnalogGpioModule,
     (brewblox.field).stored = true
   ];
-
-  uint32 channel = 3
+  uint32 analogChannel = 3
       [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
 
   sint32 value = 4 [
@@ -48,7 +49,7 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
-  PrecisionAnalogModule.AnalogChannelType detected = 6
+  AnalogGpioModule.AnalogSensorType detected = 6
       [ (brewblox.field).readonly = true ];
   TempSensorAnalogSpec spec = 7 [ (brewblox.field).stored = true ];
 }
