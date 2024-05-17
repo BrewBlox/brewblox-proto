@@ -99,6 +99,19 @@ export interface AnalogModuleChannel {
   bridgeOutput?: Readonly<number>;
   seebeckError?: Readonly<number>;
 }
+
+export interface AnalogArrayInterfaceBlock extends Block {
+  data: {
+    analogChannels: AnalogModuleChannel[];
+  };
+}
+
+export interface AnalogClaimerInterfaceBlock extends Block {
+  data: {
+    analogDevice: Link;
+    analogChannel: number;
+  };
+}
 // #endregion AnalogChannel
 
 // #region GpioModule
