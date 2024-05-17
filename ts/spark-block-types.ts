@@ -360,7 +360,7 @@ export interface ActuatorPwmBlock extends Block {
 // #endregion ActuatorPwm
 
 // #region AnalogGpioModule
-export interface AnalogGpioModule extends Block {
+export interface AnalogGpioModuleBlock extends Block {
   type: 'AnalogGpioModule';
   data: {
     channels: GpioModuleChannel[];
