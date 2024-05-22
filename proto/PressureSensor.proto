@@ -14,14 +14,15 @@ enum PressureSensorType {
 
 message Block {
   option (brewblox.msg).objtype = PressureSensor;
+  option (brewblox.msg).impl = AnalogClaimerInterface;
 
   PressureSensorType type = 1;
-  uint32 moduleId = 2 [
-    (brewblox.field).objtype = PrecisionAnalogModule,
-    (nanopb).int_size = IS_16
+  uint32 analogDevice = 2 [
+    (brewblox.field).objtype = AnalogGpioModule,
+    (brewblox.field).stored = true
   ];
 
-  uint32 channel = 3 [ (nanopb).int_size = IS_8 ];
+  uint32 analogChannel = 3 [ (nanopb).int_size = IS_8 ];
 
   sint32 raw = 4 [
     (brewblox.field).scale = 262144,
