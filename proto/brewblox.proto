@@ -54,6 +54,7 @@ enum BlockType {
   DigitalInterface = 27;
   AnalogArrayInterface = 28;
   AnalogClaimerInterface = 29;
+  PressureSensorInterface = 30;
   Any = 255;
   SysInfo = 256;
   Ticks = 257; // deprecated
