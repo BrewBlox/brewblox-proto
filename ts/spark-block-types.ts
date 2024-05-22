@@ -8,7 +8,7 @@ import {
   DisplayTempUnit,
   FilterChoice,
   GpioDeviceType,
-  GpioModuleStatus,
+  GpioErrorFlags,
   GpioPins,
   LogicResult,
   ReferenceKind,
@@ -27,6 +27,9 @@ import {
   SettingMode,
   ToggleBehavior,
   SequenceStoreMode,
+  AnalogSensorType,
+  TempSensorAnalogType,
+  TempSensorAnalogSpec,
 } from './spark-block-enums';
 
 // #region Block
@@ -76,13 +79,67 @@ export interface IoArrayInterfaceBlock extends Block {
   };
 }
 
-export interface IoDriverInterfaceBlock extends Block {
+export interface IoClaimerInterfaceBlock extends Block {
   data: {
     hwDevice: Link;
     channel: number;
   };
 }
 // #endregion IoChannel
+
+// #region AnalogChannel
+export interface AnalogModuleChannel {
+  id: Readonly<number>;
+  sensorType: AnalogSensorType;
+  claimedBy: Readonly<Link>;
+
+  resistance?: Readonly<Quantity>;
+  leadResistance?: Readonly<Quantity>;
+  bridgeResistance?: Readonly<Quantity>;
+  bridgeOutput?: Readonly<number>;
+  seebeckError?: Readonly<number>;
+}
+
+export interface AnalogArrayInterfaceBlock extends Block {
+  data: {
+    analogChannels: AnalogModuleChannel[];
+  };
+}
+
+export interface AnalogClaimerInterfaceBlock extends Block {
+  data: {
+    analogDevice: Link;
+    analogChannel: number;
+  };
+}
+// #endregion AnalogChannel
+
+// #region GpioModule
+export interface GpioModuleStatus {
+  moduleStatus: GpioErrorFlags;
+  pullUpDesired: Readonly<GpioPins>;
+  pullUpStatus: Readonly<GpioPins>;
+  pullUpWhenActive: Readonly<GpioPins>;
+  pullUpWhenInactive: Readonly<GpioPins>;
+  pullDownDesired: Readonly<GpioPins>;
+  pullDownStatus: Readonly<GpioPins>;
+  pullDownWhenActive: Readonly<GpioPins>;
+  pullDownWhenInactive: Readonly<GpioPins>;
+  overCurrent: Readonly<GpioPins>;
+  openLoad: Readonly<GpioPins>;
+  faultsHistory5m: GpioErrorFlags;
+  faultsHistory60m: GpioErrorFlags;
+}
+
+export interface GpioModuleChannel extends IoChannel {
+  id: number;
+  name: string;
+  deviceType: GpioDeviceType;
+  pinsMask: GpioPins;
+  width: number;
+  errorFlags: GpioErrorFlags;
+}
+// #endregion GpioModule
 
 // #region EnablerInterfaceBlock
 export interface EnablerInterfaceBlock extends Block {
@@ -233,7 +290,7 @@ export interface ActuatorAnalogMockBlock extends Block {
     maxSetting: number;
     minValue: number;
     maxValue: number;
-    constraints?: AnalogConstraints;
+    constraints: AnalogConstraints;
 
     claimedBy: Readonly<Link>;
     settingMode: SettingMode;
@@ -286,7 +343,7 @@ export interface ActuatorOffsetBlock extends Block {
     value: Readonly<Quantity>;
 
     referenceSettingOrValue: ReferenceKind;
-    constraints?: AnalogConstraints;
+    constraints: AnalogConstraints;
 
     claimedBy: Readonly<Link>;
     settingMode: SettingMode;
@@ -307,13 +364,29 @@ export interface ActuatorPwmBlock extends Block {
     value: Readonly<number>;
 
     period: Quantity;
-    constraints?: AnalogConstraints;
+    constraints: AnalogConstraints;
 
     claimedBy: Readonly<Link>;
     settingMode: SettingMode;
   };
 }
 // #endregion ActuatorPwm
+
+// #region AnalogGpioModule
+export interface AnalogGpioModuleBlock extends Block {
+  type: 'AnalogGpioModule';
+  data: {
+    channels: GpioModuleChannel[];
+    modulePosition: number;
+    useExternalPower: boolean;
+    status: GpioModuleStatus;
+
+    analogChannels: AnalogModuleChannel[];
+    baroPressure?: Readonly<Quantity>;
+    baroTemperature?: Readonly<number>;
+  };
+}
+// #endregion AnalogGpioModule
 
 // #region Balancer
 export interface BalancedActuator {
@@ -351,7 +424,7 @@ export interface DigitalActuatorBlock extends Block {
     state: Readonly<DigitalState | null>;
 
     invert: boolean;
-    constraints?: DigitalConstraints;
+    constraints: DigitalConstraints;
 
     transitionDurationPreset: TransitionDurationPreset;
     transitionDurationSetting: Quantity;
@@ -441,7 +514,7 @@ export interface FastPwmBlock extends Block {
 
     invert: boolean;
     frequency: PwmFrequency;
-    constraints?: AnalogConstraints;
+    constraints: AnalogConstraints;
 
     transitionDurationPreset: TransitionDurationPreset;
     transitionDurationSetting: Quantity;
@@ -483,7 +556,7 @@ export interface MotorValveBlock extends Block {
     state: Readonly<DigitalState | null>;
     valveState: Readonly<ValveState | null>;
 
-    constraints?: DigitalConstraints;
+    constraints: DigitalConstraints;
 
     claimedBy: Readonly<Link>;
     settingMode: SettingMode;
@@ -516,34 +589,13 @@ export interface OneWireBusBlock extends Block {
 // #endregion OneWireBus
 
 // #region OneWireGpioModule
-export interface GpioModuleChannel extends IoChannel {
-  id: number;
-  name: string;
-  deviceType: GpioDeviceType;
-  pinsMask: GpioPins;
-  width: number;
-}
-
 export interface OneWireGpioModuleBlock extends Block {
   type: 'OneWireGpioModule';
   data: {
     channels: GpioModuleChannel[];
     modulePosition: number;
-    moduleStatus: GpioModuleStatus;
     useExternalPower: boolean;
-
-    pullUpDesired: Readonly<GpioPins>;
-    pullUpStatus: Readonly<GpioPins>;
-    pullUpWhenActive: Readonly<GpioPins>;
-    pullUpWhenInactive: Readonly<GpioPins>;
-    pullDownDesired: Readonly<GpioPins>;
-    pullDownStatus: Readonly<GpioPins>;
-    pullDownWhenActive: Readonly<GpioPins>;
-    pullDownWhenInactive: Readonly<GpioPins>;
-    overCurrent: Readonly<GpioPins>;
-    openLoad: Readonly<GpioPins>;
-    faultsHistory5m: GpioModuleStatus;
-    faultsHistory60m: GpioModuleStatus;
+    status: GpioModuleStatus;
   };
 }
 // #endregion OneWireGpioModule
@@ -693,6 +745,21 @@ export interface SysInfoBlock extends Block {
   };
 }
 // #endregion SysInfo
+
+// #region TempSensorAnalog
+export interface TempSensorAnalogBlock extends Block {
+  type: 'TempSensorAnalog';
+  data: {
+    sensorType: TempSensorAnalogType;
+    analogDevice: Link;
+    analogChannel: number;
+    value: Readonly<Quantity>;
+    offset: Quantity;
+    detected: Readonly<AnalogSensorType>;
+    spec: TempSensorAnalogSpec;
+  };
+}
+// #endregion TempSensorAnalog
 
 // #region TempSensorCombi
 export interface TempSensorCombiBlock extends Block {

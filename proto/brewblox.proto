@@ -41,7 +41,7 @@ enum BlockType {
   OneWireDeviceBlockInterface = 14;
   EnablerInterface = 15;
   ClaimableInterface = 16;
-  IoDriverInterface = 17;
+  IoClaimerInterface = 17;
   SetpointInterface = 18;
   StoredAnalogInterface = 19;
   StoredSetpointInterface = 20;
@@ -52,7 +52,8 @@ enum BlockType {
   ScanningFactoryInterface = 25;
   I2CDiscoverableInterface = 26;
   DigitalInterface = 27;
-  AnalogModuleInterface = 28;
+  AnalogArrayInterface = 28;
+  AnalogClaimerInterface = 29;
   Any = 255;
   SysInfo = 256;
   Ticks = 257; // deprecated
@@ -87,11 +88,13 @@ enum BlockType {
   TempSensorExternal = 328;
   FastPwm = 329;
   DigitalInput = 330;
-  PrecisionAnalogModule = 331;
+  AnalogGpioModule = 331;
   TempSensorAnalog = 332;
   Variables = 333;
   PressureSensor = 334;
   // 16001 - 16005 reserved
+  Corrupted = 65532;
+  Deprecated = 65533;
 }
 
 message MessageOpts {
@@ -110,6 +113,7 @@ message FieldOpts {
   bool hexed = 4;
   bool readonly = 5;
   bool logged = 6;
+  bool stored = 15;
   bool hexstr = 7;
   bool ignored = 9;
   bool bitfield = 10;

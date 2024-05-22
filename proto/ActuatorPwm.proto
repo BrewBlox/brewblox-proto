@@ -15,48 +15,50 @@ message Block {
   option (brewblox.msg).impl = EnablerInterface;
   option (brewblox.msg).impl = ClaimableInterface;
 
-  bool enabled = 8;
+  bool enabled = 8 [ (brewblox.field).stored = true ];
 
   uint32 actuatorId = 1 [
     (brewblox.field).objtype = ActuatorDigitalInterface,
-    (nanopb).int_size = IS_16
+    (brewblox.field).stored = true
   ];
 
   sint32 storedSetting = 11 [
-    (brewblox.field).logged = true,
     (brewblox.field).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
   sint32 desiredSetting = 9 [
+    (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
-    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
   sint32 setting = 4 [
+    (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
-    (brewblox.field).scale = 4096,
     (nanopb).int_size = IS_32
   ];
   sint32 value = 5 [
-    (brewblox.field).logged = true,
     (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32,
-    (brewblox.field).readonly = true
-  ];
-
-  uint32 period = 3
-      [ (brewblox.field).unit = Second, (brewblox.field).scale = 1000 ];
-  Constraints.DeprecatedAnalogConstraints constrainedBy = 6;
-  Constraints.AnalogConstraints constraints = 13;
-
-  uint32 claimedBy = 10 [
-    (brewblox.field).objtype = Any,
+    (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
-    (nanopb).int_size = IS_16
+    (nanopb).int_size = IS_32
   ];
-  Claims.SettingMode settingMode = 12;
+
+  uint32 period = 3 [
+    (brewblox.field).unit = Second,
+    (brewblox.field).scale = 1000,
+    (brewblox.field).stored = true
+  ];
+  Constraints.DeprecatedAnalogConstraints constrainedBy = 6;
+  Constraints.AnalogConstraints constraints = 13
+      [ (brewblox.field).stored = true ];
+
+  uint32 claimedBy = 10
+      [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
+  Claims.SettingMode settingMode = 12 [ (brewblox.field).stored = true ];
 
   // Deprecated field
   bool drivenActuatorId = 90

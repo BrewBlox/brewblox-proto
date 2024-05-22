@@ -27,12 +27,12 @@ message Block {
   bool soundAlarm = 5;
   Hardware hardware = 8 [ (brewblox.field).readonly = true ];
   repeated IoArray.IoChannel channels = 9 [
+    (brewblox.field).readonly = true,
     (nanopb).max_count = 4,
-    (nanopb).fixed_length = true,
-    (brewblox.field).readonly = true
+    (nanopb).fixed_length = true
   ];
 
   // "pins" was renamed to "channels".
   // Keep an explicitly ignored field around to avoid import errors
-  bool pins = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE];
+  bool pins = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 }
