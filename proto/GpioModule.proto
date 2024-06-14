@@ -149,3 +149,139 @@ message Status {
     (nanopb).int_size = IS_8
   ];
 }
+
+
+enum AnalogSensorType {
+  ANALOG_SENSOR_TYPE_NONE = 0;
+  ANALOG_SENSOR_TYPE_STRAIN_GAUGE = 1;
+  ANALOG_SENSOR_TYPE_RTD_2WIRE = 2;
+  ANALOG_SENSOR_TYPE_RTD_3WIRE = 3;
+  ANALOG_SENSOR_TYPE_RTD_4WIRE = 4;
+  ANALOG_SENSOR_TYPE_RTD_3WIRE_LS = 5; // not supported now
+};
+
+message AnalogChannel {
+  uint32 id = 1 [ (brewblox.field).readonly = true, (nanopb).int_size = IS_8 ];
+  AnalogSensorType sensorType = 2 [ (brewblox.field).stored = true ];
+  uint32 claimedBy = 3 [
+    (brewblox.field).objtype = AnalogClaimerInterface,
+    (brewblox.field).readonly = true
+  ];
+  // for RTD: resistance and optionally leadResistance
+  // for Gauge: bridgeResistance and bridgeOutput
+
+  sint32 resistance = 4 [
+    (brewblox.field).unit = Ohm,
+    (brewblox.field).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).omit_if_zero = true,
+    (nanopb).int_size = IS_32
+  ];
+  sint32 leadResistance = 5 [
+    (brewblox.field).unit = Ohm,
+    (brewblox.field).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).omit_if_zero = true,
+    (nanopb).int_size = IS_32
+  ];
+  sint32 bridgeResistance = 6 [
+    (brewblox.field).unit = Ohm,
+    (brewblox.field).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).omit_if_zero = true,
+    (nanopb).int_size = IS_32
+
+  ];
+  sint32 bridgeOutput = 7 [
+    (brewblox.field).scale = 262144,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).omit_if_zero = true,
+    (nanopb).int_size = IS_32
+  ];
+  sint32 seebeckError = 8 [
+    (brewblox.field).scale = 262144,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).omit_if_zero = true,
+    (nanopb).int_size = IS_32
+  ];
+}
+
+
+
+
+message Block {
+  option (brewblox.msg).objtype = GpioModule;
+  option (brewblox.msg).impl = IoArrayInterface;
+  option (brewblox.msg).impl = OneWireBusInterface;
+
+  repeated GpioModule.Channel channels = 1
+      [ (brewblox.field).stored = true, (nanopb).max_count = 8 ];
+  uint32 modulePosition = 2
+      [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
+  bool useExternalPower = 14 [ (brewblox.field).stored = true ];
+  GpioModule.Status status = 17 [ (brewblox.field).readonly = true ];
+
+
+  repeated AnalogChannel analogChannels = 20 [
+    (nanopb).max_count = 4,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
+
+  sint32 baroPressure = 21 [
+    (brewblox.field).unit = MilliBar,
+    (brewblox.field).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).omit_if_zero = true,
+    (nanopb).int_size = IS_32
+  ];
+
+  sint32 baroTemperature = 22 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).omit_if_zero = true,
+    (nanopb).int_size = IS_32
+  ];
+
+
+  // Deprecated fields
+  uint32 moduleStatus = 3
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  uint32 pullUpDesired = 4
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  uint32 pullUpStatus = 5
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  uint32 pullUpWhenActive = 6
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  uint32 pullUpWhenInactive = 7
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  uint32 pullDownDesired = 8
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  uint32 pullDownStatus = 9
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  uint32 pullDownWhenActive = 10
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  uint32 pullDownWhenInactive = 11
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  uint32 overCurrent = 12
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  uint32 openLoad = 13
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  uint32 faultsHistory5m = 15
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  uint32 faultsHistory60m = 16
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  // fault clearing is now automatic, but we keep the ignored fields for
+  // backwards compatibility
+  uint32 moduleStatusClear = 90
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool clearFaults = 32
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+}

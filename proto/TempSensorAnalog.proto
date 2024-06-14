@@ -2,7 +2,7 @@ syntax = "proto3";
 
 import "brewblox.proto";
 import "nanopb.proto";
-import "AnalogGpioModule.proto";
+import "GpioModule.proto";
 
 package blox.TempSensorAnalog;
 
@@ -49,7 +49,7 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
-  AnalogGpioModule.AnalogSensorType detected = 6
+  GpioModule.AnalogSensorType detected = 6
       [ (brewblox.field).readonly = true ];
   TempSensorAnalogSpec spec = 7 [ (brewblox.field).stored = true ];
 }

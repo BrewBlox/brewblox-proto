@@ -83,17 +83,20 @@ enum BlockType {
   ActuatorLogic = 322;
   MockPins = 323;
   TempSensorCombi = 324;
-  OneWireGpioModule = 325;
+  GpioModule = 325;
+  OneWireGpioModule = 325; // old name for backwards compatibility
   Sequence = 326;
   TempSensorExternal = 328;
   FastPwm = 329;
   DigitalInput = 330;
-  AnalogGpioModule = 331;
+  AnalogGpioModule = 331; // deprecated
   TempSensorAnalog = 332;
   Variables = 333;
   // 16001 - 16005 reserved
   Corrupted = 65532;
   Deprecated = 65533;
+
+  option allow_alias = true;
 }
 
 message MessageOpts {
