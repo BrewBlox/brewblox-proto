@@ -29,7 +29,7 @@ message Block {
   TempSensorAnalogType sensorType = 1 [ (brewblox.field).stored = true ];
 
   uint32 analogDevice = 2 [
-    (brewblox.field).objtype = AnalogGpioModule,
+    (brewblox.field).objtype = AnalogArrayInterface,
     (brewblox.field).stored = true
   ];
   uint32 analogChannel = 3
@@ -49,7 +49,6 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
-  GpioModule.AnalogSensorType detected = 6
-      [ (brewblox.field).readonly = true ];
+  GpioModule.AnalogSensorType detected = 6 [ (brewblox.field).readonly = true ];
   TempSensorAnalogSpec spec = 7 [ (brewblox.field).stored = true ];
 }
