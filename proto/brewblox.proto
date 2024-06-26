@@ -105,7 +105,6 @@ message MessageOpts {
   BlockType objtype = 3;
   repeated BlockType impl = 9 [ (nanopb).max_count = 5 ];
   uint32 subtype = 11 [ (nanopb).int_size = IS_16 ];
-  bool deprecated = 12;
 }
 
 message FieldOpts {

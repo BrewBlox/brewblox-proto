@@ -40,8 +40,7 @@ export const SystemBlockType = Enum(
   'WiFiSettings',
   'Spark2Pins',
   'Spark3Pins',
-  'OneWireGpioModule',
-  'AnalogGpioModule',
+  'GpioModule',
 );
 
 export const UserBlockType = Enum(

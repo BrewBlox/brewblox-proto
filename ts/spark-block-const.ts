@@ -37,7 +37,7 @@ export const COMPATIBLE_TYPES: Record<BlockIntfType, BlockType[]> = {
   ],
   BalancerInterface: [BlockType.Balancer],
   MutexInterface: [BlockType.Mutex],
-  OneWireBusInterface: [BlockType.OneWireGpioModule],
+  OneWireBusInterface: [BlockType.GpioModule],
   OneWireDeviceInterface: [
     BlockType.TempSensorOneWire,
     BlockType.DS2408,
@@ -49,8 +49,7 @@ export const COMPATIBLE_TYPES: Record<BlockIntfType, BlockType[]> = {
     BlockType.DS2413,
     BlockType.Spark2Pins,
     BlockType.Spark3Pins,
-    BlockType.OneWireGpioModule,
-    BlockType.AnalogGpioModule,
+    BlockType.GpioModule,
     BlockType.MockPins,
   ],
   IoClaimerInterface: [
@@ -59,7 +58,7 @@ export const COMPATIBLE_TYPES: Record<BlockIntfType, BlockType[]> = {
     BlockType.FastPwm,
     BlockType.DigitalInput,
   ],
-  AnalogArrayInterface: [BlockType.AnalogGpioModule],
+  AnalogArrayInterface: [BlockType.GpioModule],
   AnalogClaimerInterface: [BlockType.TempSensorAnalog],
   DS2408Interface: [BlockType.DS2408],
   EnablerInterface: [
