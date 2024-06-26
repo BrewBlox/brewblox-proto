@@ -49,7 +49,7 @@ enum BlockType {
   ConstrainedAnalogInterface = 22;
   ConstrainedSetpointInterface = 23;
   ConstrainedDigitalInterface = 24;
-  ScanningFactoryInterface = 25;
+  ScanningFactoryInterface = 25; // deprecated
   I2CDiscoverableInterface = 26;
   DigitalInterface = 27;
   AnalogArrayInterface = 28;
