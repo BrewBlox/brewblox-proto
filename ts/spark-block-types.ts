@@ -97,7 +97,6 @@ export interface AnalogModuleChannel {
   leadResistance?: Readonly<Quantity>;
   bridgeResistance?: Readonly<Quantity>;
   bridgeOutput?: Readonly<number>;
-  seebeckError?: Readonly<number>;
 }
 
 export interface AnalogArrayInterfaceBlock extends Block {
@@ -373,8 +372,8 @@ export interface ActuatorPwmBlock extends Block {
 // #endregion ActuatorPwm
 
 // #region AnalogGpioModule
-export interface AnalogGpioModuleBlock extends Block {
-  type: 'AnalogGpioModule';
+export interface GpioModuleBlock extends Block {
+  type: 'GpioModule';
   data: {
     channels: GpioModuleChannel[];
     modulePosition: number;
@@ -587,18 +586,6 @@ export interface OneWireBusBlock extends Block {
   };
 }
 // #endregion OneWireBus
-
-// #region OneWireGpioModule
-export interface OneWireGpioModuleBlock extends Block {
-  type: 'OneWireGpioModule';
-  data: {
-    channels: GpioModuleChannel[];
-    modulePosition: number;
-    useExternalPower: boolean;
-    status: GpioModuleStatus;
-  };
-}
-// #endregion OneWireGpioModule
 
 // #region Pid
 export interface PidBlock extends Block {

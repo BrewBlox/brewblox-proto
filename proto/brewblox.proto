@@ -89,7 +89,8 @@ enum BlockType {
   TempSensorExternal = 328;
   FastPwm = 329;
   DigitalInput = 330;
-  AnalogGpioModule = 331; // deprecated
+  Deprecated_AnalogGpioModule = 331; // integrated in Gpio Module
+  AnalogGpioModule = 331; // alias for backwards compatibilty with backups
   TempSensorAnalog = 332;
   Variables = 333;
   // 16001 - 16005 reserved
@@ -104,6 +105,7 @@ message MessageOpts {
   BlockType objtype = 3;
   repeated BlockType impl = 9 [ (nanopb).max_count = 5 ];
   uint32 subtype = 11 [ (nanopb).int_size = IS_16 ];
+  bool deprecated = 12;
 }
 
 message FieldOpts {

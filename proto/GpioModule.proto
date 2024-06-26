@@ -202,13 +202,6 @@ message AnalogChannel {
     (brewblox.field).omit_if_zero = true,
     (nanopb).int_size = IS_32
   ];
-  sint32 seebeckError = 8 [
-    (brewblox.field).scale = 262144,
-    (brewblox.field).logged = true,
-    (brewblox.field).readonly = true,
-    (brewblox.field).omit_if_zero = true,
-    (nanopb).int_size = IS_32
-  ];
 }
 
 
