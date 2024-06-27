@@ -26,7 +26,7 @@ message Block {
   fixed64 address = 4
       [ (brewblox.field).hexed = true, (brewblox.field).stored = true ];
   uint32 oneWireBusId = 5 [
-    (brewblox.field).objtype = OneWireBus,
+    (brewblox.field).objtype = OneWireBusInterface,
     (brewblox.field).readonly = true
   ];
 }

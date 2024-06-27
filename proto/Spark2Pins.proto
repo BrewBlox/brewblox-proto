@@ -23,6 +23,7 @@ enum Hardware {
 message Block {
   option (brewblox.msg).objtype = Spark2Pins;
   option (brewblox.msg).impl = IoArrayInterface;
+  option (brewblox.msg).impl = OneWireBusInterface;
 
   bool soundAlarm = 5;
   Hardware hardware = 8 [ (brewblox.field).readonly = true ];

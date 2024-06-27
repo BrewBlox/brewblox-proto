@@ -22,7 +22,7 @@ message Block {
   bool connected = 6 [ (brewblox.field).readonly = true ];
 
   uint32 oneWireBusId = 8 [
-    (brewblox.field).objtype = OneWireBus,
+    (brewblox.field).objtype = OneWireBusInterface,
     (brewblox.field).readonly = true
   ];
   repeated IoArray.IoChannel channels = 9 [

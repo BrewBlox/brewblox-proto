@@ -34,7 +34,6 @@ export const BlockIntfType = Enum(
 // #region BlockType
 export const SystemBlockType = Enum(
   'DisplaySettings',
-  'OneWireBus',
   'SysInfo',
   'TouchSettings',
   'WiFiSettings',

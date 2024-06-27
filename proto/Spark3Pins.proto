@@ -18,6 +18,7 @@ enum ChannelId {
 message Block {
   option (brewblox.msg).objtype = Spark3Pins;
   option (brewblox.msg).impl = IoArrayInterface;
+  option (brewblox.msg).impl = OneWireBusInterface;
 
   bool enableIoSupply5V = 2 [ (brewblox.field).stored = true ];
   bool enableIoSupply12V = 3 [ (brewblox.field).stored = true ];

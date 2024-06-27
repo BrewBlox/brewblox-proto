@@ -40,7 +40,7 @@ message Block {
 
   PinConnectMode connectMode = 9 [ (brewblox.field).stored = true ];
   uint32 oneWireBusId = 10 [
-    (brewblox.field).objtype = OneWireBus,
+    (brewblox.field).objtype = OneWireBusInterface,
     (brewblox.field).readonly = true
   ];
 

@@ -572,21 +572,6 @@ export interface MutexBlock extends Block {
 }
 // #endregion Mutex
 
-// #region OneWireBus
-export interface OneWireBusCommand {
-  opcode: number;
-  data: number;
-}
-
-export interface OneWireBusBlock extends Block {
-  type: 'OneWireBus';
-  data: {
-    command: OneWireBusCommand;
-    address: Readonly<string[]>;
-  };
-}
-// #endregion OneWireBus
-
 // #region Pid
 export interface PidBlock extends Block {
   type: 'Pid';
