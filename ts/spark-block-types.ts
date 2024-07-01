@@ -382,7 +382,6 @@ export interface GpioModuleBlock extends Block {
 
     analogChannels: AnalogModuleChannel[];
     baroPressure?: Readonly<Quantity>;
-    baroTemperature?: Readonly<number>;
   };
 }
 // #endregion AnalogGpioModule
