@@ -138,6 +138,19 @@ export interface GpioModuleChannel extends IoChannel {
   width: number;
   errorFlags: GpioErrorFlags;
 }
+
+export interface GpioModuleBlock extends Block {
+  type: 'GpioModule';
+  data: {
+    channels: GpioModuleChannel[];
+    modulePosition: number;
+    useExternalPower: boolean;
+    status: GpioModuleStatus;
+
+    analogChannels: AnalogModuleChannel[];
+    baroPressure?: Readonly<Quantity>;
+  };
+}
 // #endregion GpioModule
 
 // #region EnablerInterfaceBlock
@@ -370,21 +383,6 @@ export interface ActuatorPwmBlock extends Block {
   };
 }
 // #endregion ActuatorPwm
-
-// #region AnalogGpioModule
-export interface GpioModuleBlock extends Block {
-  type: 'GpioModule';
-  data: {
-    channels: GpioModuleChannel[];
-    modulePosition: number;
-    useExternalPower: boolean;
-    status: GpioModuleStatus;
-
-    analogChannels: AnalogModuleChannel[];
-    baroPressure?: Readonly<Quantity>;
-  };
-}
-// #endregion AnalogGpioModule
 
 // #region Balancer
 export interface BalancedActuator {
