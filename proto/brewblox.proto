@@ -94,6 +94,10 @@ enum BlockType {
   TempSensorAnalog = 332;
   Variables = 333;
   // 16001 - 16005 reserved
+  KvdwAnalogModule = 16001;
+  KvdwDigitalModule = 16002;
+  KvdwSensor = 16003;
+
   Corrupted = 65532;
   Deprecated = 65533;
 
