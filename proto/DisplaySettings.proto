@@ -6,40 +6,42 @@ import "nanopb.proto";
 package blox.DisplaySettings;
 
 message Widget {
-  uint32 pos = 1 [ (nanopb).int_size = IS_8 ];
+  uint32 pos = 1 [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
   bytes color = 2 [
+    (brewblox.field).hexstr = true,
+    (brewblox.field).stored = true,
     (nanopb).max_size = 3,
-    (nanopb).fixed_length = true,
-    (brewblox.field).hexstr = true
+    (nanopb).fixed_length = true
   ];
-  string name = 3 [ (nanopb).max_size = 16 ];
+  string name = 3 [ (brewblox.field).stored = true, (nanopb).max_size = 16 ];
   oneof WidgetType {
     uint32 tempSensor = 10 [
       (brewblox.field).objtype = TempSensorInterface,
-      (nanopb).int_size = IS_16
+      (brewblox.field).stored = true
     ];
     uint32 setpointSensorPair = 11 [
       (brewblox.field).objtype = SetpointSensorPairInterface,
-      (nanopb).int_size = IS_16
+      (brewblox.field).stored = true
     ];
     uint32 actuatorAnalog = 12 [
       (brewblox.field).objtype = ActuatorAnalogInterface,
-      (nanopb).int_size = IS_16
+      (brewblox.field).stored = true
     ];
     uint32 pid = 14
-        [ (brewblox.field).objtype = Pid, (nanopb).int_size = IS_16 ];
+        [ (brewblox.field).objtype = Pid, (brewblox.field).stored = true ];
     uint32 pressure = 15
-        [ (brewblox.field).objtype = SgProbe, (nanopb).int_size = IS_16 ];
+        [ (brewblox.field).objtype = SgProbe, (brewblox.field).stored = true ];
     uint32 chem = 16
-        [ (brewblox.field).objtype = SgProbe, (nanopb).int_size = IS_16 ];
+        [ (brewblox.field).objtype = SgProbe, (brewblox.field).stored = true ];
   };
 }
 
 message Block {
   option (brewblox.msg).objtype = DisplaySettings;
 
-  repeated Widget widgets = 1 [ (nanopb).max_count = 6 ];
-  string name = 2 [ (nanopb).max_size = 40 ];
+  repeated Widget widgets = 1
+      [ (brewblox.field).stored = true, (nanopb).max_count = 6 ];
+  string name = 2 [ (brewblox.field).stored = true, (nanopb).max_size = 40 ];
 
   // Deprecated fields
   bool brightness = 90

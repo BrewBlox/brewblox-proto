@@ -10,9 +10,9 @@ message Block {
   option (brewblox.msg).impl = MutexInterface;
 
   uint32 waitRemaining = 2 [
-    (brewblox.field).readonly = true,
     (brewblox.field).unit = Second,
     (brewblox.field).scale = 1000,
+    (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
 

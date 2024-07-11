@@ -23,13 +23,17 @@ message Block {
   option (brewblox.msg).impl = ActuatorDigitalInterface;
   option (brewblox.msg).impl = StoredDigitalInterface;
   option (brewblox.msg).impl = ClaimableInterface;
-  option (brewblox.msg).impl = IoDriverInterface;
+  option (brewblox.msg).impl = IoClaimerInterface;
 
-  uint32 hwDevice = 1
-      [ (brewblox.field).objtype = DS2408Interface, (nanopb).int_size = IS_16 ];
-  uint32 channel = 2 [ (nanopb).int_size = IS_8 ];
+  uint32 hwDevice = 1 [
+    (brewblox.field).objtype = DS2408Interface,
+    (brewblox.field).stored = true
+  ];
+  uint32 channel = 2
+      [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
 
-  IoArray.DigitalState storedState = 9 [ (brewblox.field).logged = true ];
+  IoArray.DigitalState storedState = 9
+      [ (brewblox.field).stored = true, (brewblox.field).logged = true ];
   IoArray.DigitalState desiredState = 7
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
   IoArray.DigitalState state = 3
@@ -38,14 +42,12 @@ message Block {
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
 
   Constraints.DeprecatedDigitalConstraints constrainedBy = 5;
-  Constraints.DigitalConstraints constraints = 11;
+  Constraints.DigitalConstraints constraints = 11
+      [ (brewblox.field).stored = true ];
 
-  uint32 claimedBy = 8 [
-    (brewblox.field).objtype = Any,
-    (brewblox.field).readonly = true,
-    (nanopb).int_size = IS_16
-  ];
-  Claims.SettingMode settingMode = 10;
+  uint32 claimedBy = 8
+      [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
+  Claims.SettingMode settingMode = 10 [ (brewblox.field).stored = true ];
 
   // Deprecated fields
   bool startChannel = 90

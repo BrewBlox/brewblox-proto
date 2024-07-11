@@ -17,18 +17,18 @@ message Block {
   option (brewblox.msg).impl = IoArrayInterface;
   option (brewblox.msg).impl = OneWireDeviceInterface;
 
-  fixed64 address = 1 [ (brewblox.field).hexed = true ];
+  fixed64 address = 1
+      [ (brewblox.field).hexed = true, (brewblox.field).stored = true ];
   bool connected = 6 [ (brewblox.field).readonly = true ];
 
   uint32 oneWireBusId = 8 [
-    (brewblox.field).objtype = OneWireBus,
-    (nanopb).int_size = IS_16,
+    (brewblox.field).objtype = OneWireBusInterface,
     (brewblox.field).readonly = true
   ];
   repeated IoArray.IoChannel channels = 9 [
+    (brewblox.field).readonly = true,
     (nanopb).max_count = 2,
-    (nanopb).fixed_length = true,
-    (brewblox.field).readonly = true
+    (nanopb).fixed_length = true
   ];
 
   // "pins" was renamed to "channels".

@@ -16,6 +16,7 @@ export const COMPATIBLE_TYPES: Record<BlockIntfType, BlockType[]> = {
     BlockType.SetpointSensorPair,
   ],
   TempSensorInterface: [
+    BlockType.TempSensorAnalog,
     BlockType.TempSensorCombi,
     BlockType.TempSensorExternal,
     BlockType.TempSensorMock,
@@ -36,7 +37,7 @@ export const COMPATIBLE_TYPES: Record<BlockIntfType, BlockType[]> = {
   ],
   BalancerInterface: [BlockType.Balancer],
   MutexInterface: [BlockType.Mutex],
-  OneWireBusInterface: [BlockType.OneWireGpioModule],
+  OneWireBusInterface: [BlockType.GpioModule],
   OneWireDeviceInterface: [
     BlockType.TempSensorOneWire,
     BlockType.DS2408,
@@ -48,15 +49,17 @@ export const COMPATIBLE_TYPES: Record<BlockIntfType, BlockType[]> = {
     BlockType.DS2413,
     BlockType.Spark2Pins,
     BlockType.Spark3Pins,
-    BlockType.OneWireGpioModule,
+    BlockType.GpioModule,
     BlockType.MockPins,
   ],
-  IoDriverInterface: [
+  IoClaimerInterface: [
     BlockType.DigitalActuator,
     BlockType.MotorValve,
     BlockType.FastPwm,
     BlockType.DigitalInput,
   ],
+  AnalogArrayInterface: [BlockType.GpioModule],
+  AnalogClaimerInterface: [BlockType.TempSensorAnalog],
   DS2408Interface: [BlockType.DS2408],
   EnablerInterface: [
     BlockType.ActuatorAnalogMock,

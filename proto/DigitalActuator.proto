@@ -13,37 +13,41 @@ message Block {
   option (brewblox.msg).impl = ActuatorDigitalInterface;
   option (brewblox.msg).impl = StoredDigitalInterface;
   option (brewblox.msg).impl = ClaimableInterface;
-  option (brewblox.msg).impl = IoDriverInterface;
+  option (brewblox.msg).impl = IoClaimerInterface;
 
   uint32 hwDevice = 1 [
     (brewblox.field).objtype = IoArrayInterface,
-    (nanopb).int_size = IS_16
+    (brewblox.field).stored = true
   ];
-  uint32 channel = 2 [ (nanopb).int_size = IS_8 ];
+  uint32 channel = 2
+      [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
 
-  IoArray.DigitalState storedState = 11 [ (brewblox.field).logged = true ];
+  IoArray.DigitalState storedState = 11
+      [ (brewblox.field).stored = true, (brewblox.field).logged = true ];
   IoArray.DigitalState desiredState = 6
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
   IoArray.DigitalState state = 3
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
 
-  bool invert = 4;
+  bool invert = 4 [ (brewblox.field).stored = true ];
   Constraints.DeprecatedDigitalConstraints constrainedBy = 5;
-  Constraints.DigitalConstraints constraints = 13;
+  Constraints.DigitalConstraints constraints = 13
+      [ (brewblox.field).stored = true ];
 
-  IoArray.TransitionDurationPreset transitionDurationPreset = 7;
-  uint32 transitionDurationSetting = 8
-      [ (brewblox.field).unit = Second, (brewblox.field).scale = 1000 ];
+  IoArray.TransitionDurationPreset transitionDurationPreset = 7
+      [ (brewblox.field).stored = true ];
+  uint32 transitionDurationSetting = 8 [
+    (brewblox.field).unit = Second,
+    (brewblox.field).scale = 1000,
+    (brewblox.field).stored = true
+  ];
   uint32 transitionDurationValue = 9 [
     (brewblox.field).unit = Second,
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true
   ];
 
-  uint32 claimedBy = 10 [
-    (brewblox.field).objtype = Any,
-    (brewblox.field).readonly = true,
-    (nanopb).int_size = IS_16
-  ];
-  Claims.SettingMode settingMode = 12;
+  uint32 claimedBy = 10
+      [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
+  Claims.SettingMode settingMode = 12 [ (brewblox.field).stored = true ];
 }

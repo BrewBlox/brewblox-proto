@@ -6,23 +6,17 @@ import "nanopb.proto";
 package blox.Balancer;
 
 message BalancedActuator {
-  uint32 id = 1 [
-    (brewblox.field).objtype = Any,
-    (brewblox.field).logged = false,
-    (brewblox.field).readonly = true,
-    (nanopb).int_size = IS_16
-  ];
+  uint32 id = 1
+      [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
   sint32 requested = 2 [
-    (brewblox.field).logged = false,
     (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32,
-    (brewblox.field).readonly = true
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_32
   ];
   sint32 granted = 3 [
-    (brewblox.field).logged = false,
     (brewblox.field).scale = 4096,
-    (nanopb).int_size = IS_32,
-    (brewblox.field).readonly = true
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_32
   ];
 }
 
@@ -30,6 +24,5 @@ message Block {
   option (brewblox.msg).objtype = Balancer;
   option (brewblox.msg).impl = BalancerInterface;
 
-  repeated BalancedActuator clients = 1
-      [ (brewblox.field).logged = false, (brewblox.field).readonly = true ];
+  repeated BalancedActuator clients = 1 [ (brewblox.field).readonly = true ];
 }

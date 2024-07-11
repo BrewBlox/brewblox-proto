@@ -20,55 +20,54 @@ message Block {
   option (brewblox.msg).impl = EnablerInterface;
   option (brewblox.msg).impl = ClaimableInterface;
 
-  bool enabled = 10;
+  bool enabled = 10 [ (brewblox.field).stored = true ];
 
   uint32 targetId = 1 [
     (brewblox.field).objtype = SetpointSensorPairInterface,
-    (nanopb).int_size = IS_16
+    (brewblox.field).stored = true
   ];
   uint32 referenceId = 3 [
     (brewblox.field).objtype = SetpointSensorPairInterface,
-    (nanopb).int_size = IS_16
+    (brewblox.field).stored = true
   ];
 
   sint32 storedSetting = 13 [
-    (brewblox.field).logged = true,
     (brewblox.field).unit = DeltaCelsius,
     (brewblox.field).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
   sint32 desiredSetting = 11 [
-    (brewblox.field).logged = true,
-    (brewblox.field).readonly = true,
     (brewblox.field).unit = DeltaCelsius,
     (brewblox.field).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
   sint32 setting = 6 [
-    (brewblox.field).logged = true,
-    (brewblox.field).readonly = true,
     (brewblox.field).unit = DeltaCelsius,
     (brewblox.field).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
   sint32 value = 7 [
-    (brewblox.field).logged = true,
-    (brewblox.field).scale = 4096,
     (brewblox.field).unit = DeltaCelsius,
-    (nanopb).int_size = IS_32,
-    (brewblox.field).readonly = true
-  ];
-
-  ReferenceKind referenceSettingOrValue = 4;
-  Constraints.DeprecatedAnalogConstraints constrainedBy = 8;
-  Constraints.AnalogConstraints constraints = 15;
-
-  uint32 claimedBy = 12 [
-    (brewblox.field).objtype = Any,
+    (brewblox.field).scale = 4096,
+    (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
-    (nanopb).int_size = IS_16
+    (nanopb).int_size = IS_32
   ];
-  Claims.SettingMode settingMode = 14;
+
+  ReferenceKind referenceSettingOrValue = 4 [ (brewblox.field).stored = true ];
+  Constraints.DeprecatedAnalogConstraints constrainedBy = 8;
+  Constraints.AnalogConstraints constraints = 15
+      [ (brewblox.field).stored = true ];
+
+  uint32 claimedBy = 12
+      [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
+  Claims.SettingMode settingMode = 14 [ (brewblox.field).stored = true ];
 
   // Deprecated field
   bool drivenTargetId = 90

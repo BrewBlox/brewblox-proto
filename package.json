@@ -8,5 +8,6 @@
   "license": "GPL-3.0-or-later",
   "dependencies": {
     "typescript-string-enums": "^1.0.0"
-  }
+  },
+  "packageManager": "yarn@4.2.2"
 }

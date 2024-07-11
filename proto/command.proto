@@ -15,11 +15,13 @@ enum Opcode {
   BLOCK_CREATE = 13;
   BLOCK_DELETE = 14;
   BLOCK_DISCOVER = 15;
-  BLOCK_STORED_READ = 16;
-  BLOCK_STORED_READ_ALL = 17;
 
   STORAGE_READ = 20;
   STORAGE_READ_ALL = 21;
+
+  NAME_READ = 50;
+  NAME_READ_ALL = 51;
+  NAME_WRITE = 52;
 
   REBOOT = 30;
   CLEAR_BLOCKS = 31;
@@ -33,6 +35,7 @@ enum ErrorCode {
   OK = 0;
   UNKNOWN_ERROR = 1;
   INVALID_OPCODE = 2;
+  NOT_ALLOWED = 3;
 
   // Memory errors
   INSUFFICIENT_HEAP = 4;
@@ -52,6 +55,7 @@ enum ErrorCode {
   STORAGE_CRC_ERROR = 23;
   STORAGE_WRITE_ERROR = 24;
   STORAGE_ENCODING_ERROR = 25;
+  STORAGE_OUT_OF_BOUNDS_ERROR = 26;
 
   // Invalid actions
   BLOCK_NOT_WRITABLE = 30;
@@ -63,15 +67,19 @@ enum ErrorCode {
   INVALID_BLOCK = 40;
   INVALID_BLOCK_ID = 41;
   INVALID_BLOCK_TYPE = 42;
-  INVALID_BLOCK_SUBTYPE = 43;
   INVALID_BLOCK_CONTENT = 44;
+  INVALID_BLOCK_NAME = 45;
 
   // Invalid stored block data
   INVALID_STORED_BLOCK = 50;
   INVALID_STORED_BLOCK_ID = 51;
   INVALID_STORED_BLOCK_TYPE = 52;
-  INVALID_STORED_BLOCK_SUBTYPE = 53;
   INVALID_STORED_BLOCK_CONTENT = 54;
+  INVALID_STORED_BLOCK_NAME = 55;
+
+  // Invalid block identifiers
+  DUPLICATE_BLOCK_ID = 60;
+  DUPLICATE_BLOCK_NAME = 61;
 }
 
 enum MaskMode {
@@ -80,28 +88,36 @@ enum MaskMode {
   EXCLUSIVE = 2;
 }
 
+enum ReadMode {
+  DEFAULT = 0;
+  STORED = 1;
+  LOGGED = 2;
+}
+
 message MaskField {
   repeated uint32 address = 2
       [ (nanopb).int_size = IS_16, (nanopb).max_count = 4 ];
 }
 
 message Payload {
-  uint32 blockId = 1 [ (nanopb).int_size = IS_16 ];
+  uint32 blockId = 1;
   brewblox.BlockType blockType = 2;
-  uint32 subtype = 3 [ (nanopb).int_size = IS_16 ];
+  string name = 3;
   string content = 4; // Block message: proto encoded, then base64 encoded
   MaskMode maskMode = 6;
   repeated MaskField maskFields = 7;
 }
 
 message Request {
-  uint32 msgId = 1;
+  int32 msgId = 1;
   Opcode opcode = 2;
   Payload payload = 3;
+  ReadMode mode = 4;
 }
 
 message Response {
-  uint32 msgId = 1;
+  int32 msgId = 1;
   ErrorCode error = 2;
   repeated Payload payload = 3;
+  ReadMode mode = 4;
 }

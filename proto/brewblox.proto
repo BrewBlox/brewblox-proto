@@ -41,7 +41,7 @@ enum BlockType {
   OneWireDeviceBlockInterface = 14;
   EnablerInterface = 15;
   ClaimableInterface = 16;
-  IoDriverInterface = 17;
+  IoClaimerInterface = 17;
   SetpointInterface = 18;
   StoredAnalogInterface = 19;
   StoredSetpointInterface = 20;
@@ -49,14 +49,15 @@ enum BlockType {
   ConstrainedAnalogInterface = 22;
   ConstrainedSetpointInterface = 23;
   ConstrainedDigitalInterface = 24;
-  ScanningFactoryInterface = 25;
+  ScanningFactoryInterface = 25; // deprecated
   I2CDiscoverableInterface = 26;
   DigitalInterface = 27;
-  AnalogModuleInterface = 28;
+  AnalogArrayInterface = 28;
+  AnalogClaimerInterface = 29;
   Any = 255;
   SysInfo = 256;
   Ticks = 257; // deprecated
-  OneWireBus = 258;
+  OneWireBus = 258; // deprecated
   BoardPins = 259;
   TempSensorMock = 301;
   TempSensorOneWire = 302;
@@ -70,7 +71,7 @@ enum BlockType {
   Mutex = 310;
   SetpointProfile = 311;
   WiFiSettings = 312;
-  TouchSettings = 313;
+  TouchSettings = 313; // deprecated
   DisplaySettings = 314;
   DS2413 = 315;
   ActuatorOneWire = 316; // deprecated
@@ -82,17 +83,23 @@ enum BlockType {
   ActuatorLogic = 322;
   MockPins = 323;
   TempSensorCombi = 324;
-  OneWireGpioModule = 325;
+  GpioModule = 325;
+  OneWireGpioModule = 325; // old name for backwards compatibility
   Sequence = 326;
   TempSensorExternal = 328;
   FastPwm = 329;
   DigitalInput = 330;
-  PrecisionAnalogModule = 331;
+  Deprecated_AnalogGpioModule = 331; // integrated in Gpio Module
+  AnalogGpioModule = 331; // alias for backwards compatibilty with backups
   TempSensorAnalog = 332;
   Variables = 333;
   ProbeConnector = 400;
   SgProbe = 401;
   // 16001 - 16005 reserved
+  Corrupted = 65532;
+  Deprecated = 65533;
+
+  option allow_alias = true;
 }
 
 message MessageOpts {
@@ -111,6 +118,7 @@ message FieldOpts {
   bool hexed = 4;
   bool readonly = 5;
   bool logged = 6;
+  bool stored = 15;
   bool hexstr = 7;
   bool ignored = 9;
   bool bitfield = 10;
