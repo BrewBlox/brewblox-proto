@@ -28,7 +28,7 @@ enum SgFilterChoice {
 message Block {
   option (brewblox.msg).objtype = SgProbe;
   uint32 probeConnectorId = 1
-      [ (brewblox.field).objtype = ProbeConnector, (nanopb).int_size = IS_16 ];
+      [ (brewblox.field).objtype = ProbeConnector];
   uint32 probeConnectorSlot = 2 [ (nanopb).int_size = IS_8 ];
   bool connected = 3 [ (brewblox.field).logged = true ];
 
