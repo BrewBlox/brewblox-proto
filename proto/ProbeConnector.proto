@@ -10,10 +10,12 @@ message Block {
   option (brewblox.msg).objtype = ProbeConnector;
   option (brewblox.msg).impl = IoArrayInterface;
 
-  repeated GpioModule.Channel channels = 1 [ (nanopb).max_count = 8 ];
-  uint32 modulePosition = 2 [ (nanopb).int_size = IS_8 ];
-  bool useExternalPower = 3;
-  GpioModule.Status status = 4;
+  repeated GpioModule.Channel channels = 1
+      [ (brewblox.field).stored = true, (nanopb).max_count = 8 ];
+  uint32 modulePosition = 2
+      [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
+  bool useExternalPower = 3 [ (brewblox.field).stored = true ];
+  GpioModule.Status status = 4 [ (brewblox.field).readonly = true ];
 
   sint32 baroPressure = 5 [
     (brewblox.field).logged = true,
