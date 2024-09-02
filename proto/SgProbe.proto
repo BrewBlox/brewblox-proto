@@ -7,22 +7,12 @@ package blox.SgProbe;
 
 enum FilterChoice {
   FILTER_NONE = 0;
-  FILTER_3s = 1;
-  FILTER_10s = 2;
-  FILTER_20s = 3;
-  FILTER_40s = 4;
-  FILTER_2m = 5;
-  FILTER_6m = 6;
-}
-
-enum SgFilterChoice {
-  SG_FILTER_20s = 0;
-  SG_FILTER_2m = 1;
-  SG_FILTER_7m = 2;
-  SG_FILTER_15m = 3;
-  SG_FILTER_45m = 4;
-  SG_FILTER_1h30 = 5;
-  SG_FILTER_3h = 6;
+  FILTER_15s = 1;
+  FILTER_45s = 2;
+  FILTER_90s = 3;
+  FILTER_3m = 4;
+  FILTER_10m = 5;
+  FILTER_30m = 6;
 }
 
 message Block {
@@ -113,9 +103,7 @@ message Block {
     (nanopb).int_size = IS_32,
     (brewblox.field).readonly = true
   ];
-  FilterChoice filter = 17 [
-    (brewblox.field).stored = true
-  ];
+  FilterChoice filter = 17 [ (brewblox.field).stored = true ];
 
   sint32 raw1 = 18 [
     (brewblox.field).logged = true,
@@ -178,7 +166,7 @@ message Block {
     (brewblox.field).logged = true
   ];
 
-  SgFilterChoice sgFilter = 29;
+  FilterChoice sgFilter = 29 [ (brewblox.field).stored = true ];
 
   sint32 calibrationBridge1 = 32 [
     (brewblox.field).logged = true,
