@@ -596,6 +596,7 @@ export interface PidBlock extends Block {
     integral: Readonly<number>;
     derivative: Readonly<number>;
     derivativeFilter: Readonly<FilterChoice>;
+    derivativeFilterChoice: FilterChoice;
 
     integralReset: number;
 
