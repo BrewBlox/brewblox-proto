@@ -10,7 +10,17 @@ message Block {
   option (brewblox.msg).objtype = KvdwDigitalModule;
   option (brewblox.msg).impl = IoArrayInterface;
 
-  repeated GpioModule.Channel channels = 1 [ (nanopb).max_count = 8 ];
-  uint32 modulePosition = 2 [ (nanopb).int_size = IS_8 ];
-  GpioModule.Status status = 15;
+  repeated GpioModule.Channel channels = 1 [
+    (nanopb).max_count = 8,
+    (brewblox.field).stored = true
+  ];
+
+  uint32 modulePosition = 2 [
+    (nanopb).int_size = IS_8,
+    (brewblox.field).stored = true
+  ];
+
+  GpioModule.Status status = 15 [
+    (brewblox.field).readonly = true
+  ];
 }

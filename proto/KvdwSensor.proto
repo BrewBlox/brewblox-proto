@@ -16,8 +16,13 @@ message Block {
   option (brewblox.msg).objtype = KvdwSensor;
   option (brewblox.msg).impl = TempSensorInterface;
 
-  KvdwSensorType type = 1;
-  uint32 channel = 2 [ (nanopb).int_size = IS_8 ];
+  KvdwSensorType type = 1 [
+    (brewblox.field).readonly = true
+  ];
+  uint32 channel = 2 [
+    (nanopb).int_size = IS_8,
+    (brewblox.field).readonly = true
+  ];
   sint32 value = 3 [
     (brewblox.field).logged = true,
     (brewblox.field).scale = 4096,
