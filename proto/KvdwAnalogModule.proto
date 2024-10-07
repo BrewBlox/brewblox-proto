@@ -91,4 +91,20 @@ message Block {
     (brewblox.field).readonly = true,
     (brewblox.field).omit_if_zero = true
   ];
+
+  sint32 level4 = 13 [
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true,
+    (brewblox.field).omit_if_zero = true
+  ];
+
+  sint32 level5 = 14 [
+    (brewblox.field).logged = true,
+    (brewblox.field).scale = 4096,
+    (nanopb).int_size = IS_32,
+    (brewblox.field).readonly = true,
+    (brewblox.field).omit_if_zero = true
+  ];
 }
