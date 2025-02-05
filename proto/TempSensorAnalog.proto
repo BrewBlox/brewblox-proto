@@ -42,13 +42,79 @@ message Block {
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
-  sint32 offset = 5 [
-    (brewblox.field).unit = DeltaCelsius,
-    (brewblox.field).scale = 4096,
-    (brewblox.field).stored = true,
-    (nanopb).int_size = IS_32
-  ];
 
   GpioModule.AnalogSensorType detected = 6 [ (brewblox.field).readonly = true ];
   TempSensorAnalogSpec spec = 7 [ (brewblox.field).stored = true ];
-}
+
+  sint32 resistance = 8 [
+    (brewblox.field).unit = Ohm,
+    (brewblox.field).scale = 16384,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).omit_if_zero = true,
+    (nanopb).int_size = IS_32
+  ];
+
+  sint32 spec_r0 = 9 [
+    (brewblox.field).unit = Ohm,
+    (brewblox.field).scale = 16384,
+    (brewblox.field).logged = true,
+    (brewblox.field).omit_if_zero = true,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_32
+  ];
+
+  sint32 spec_a = 10 [
+    (brewblox.field).scale = 268435456,
+    (brewblox.field).logged = true,
+    (brewblox.field).omit_if_zero = true,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_32
+  ];
+
+  sint32 spec_b = 11 [
+    (brewblox.field).scale = 2199023255552,
+    (brewblox.field).logged = true,
+    (brewblox.field).omit_if_zero = true,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_32
+  ];
+
+  sint32 spec_c = 12 [
+    (brewblox.field).scale = 144115188075855872,
+    (brewblox.field).logged = true,
+    (brewblox.field).omit_if_zero = true,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_32
+  ];
+
+  sint32 spec_r0_override = 13 [
+    (brewblox.field).unit = Ohm,
+    (brewblox.field).scale = 16384,
+    (brewblox.field).logged = true,
+    (brewblox.field).omit_if_zero = true,
+    (nanopb).int_size = IS_32
+  ];
+
+  sint32 spec_a_override = 14 [
+    (brewblox.field).scale = 268435456,
+    (brewblox.field).logged = true,
+    (brewblox.field).omit_if_zero = true,
+    (nanopb).int_size = IS_32
+  ];
+
+  sint32 spec_b_override = 15 [
+    (brewblox.field).scale = 2199023255552,
+    (brewblox.field).logged = true,
+    (brewblox.field).omit_if_zero = true,
+    (nanopb).int_size = IS_32
+  ];
+
+  sint32 spec_c_override = 16 [
+    (brewblox.field).scale = 144115188075855872,
+    (brewblox.field).logged = true,
+    (brewblox.field).omit_if_zero = true,
+    (nanopb).int_size = IS_32
+  ];
+};
+

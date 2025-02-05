@@ -166,7 +166,8 @@ message AnalogChannel {
   uint32 claimedBy = 3 [
     (brewblox.field).objtype = AnalogClaimerInterface,
     (brewblox.field).readonly = true
-  ];
+  ]; // currently not used or set, claims are not exclusive
+
   // for RTD: resistance and optionally leadResistance
   // for Gauge: bridgeResistance and bridgeOutput
 
