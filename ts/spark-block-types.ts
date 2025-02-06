@@ -724,9 +724,17 @@ export interface TempSensorAnalogBlock extends Block {
     analogDevice: Link;
     analogChannel: number;
     value: Readonly<Quantity>;
-    offset: Quantity;
     detected: Readonly<AnalogSensorType>;
     spec: TempSensorAnalogSpec;
+    resistance: Readonly<Quantity>;
+    spec_r0: Readonly<Quantity>;
+    spec_a: Readonly<number>;
+    spec_b: Readonly<number>;
+    spec_c: Readonly<number>;
+    spec_r0_override: Quantity;
+    spec_a_override: number;
+    spec_b_override: number;
+    spec_c_override: number;
   };
 }
 // #endregion TempSensorAnalog
