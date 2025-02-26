@@ -135,6 +135,40 @@ message Block {
   SetpointSensorPair.FilterChoice derivativeFilterChoice = 28
       [ (brewblox.field).stored = true ];
 
+  sint32 kff = 29 [
+    (brewblox.field).unit = InverseCelsius,
+    (brewblox.field).scale = 4096,
+    (brewblox.field).stored = true,
+    (nanopb).int_size = IS_32
+  ];
+
+  sint32 ff = 30 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).stored = true,
+    (nanopb).int_size = IS_32
+  ];
+
+  uint32 ambientId = 31 [
+    (brewblox.field).objtype = TempSensorInterface,
+    (brewblox.field).stored = true
+  ];
+
+  sint32 ambientValue = 32 [
+    (brewblox.field).unit = Celsius,
+    (brewblox.field).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_32
+  ];
+
+  sint32 ambientOffset = 33 [
+    (brewblox.field).unit = DeltaCelsius,
+    (brewblox.field).scale = 4096,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_32
+  ];
+
   // Deprecated field
   bool drivenOutputId = 90
       [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
