@@ -575,6 +575,7 @@ export interface PidBlock extends Block {
   data: {
     inputId: Link;
     outputId: Link;
+    ambientId: Link;
 
     inputValue: Readonly<Quantity>;
     inputSetting: Readonly<Quantity>;
@@ -587,16 +588,20 @@ export interface PidBlock extends Block {
     kp: Quantity;
     ti: Quantity;
     td: Quantity;
+    kff: Quantity;
 
     p: Readonly<number>;
     i: Readonly<number>;
     d: Readonly<number>;
+    ff: Readonly<number>;
 
     error: Readonly<Quantity>;
     integral: Readonly<number>;
     derivative: Readonly<number>;
     derivativeFilter: Readonly<FilterChoice>;
     derivativeFilterChoice: FilterChoice;
+    ambientValue: Readonly<Quantity>;
+    ambientOffset: Readonly<Quantity>;
 
     integralReset: number;
 
