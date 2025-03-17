@@ -643,6 +643,7 @@ export interface SetpointProfileBlock extends Block {
     enabled: boolean;
     targetId: Link;
     setting: Readonly<Quantity>;
+    interpolateDisabled: boolean;
   };
 }
 // #endregion SetpointProfile
@@ -666,6 +667,10 @@ export interface SetpointSensorPairBlock extends Block {
 
     claimedBy: Readonly<Link>;
     settingMode: SettingMode;
+
+    rampLimit: Quantity;
+    rampLimitEnabled: boolean;
+    rampLimitDuration: Quantity;
   };
 }
 // #endregion SetpointSensorPair
