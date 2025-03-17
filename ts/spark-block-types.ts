@@ -670,7 +670,7 @@ export interface SetpointSensorPairBlock extends Block {
 
     rampLimit: Quantity;
     rampLimitEnabled: boolean;
-    rampLimitDuration: Quantity;
+    rampDuration: Quantity;
   };
 }
 // #endregion SetpointSensorPair
