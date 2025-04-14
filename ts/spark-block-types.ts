@@ -575,6 +575,7 @@ export interface PidBlock extends Block {
   data: {
     inputId: Link;
     outputId: Link;
+    ambientId: Link;
 
     inputValue: Readonly<Quantity>;
     inputSetting: Readonly<Quantity>;
@@ -587,16 +588,20 @@ export interface PidBlock extends Block {
     kp: Quantity;
     ti: Quantity;
     td: Quantity;
+    kff: Quantity;
 
     p: Readonly<number>;
     i: Readonly<number>;
     d: Readonly<number>;
+    ff: Readonly<number>;
 
     error: Readonly<Quantity>;
     integral: Readonly<number>;
     derivative: Readonly<number>;
     derivativeFilter: Readonly<FilterChoice>;
     derivativeFilterChoice: FilterChoice;
+    ambientValue: Readonly<Quantity>;
+    ambientOffset: Readonly<Quantity>;
 
     integralReset: number;
 
@@ -638,6 +643,7 @@ export interface SetpointProfileBlock extends Block {
     enabled: boolean;
     targetId: Link;
     setting: Readonly<Quantity>;
+    interpolateDisabled: boolean;
   };
 }
 // #endregion SetpointProfile
@@ -661,6 +667,10 @@ export interface SetpointSensorPairBlock extends Block {
 
     claimedBy: Readonly<Link>;
     settingMode: SettingMode;
+
+    rampLimit: Quantity;
+    rampLimitEnabled: boolean;
+    rampDuration: Quantity;
   };
 }
 // #endregion SetpointSensorPair
@@ -724,9 +734,17 @@ export interface TempSensorAnalogBlock extends Block {
     analogDevice: Link;
     analogChannel: number;
     value: Readonly<Quantity>;
-    offset: Quantity;
     detected: Readonly<AnalogSensorType>;
     spec: TempSensorAnalogSpec;
+    resistance: Readonly<Quantity>;
+    spec_r0: Readonly<Quantity>;
+    spec_a: Readonly<number>;
+    spec_b: Readonly<number>;
+    spec_c: Readonly<number>;
+    spec_r0_override: Quantity;
+    spec_a_override: number;
+    spec_b_override: number;
+    spec_c_override: number;
   };
 }
 // #endregion TempSensorAnalog

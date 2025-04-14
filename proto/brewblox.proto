@@ -53,7 +53,7 @@ enum BlockType {
   I2CDiscoverableInterface = 26;
   DigitalInterface = 27;
   AnalogArrayInterface = 28;
-  AnalogClaimerInterface = 29;
+  AnalogClaimerInterface = 29; // not used, no unique claimer atm
   Any = 255;
   SysInfo = 256;
   Ticks = 257; // deprecated
@@ -115,7 +115,7 @@ message FieldOpts {
   option (nanopb_msgopt).skip_message = true;
 
   UnitType unit = 1;
-  uint32 scale = 2;
+  uint64 scale = 2;
   BlockType objtype = 3;
   bool hexed = 4;
   bool readonly = 5;

@@ -46,6 +46,8 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
+  bool interpolateDisabled = 7 [ (brewblox.field).stored = true];
+
   // Deprecated field
   bool drivenTargetId = 90
       [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];

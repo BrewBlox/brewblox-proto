@@ -82,6 +82,21 @@ message Block {
       [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
   Claims.SettingMode settingMode = 14 [ (brewblox.field).stored = true ];
 
+  bool rampLimitEnabled = 16 [ (brewblox.field).stored = true];
+
+  uint32 rampLimit = 17 [
+    (brewblox.field).unit = DeltaCelsius,
+    (brewblox.field).scale = 4096,
+    (brewblox.field).stored = true,
+    (nanopb).int_size = IS_32
+  ];
+
+  uint32 rampDuration = 18 [
+    (brewblox.field).unit = Second,
+    (brewblox.field).stored = true,
+    (nanopb).int_size = IS_32
+  ];
+
   // Renamed field
   bool settingEnabled = 90
       [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
