@@ -53,10 +53,11 @@ enum BlockType {
   I2CDiscoverableInterface = 26;
   DigitalInterface = 27;
   AnalogArrayInterface = 28;
-  AnalogClaimerInterface = 29; // not used, no unique claimer atm
+  AnalogClaimerInterface = 29;
+  PressureSensorInterface = 30;
   Any = 255;
   SysInfo = 256;
-  Ticks = 257; // deprecated
+  Ticks = 257;      // deprecated
   OneWireBus = 258; // deprecated
   BoardPins = 259;
   TempSensorMock = 301;
@@ -93,6 +94,7 @@ enum BlockType {
   AnalogGpioModule = 331; // alias for backwards compatibilty with backups
   TempSensorAnalog = 332;
   Variables = 333;
+  PressureSensor = 334;
   // 16001 - 16005 reserved
   Corrupted = 65532;
   Deprecated = 65533;
