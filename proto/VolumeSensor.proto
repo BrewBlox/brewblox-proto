@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+
+package blox.VolumeSensor;
+
+message Block {
+  option (brewblox.msg).objtype = VolumeSensor;
+  option (brewblox.msg).impl = VolumeSensorInterface;
+
+  reserved 2;
+
+  uint32 pressureDevice = 1 [
+    (brewblox.field).objtype = PressureSensor,
+    (brewblox.field).stored = true
+  ];
+
+  sint32 zeroPressureVolume = 3 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).unit = MilliBar,
+    (brewblox.field).stored = true
+  ];
+
+  sint32 heightPerMbar = 4
+      [ (brewblox.field).scale = 4096, (brewblox.field).stored = true ];
+
+  sint32 mlPerMm = 5
+      [ (brewblox.field).scale = 4096, (brewblox.field).stored = true ];
+
+  sint32 sensorHeight = 6
+      [ (brewblox.field).scale = 4096, (brewblox.field).stored = true ];
+
+  sint32 volume = 9 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
+
+  sint32 height = 10 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
+}

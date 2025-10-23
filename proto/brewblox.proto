@@ -55,6 +55,7 @@ enum BlockType {
   AnalogArrayInterface = 28;
   AnalogClaimerInterface = 29;
   PressureSensorInterface = 30;
+  VolumeSensorInterface = 31;
   Any = 255;
   SysInfo = 256;
   Ticks = 257;      // deprecated
@@ -95,6 +96,7 @@ enum BlockType {
   TempSensorAnalog = 332;
   Variables = 333;
   PressureSensor = 334;
+  VolumeSensor = 335;
   // 16001 - 16005 reserved
   Corrupted = 65532;
   Deprecated = 65533;

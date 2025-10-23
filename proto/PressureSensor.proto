@@ -29,35 +29,56 @@ message Block {
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true
   ];
-  sint32 offset = 5 [
-    (brewblox.field).scale = 262144
-  ];
-  sint32 scale = 6 [
-    (brewblox.field).scale = 16384
-  ];
-  sint32 correctionSlope = 7 [
-    (brewblox.field).scale = 262144
-  ];
-  sint32 calibratedResistance = 8 [
-    (brewblox.field).scale = 16384,
-    (brewblox.field).unit = Ohm
-  ];
-  sint32 resistance = 9 [
+  sint32 resistance = 5 [
     (brewblox.field).scale = 16384,
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
     (brewblox.field).unit = Ohm
   ];
-  sint32 pressureAbsolute = 10 [
+  sint32 pressureAbsolute = 6 [
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
     (brewblox.field).unit = MilliBar
   ];
-  sint32 pressureRelative = 11 [
+  sint32 pressureRelative = 7 [
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
+    (brewblox.field).unit = MilliBar
+  ];
+
+  // Legendre temperature correction model
+  sint32 referenceResistance = 8 [
+    (brewblox.field).scale = 16384,
+    (brewblox.field).unit = Ohm
+  ];
+  sint32 xiMin = 9 [
+    (brewblox.field).scale = 1048576
+  ];
+  sint32 xiMax = 10 [
+    (brewblox.field).scale = 1048576
+  ];
+  sint32 offsetO0 = 11 [
+    (brewblox.field).scale = 1048576
+  ];
+  sint32 offsetO1 = 12 [
+    (brewblox.field).scale = 1048576
+  ];
+  sint32 offsetO2 = 13 [
+    (brewblox.field).scale = 1048576
+  ];
+  sint32 gainS0 = 14 [
+    (brewblox.field).scale = 1048576
+  ];
+  sint32 gainS1 = 15 [
+    (brewblox.field).scale = 1048576
+  ];
+  sint32 gainS2 = 16 [
+    (brewblox.field).scale = 1048576
+  ];
+  sint32 internalPressure = 17 [
+    (brewblox.field).scale = 4096,
     (brewblox.field).unit = MilliBar
   ];
 }
