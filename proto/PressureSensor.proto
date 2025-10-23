@@ -53,11 +53,13 @@ message Block {
     (brewblox.field).scale = 16384,
     (brewblox.field).unit = Ohm
   ];
-  sint32 xiMin = 9 [
-    (brewblox.field).scale = 1048576
+  sint32 rMin = 9 [
+    (brewblox.field).scale = 16384,
+    (brewblox.field).unit = Ohm
   ];
-  sint32 xiMax = 10 [
-    (brewblox.field).scale = 1048576
+  sint32 rMax = 10 [
+    (brewblox.field).scale = 16384,
+    (brewblox.field).unit = Ohm
   ];
   sint32 offsetO0 = 11 [
     (brewblox.field).scale = 1048576
