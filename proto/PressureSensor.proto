@@ -18,7 +18,7 @@ message Block {
 
   PressureSensorType type = 1;
   uint32 analogDevice = 2 [
-    (brewblox.field).objtype = GpioModule,
+    (brewblox.field).objtype = AnalogArrayInterface,
     (brewblox.field).stored = true
   ];
 
@@ -65,27 +65,27 @@ message Block {
     (brewblox.field).stored = true
   ];
   sint32 offsetO0 = 11 [
-    (brewblox.field).scale = 1048576,
+    (brewblox.field).scale = 67108864,
     (brewblox.field).stored = true
   ];
   sint32 offsetO1 = 12 [
-    (brewblox.field).scale = 1048576,
+    (brewblox.field).scale = 67108864,
     (brewblox.field).stored = true
   ];
   sint32 offsetO2 = 13 [
-    (brewblox.field).scale = 1048576,
+    (brewblox.field).scale = 67108864,
     (brewblox.field).stored = true
   ];
   sint32 gainS0 = 14 [
-    (brewblox.field).scale = 1048576,
+    (brewblox.field).scale = 67108864,
     (brewblox.field).stored = true
   ];
   sint32 gainS1 = 15 [
-    (brewblox.field).scale = 1048576,
+    (brewblox.field).scale = 67108864,
     (brewblox.field).stored = true
   ];
   sint32 gainS2 = 16 [
-    (brewblox.field).scale = 1048576,
+    (brewblox.field).scale = 67108864,
     (brewblox.field).stored = true
   ];
   sint32 internalPressure = 17 [
