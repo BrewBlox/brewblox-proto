@@ -16,8 +16,7 @@ message Block {
   ];
 
   sint32 zeroPressureVolume = 3 [
-    (brewblox.field).scale = 4096,
-    (brewblox.field).unit = MilliBar,
+    (brewblox.field).scale = 1024,
     (brewblox.field).stored = true
   ];
 
@@ -28,16 +27,16 @@ message Block {
       [ (brewblox.field).scale = 4096, (brewblox.field).stored = true ];
 
   sint32 sensorHeight = 6
-      [ (brewblox.field).scale = 4096, (brewblox.field).stored = true ];
+      [ (brewblox.field).scale = 1024, (brewblox.field).stored = true ];
 
   sint32 volume = 9 [
-    (brewblox.field).scale = 4096,
+    (brewblox.field).scale = 1024,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true
   ];
 
   sint32 height = 10 [
-    (brewblox.field).scale = 4096,
+    (brewblox.field).scale = 1024,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true
   ];
