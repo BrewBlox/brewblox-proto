@@ -5,6 +5,23 @@ import "nanopb.proto";
 
 package blox.DisplaySettings;
 
+enum VolumeDisplayMode {
+  VOLUME_DISPLAY_MODE_HEIGHT = 0;
+  VOLUME_DISPLAY_MODE_VOLUME = 1;
+  VOLUME_DISPLAY_MODE_VOLUME_SINCE_TARE = 2;
+  VOLUME_DISPLAY_MODE_HEIGHT_SINCE_TARE = 3;
+  VOLUME_DISPLAY_MODE_TARE_BUTTON = 4;
+  VOLUME_DISPLAY_MODE_LIVE_BUTTON = 5;
+}
+
+message VolumeWidget {
+  uint32 volumeSensor = 1 [
+    (brewblox.field).objtype = VolumeSensor,
+    (brewblox.field).stored = true
+  ];
+  VolumeDisplayMode displayMode = 2 [ (brewblox.field).stored = true ];
+}
+
 message Widget {
   uint32 pos = 1 [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
   bytes color = 2 [
@@ -29,6 +46,7 @@ message Widget {
     ];
     uint32 pid = 14
         [ (brewblox.field).objtype = Pid, (brewblox.field).stored = true ];
+    VolumeWidget volumeSensor = 15 [ (brewblox.field).stored = true ];
   };
 }
 

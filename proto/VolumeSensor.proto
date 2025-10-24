@@ -40,4 +40,23 @@ message Block {
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true
   ];
+
+  sint32 volumeSinceTare = 12 [
+    (brewblox.field).scale = 1024,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
+
+  sint32 tareHeight = 13 [
+    (brewblox.field).scale = 1024,
+    (brewblox.field).stored = true
+  ];
+
+  bool live = 15 [ (brewblox.field).stored = true ];
+
+  sint32 heightSinceTare = 14 [
+    (brewblox.field).scale = 1024,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
 }
