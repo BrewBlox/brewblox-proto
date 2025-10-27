@@ -170,6 +170,14 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
+  // Smoothing band for proportional/derivative blending
+  sint32 smoothBand = 34 [
+    (brewblox.field).unit = DeltaCelsius,
+    (brewblox.field).scale = 4096,
+    (brewblox.field).stored = true,
+    (nanopb).int_size = IS_32
+  ];
+
   // Deprecated field
   bool drivenOutputId = 90
       [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
