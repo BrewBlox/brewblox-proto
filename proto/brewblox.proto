@@ -22,6 +22,8 @@ enum UnitType {
   MilliBar = 13;
   Volt = 14;
   Ohm = 15;
+  MilliLiter = 16;
+  MilliLiter_per_second = 17;
 }
 
 enum BlockType {
@@ -56,7 +58,7 @@ enum BlockType {
   AnalogClaimerInterface = 29; // not used, no unique claimer atm
   Any = 255;
   SysInfo = 256;
-  Ticks = 257; // deprecated
+  Ticks = 257;      // deprecated
   OneWireBus = 258; // deprecated
   BoardPins = 259;
   TempSensorMock = 301;
@@ -93,7 +95,6 @@ enum BlockType {
   AnalogGpioModule = 331; // alias for backwards compatibilty with backups
   TempSensorAnalog = 332;
   Variables = 333;
-  // 16001 - 16005 reserved
   Corrupted = 65532;
   Deprecated = 65533;
 
