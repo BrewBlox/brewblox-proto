@@ -30,7 +30,7 @@ message Block {
     (brewblox.field).readonly = true
   ];
   sint32 resistance = 5 [
-    (brewblox.field).scale = 16384,
+    (brewblox.field).scale = 1024,
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
     (brewblox.field).unit = Ohm
@@ -50,17 +50,17 @@ message Block {
 
   // Legendre temperature correction model
   sint32 referenceResistance = 8 [
-    (brewblox.field).scale = 16384,
+    (brewblox.field).scale = 1024,
     (brewblox.field).unit = Ohm,
     (brewblox.field).stored = true
   ];
   sint32 rMin = 9 [
-    (brewblox.field).scale = 16384,
+    (brewblox.field).scale = 1024,
     (brewblox.field).unit = Ohm,
     (brewblox.field).stored = true
   ];
   sint32 rMax = 10 [
-    (brewblox.field).scale = 16384,
+    (brewblox.field).scale = 1024,
     (brewblox.field).unit = Ohm,
     (brewblox.field).stored = true
   ];
