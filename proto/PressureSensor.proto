@@ -65,7 +65,7 @@ message Block {
     (brewblox.field).stored = true
   ];
   sint32 offsetO0 = 11 [
-    (brewblox.field).scale = 67108864,
+    (brewblox.field).scale = 262144,
     (brewblox.field).stored = true
   ];
   sint32 offsetO1 = 12 [
