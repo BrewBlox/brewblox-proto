@@ -1,0 +1,77 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+
+package blox.DensitySensor;
+
+enum DensitySensorMode {
+  DENSITY_SENSOR_MODE_DENSITY = 0;
+  DENSITY_SENSOR_MODE_FLOW = 1;
+}
+
+message Block {
+  option (brewblox.msg).objtype = DensitySensor;
+  option (brewblox.msg).impl = DensitySensorInterface;
+
+  // References (stored)
+  uint32 upperPressure = 1 [
+    (brewblox.field).objtype = PressureSensor,
+    (brewblox.field).stored = true
+  ];
+  uint32 lowerPressure = 2 [
+    (brewblox.field).objtype = PressureSensor,
+    (brewblox.field).stored = true
+  ];
+  uint32 tubeTempSensor = 3 [
+    (brewblox.field).objtype = TempSensorInterface,
+    (brewblox.field).stored = true
+  ];
+
+  // Settings (stored)
+  sint32 sensorSeparation = 4 [
+    (brewblox.field).scale = 1024,
+    (brewblox.field).unit = Millimeter,
+    (brewblox.field).stored = true
+  ];
+  sint32 gravity = 5 [
+    (brewblox.field).scale = 65536,
+    (brewblox.field).stored = true
+  ];
+  sint32 flowCoefficient = 6 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).stored = true
+  ];
+  sint32 flowThreshold = 7 [
+    (brewblox.field).scale = 1048576,
+    (brewblox.field).stored = true
+  ];
+
+  // Outputs (readonly, logged)
+  sint32 specificGravity = 10 [
+    (brewblox.field).scale = 1048576,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
+  sint32 differentialPressure = 11 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).unit = MilliBar,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
+  sint32 flowRate = 12 [
+    (brewblox.field).scale = 65536,
+    (brewblox.field).unit = LiterPerMinute,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
+  sint32 density = 14 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).unit = GramPerLiter,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
+  DensitySensorMode mode = 13 [
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
+}

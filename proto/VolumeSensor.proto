@@ -17,6 +17,7 @@ message Block {
 
   sint32 zeroPressureVolume = 3 [
     (brewblox.field).scale = 1024,
+    (brewblox.field).unit = MilliLiter,
     (brewblox.field).stored = true
   ];
 
@@ -27,28 +28,32 @@ message Block {
       [ (brewblox.field).scale = 4096, (brewblox.field).stored = true ];
 
   sint32 sensorHeight = 6
-      [ (brewblox.field).scale = 1024, (brewblox.field).stored = true ];
+      [ (brewblox.field).scale = 1024, (brewblox.field).unit = Millimeter, (brewblox.field).stored = true ];
 
   sint32 volume = 9 [
     (brewblox.field).scale = 1024,
+    (brewblox.field).unit = MilliLiter,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true
   ];
 
   sint32 height = 10 [
     (brewblox.field).scale = 1024,
+    (brewblox.field).unit = Millimeter,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true
   ];
 
   sint32 volumeSinceTare = 12 [
     (brewblox.field).scale = 1024,
+    (brewblox.field).unit = MilliLiter,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true
   ];
 
   sint32 tareHeight = 13 [
     (brewblox.field).scale = 1024,
+    (brewblox.field).unit = Millimeter,
     (brewblox.field).stored = true
   ];
 
@@ -56,6 +61,7 @@ message Block {
 
   sint32 heightSinceTare = 14 [
     (brewblox.field).scale = 1024,
+    (brewblox.field).unit = Millimeter,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true
   ];
