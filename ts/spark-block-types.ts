@@ -722,6 +722,7 @@ export interface SysInfoBlock extends Block {
     memoryFree: Readonly<number>;
     memoryFreeContiguous: Readonly<number>;
     memoryFreeLowest: Readonly<number>;
+    mainTaskStackFreeLowest: Readonly<number>;
   };
 }
 // #endregion SysInfo

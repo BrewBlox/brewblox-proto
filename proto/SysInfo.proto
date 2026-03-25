@@ -90,6 +90,9 @@ message Block {
   uint32 memoryFreeLowest = 21
       [ (brewblox.field).readonly = true, (brewblox.field).logged = true ];
 
+  uint32 mainTaskStackFreeLowest = 22
+      [ (brewblox.field).readonly = true, (brewblox.field).logged = true ];
+
   // Deprecated fields
   bool command = 90
       [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
