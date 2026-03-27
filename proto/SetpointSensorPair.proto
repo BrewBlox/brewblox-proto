@@ -7,7 +7,15 @@ import "Claims.proto";
 package blox.SetpointSensorPair;
 
 enum FilterChoice {
+  option allow_alias = true;
   FILTER_NONE = 0;
+  SETTLE_IN_13_SAMPLES = 1;
+  SETTLE_IN_47_SAMPLES = 2;
+  SETTLE_IN_112_SAMPLES = 3;
+  SETTLE_IN_241_SAMPLES = 4;
+  SETTLE_IN_649_SAMPLES = 5;
+  SETTLE_IN_1876_SAMPLES = 6;
+  // Deprecated: named after approximate step response time at 1s sample rate
   FILTER_15s = 1;
   FILTER_45s = 2;
   FILTER_90s = 3;
