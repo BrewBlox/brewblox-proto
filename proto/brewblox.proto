@@ -24,6 +24,7 @@ enum UnitType {
   Ohm = 15;
   MilliLiter = 16;
   MilliLiter_per_second = 17;
+  Millisecond = 18;
 }
 
 enum BlockType {

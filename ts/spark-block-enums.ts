@@ -263,12 +263,12 @@ export const ValveState = Enum(
 // #region FilterChoice
 export const FilterChoice = Enum(
   'FILTER_NONE',
-  'FILTER_15s',
-  'FILTER_45s',
-  'FILTER_90s',
-  'FILTER_3m',
-  'FILTER_10m',
-  'FILTER_30m',
+  'SETTLE_IN_13_SAMPLES',
+  'SETTLE_IN_47_SAMPLES',
+  'SETTLE_IN_112_SAMPLES',
+  'SETTLE_IN_241_SAMPLES',
+  'SETTLE_IN_649_SAMPLES',
+  'SETTLE_IN_1876_SAMPLES',
 );
 // #endregion FilterChoice
 

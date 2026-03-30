@@ -105,6 +105,14 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
+  // Measured sensor update interval.
+  // Allows the UI to translate filter choices to 95% step response delays.
+  uint32 updateInterval = 19 [
+    (brewblox.field).unit = Millisecond,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_16
+  ];
+
   // Renamed field
   bool settingEnabled = 90
       [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
