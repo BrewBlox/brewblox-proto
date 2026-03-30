@@ -170,6 +170,13 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
+  sint32 smoothGain = 35 [
+    (brewblox.field).scale = 16384,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_16
+  ];
+
   // Smoothing band for proportional/derivative blending
   sint32 smoothBand = 34 [
     (brewblox.field).unit = DeltaCelsius,
