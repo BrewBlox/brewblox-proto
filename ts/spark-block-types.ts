@@ -608,6 +608,8 @@ export interface PidBlock extends Block {
     boilPointAdjust: Quantity;
     boilMinOutput: number;
     boilModeActive: Readonly<boolean>;
+
+    smoothBand: Quantity;
   };
 }
 // #endregion Pid

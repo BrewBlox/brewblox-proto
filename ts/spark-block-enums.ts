@@ -158,6 +158,7 @@ export const AnalogSensorType = Enum(
   'ANALOG_SENSOR_TYPE_RTD_3WIRE',
   'ANALOG_SENSOR_TYPE_RTD_4WIRE',
   'ANALOG_SENSOR_TYPE_RTD_3WIRE_LS', // not supported now
+  'ANALOG_SENSOR_TYPE_STRAIN_GAUGE_LOW_RESISTANCE',
 );
 // #endregion AnalogModule
 
