@@ -109,6 +109,7 @@ message Block {
   // Allows the UI to translate filter choices to 95% step response delays.
   uint32 updateInterval = 19 [
     (brewblox.field).unit = Millisecond,
+    (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
   ];
