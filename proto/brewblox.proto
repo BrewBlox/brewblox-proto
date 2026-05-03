@@ -24,9 +24,10 @@ enum UnitType {
   Ohm = 15;
   MilliLiter = 16;
   MilliLiterPerSecond = 17;
-  GramPerLiter = 18;
-  LiterPerMinute = 19;
-  Millimeter = 20;
+  Millisecond = 18;
+  GramPerLiter = 19;
+  LiterPerMinute = 20;
+  Millimeter = 21;
 }
 
 enum BlockType {

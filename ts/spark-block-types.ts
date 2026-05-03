@@ -608,6 +608,9 @@ export interface PidBlock extends Block {
     boilPointAdjust: Quantity;
     boilMinOutput: number;
     boilModeActive: Readonly<boolean>;
+
+    smoothBand: Quantity;
+    smoothGain: Readonly<number>;
   };
 }
 // #endregion Pid
@@ -671,6 +674,8 @@ export interface SetpointSensorPairBlock extends Block {
     rampLimit: Quantity;
     rampLimitEnabled: boolean;
     rampDuration: Quantity;
+
+    updateInterval: Readonly<Quantity>;
   };
 }
 // #endregion SetpointSensorPair
