@@ -163,7 +163,7 @@ enum AnalogSensorType {
 
 message AnalogChannel {
   uint32 id = 1 [ (brewblox.field).readonly = true, (nanopb).int_size = IS_8 ];
-  AnalogSensorType sensorType = 2 [ (brewblox.field).stored = true ];
+  AnalogSensorType sensorType = 2 [ (brewblox.field).readonly = true ];
   uint32 claimedBy = 3 [
     (brewblox.field).objtype = AnalogClaimerInterface,
     (brewblox.field).readonly = true
