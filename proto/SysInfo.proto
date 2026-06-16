@@ -19,6 +19,35 @@ enum TemperatureUnit {
   TEMP_FAHRENHEIT = 1;
 };
 
+// Cross-platform reason for the last system reset. Values mirror
+// bloxhal::sysinfo::ResetReason; every platform maps its native reset cause
+// onto this enum (see platform/*/bloxhal_impl/*_sysinfo.cpp).
+enum ResetReason {
+  RESET_REASON_UNKNOWN = 0;
+  RESET_REASON_POWER_ON = 1;
+  RESET_REASON_EXTERNAL = 2;
+  RESET_REASON_SOFTWARE = 3;
+  RESET_REASON_PANIC = 4;
+  RESET_REASON_INTERRUPT_WDT = 5;
+  RESET_REASON_TASK_WDT = 6;
+  RESET_REASON_OTHER_WDT = 7;
+  RESET_REASON_DEEP_SLEEP = 8;
+  RESET_REASON_BROWNOUT = 9;
+  RESET_REASON_SDIO = 10;
+  RESET_REASON_USB = 11;
+  RESET_REASON_JTAG = 12;
+  RESET_REASON_EFUSE = 13;
+  RESET_REASON_POWER_GLITCH = 14;
+  RESET_REASON_CPU_LOCKUP = 15;
+  // Additional cross-platform causes (no ESP equivalent):
+  RESET_REASON_FIRMWARE_UPDATE = 16;
+  RESET_REASON_UPDATE_TIMEOUT = 17;
+  RESET_REASON_FACTORY_RESET = 18;
+  RESET_REASON_SAFE_MODE = 19;
+  RESET_REASON_DFU_MODE = 20;
+  RESET_REASON_USER_REQUESTED = 21;
+};
+
 message Block {
   option (brewblox.msg).objtype = SysInfo;
 
@@ -92,6 +121,8 @@ message Block {
 
   uint32 mainTaskStackFreeLowest = 22
       [ (brewblox.field).readonly = true, (brewblox.field).logged = true ];
+
+  ResetReason resetReason = 23 [ (brewblox.field).readonly = true ];
 
   // Deprecated fields
   bool command = 90
