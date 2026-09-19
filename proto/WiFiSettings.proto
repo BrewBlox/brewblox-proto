@@ -25,10 +25,13 @@ enum Cipher {
 message Block {
   option (brewblox.msg).objtype = WiFiSettings;
 
+  // Write-only
   string ssid = 1 [ (nanopb).max_size = 33 ];
+  // Write-only
   string password = 2 [ (nanopb).max_size = 64 ];
   Security security = 3;
   Cipher cipher = 4;
+  // dBm
   int32 signal = 5 [
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,

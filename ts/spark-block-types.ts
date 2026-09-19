@@ -301,9 +301,9 @@ export interface ActuatorLogicBlock extends Block {
     targetId: Link;
     enabled: boolean;
     result: Readonly<LogicResult>;
-    expression: string;
-    digital: DigitalCompare[];
-    analog: AnalogCompare[];
+    expression: string; // a-zA-Z&|^!()
+    digital: DigitalCompare[]; // a-z
+    analog: AnalogCompare[]; // A-Z
     errorPos: Readonly<number>;
   };
 }
@@ -407,7 +407,7 @@ export interface DigitalInputBlock extends Block {
 
 // #region DisplaySettings
 export interface DisplaySlot {
-  pos: number;
+  pos: number; // 1-indexed
   color: string;
   name: string;
   // oneof WidgetType: at most one is set
@@ -829,11 +829,11 @@ export interface VariablesBlock extends Block {
 export interface WiFiSettingsBlock extends Block {
   type: 'WiFiSettings';
   data: {
-    ssid: string;
-    password: string;
+    ssid: string; // Write-only
+    password: string; // Write-only
     security: WifiSecurityType;
     cipher: WifiCipherType;
-    signal: Readonly<number>;
+    signal: Readonly<number>; // dBm
   };
 }
 // #endregion WiFiSettings

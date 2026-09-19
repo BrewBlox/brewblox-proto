@@ -2,6 +2,7 @@ name: Check generated types
 
 on:
   push:
+    branches: [develop, edge]
   pull_request:
 
 jobs:

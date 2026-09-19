@@ -73,10 +73,13 @@ message Block {
   bool enabled = 3 [ (brewblox.field).stored = true ];
   Result result = 4
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
+  // a-zA-Z&|^!()
   string expression = 5
       [ (brewblox.field).stored = true, (nanopb).max_length = 64 ];
+  // a-z
   repeated DigitalCompare digital = 6
       [ (brewblox.field).stored = true, (nanopb).max_count = 16 ];
+  // A-Z
   repeated AnalogCompare analog = 7
       [ (brewblox.field).stored = true, (nanopb).max_count = 16 ];
   uint32 errorPos = 8
