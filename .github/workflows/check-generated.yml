@@ -1,0 +1,31 @@
+name: Check generated types
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check-generated:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Regenerate ts/ from proto/
+        run: yarn generate
+
+      - name: Fail if ts/ is out of date
+        run: |
+          if ! git diff --exit-code ts/; then
+            echo "::error::ts/ does not match the proto files. Run 'yarn generate' and commit the result."
+            exit 1
+          fi
