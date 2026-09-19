@@ -28,7 +28,12 @@ The generator maps the custom field options declared in `brewblox.proto` to
 TypeScript conventions: `unit` becomes `Quantity`, `objtype` becomes `Link`,
 `readonly` wraps the type in `Readonly<>`, `datetime` becomes
 `DateString | null`, `hexed`/`hexstr`/`ipv4address` become `string`,
-`omit_if_zero` makes the property optional, and `ignored` fields are skipped.
+`omit_if_zero` makes the property optional, `null_if_zero` adds `| null`,
+`bitfield` becomes `number` (or the flag enum named in the generator's
+bit-field table), and `ignored` fields are skipped. `scale`, `logged` and
+`stored` have no effect on the types: `scale` only changes the wire integer
+(the service divides it out), and `logged`/`stored` only select which fields
+a logged or stored read returns.
 A `message Block` with `(brewblox.msg).objtype = X` becomes
 `XBlock extends Block { type: 'X'; data: {...} }`. Enums become
 `typescript-string-enums` enums with the first declared name for each value.

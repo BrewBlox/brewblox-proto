@@ -5,7 +5,10 @@
  * The .proto files are the source of truth. The custom options declared in
  * brewblox.proto (unit, objtype, readonly, datetime, hexstr, ...) carry the
  * information that the TypeScript types encode by convention (Quantity, Link,
- * Readonly<>, DateString, ...). Everything the proto files cannot express is
+ * Readonly<>, DateString, ...). Every FieldOpts option is either mapped to a
+ * type in fieldType() or listed there as deliberately ignored, with the
+ * reason, so a maintainer can tell a forgotten option from an irrelevant one.
+ * Everything the proto files cannot express is
  * kept in the small, commented tables below. Anything not covered by a rule or
  * a table entry is an error, so a proto change that needs a new convention
  * fails loudly instead of producing a quietly wrong type.
@@ -894,6 +897,16 @@ class Generator {
 
   // --- field types ---------------------------------------------------------
 
+  // FieldOpts (brewblox.proto) that deliberately have no effect on the
+  // TypeScript type. Listed here so nobody mistakes them for forgotten ones:
+  // - scale: the wire value is the number multiplied by scale; the service
+  //   divides it out before the API, so the TS type stays `number`.
+  // - logged / stored: read-mode filters in the service (which fields a
+  //   logged or stored read returns); they never change a field's type.
+  // - ignored (and nanopb FT_IGNORE): handled before this method is reached;
+  //   such fields are filtered out in emittedFields().
+  // Every other option (unit, objtype, readonly, datetime, hexed, hexstr,
+  // ipv4address, bitfield, omit_if_zero, null_if_zero) is mapped below.
   fieldType(type, field) {
     const name = `${fq(type)}.${field.name}`;
     const opts = fieldOpts(field);
