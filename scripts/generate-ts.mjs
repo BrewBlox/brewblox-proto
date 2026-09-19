@@ -940,18 +940,27 @@ class Generator {
       fail(`${name}: unsupported field type ${field.type}`);
     }
 
-    let out = base;
-    const union = base.includes('|');
+    // null_if_zero applies per element: the service converts a scalar
+    // field's zero to null, and for a repeated field it converts each zero
+    // element to null (`(T | null)[]`, not `T[] | null`). A unit or objtype
+    // field is unaffected: the null lands inside Quantity.value / Link.id.
+    let element = base;
+    if (opts.null_if_zero && !opts.unit && !opts.objtype) {
+      if (field.map) {
+        fail(`${name}: null_if_zero on a map field has no codec rule`);
+      }
+      element = `${element} | null`;
+    }
+
+    let out = element;
+    const union = element.includes('|');
     if (field.map) {
       if (field.keyType !== 'string') {
         fail(`${name}: only string map keys are supported`);
       }
-      out = `{ [key: string]: ${base} }`;
+      out = `{ [key: string]: ${element} }`;
     } else if (field.repeated) {
-      out = union ? `(${base})[]` : `${base}[]`;
-    }
-    if (opts.null_if_zero && !opts.unit && !opts.objtype && !field.repeated) {
-      out = `${out} | null`;
+      out = union ? `(${element})[]` : `${element}[]`;
     }
     if (NULLABLE_FIELDS.has(name)) {
       out = `${out} | null`;
