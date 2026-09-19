@@ -12,6 +12,7 @@ import {
   GpioPins,
   LogicResult,
   ReferenceKind,
+  ResetReason,
   SensorCombiFunc,
   SequenceError,
   SequenceStatus,
@@ -90,7 +91,7 @@ export interface IoClaimerInterfaceBlock extends Block {
 // #region AnalogChannel
 export interface AnalogModuleChannel {
   id: Readonly<number>;
-  sensorType: AnalogSensorType;
+  sensorType: Readonly<AnalogSensorType>;
   claimedBy: Readonly<Link>;
 
   resistance?: Readonly<Quantity>;
@@ -728,6 +729,7 @@ export interface SysInfoBlock extends Block {
     memoryFreeContiguous: Readonly<number>;
     memoryFreeLowest: Readonly<number>;
     mainTaskStackFreeLowest: Readonly<number>;
+    resetReason: Readonly<ResetReason>;
   };
 }
 // #endregion SysInfo

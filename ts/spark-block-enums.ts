@@ -323,6 +323,34 @@ export const SequenceStoreMode = Enum(
 export const Spark2Hardware = Enum('HW_UNKNOWN', 'HW_SPARK1', 'HW_SPARK2');
 // #endregion Spark2Hardware
 
+// #region ResetReason
+export const ResetReason = Enum(
+  'RESET_REASON_UNKNOWN',
+  'RESET_REASON_POWER_ON',
+  'RESET_REASON_EXTERNAL',
+  'RESET_REASON_SOFTWARE',
+  'RESET_REASON_PANIC',
+  'RESET_REASON_INTERRUPT_WDT',
+  'RESET_REASON_TASK_WDT',
+  'RESET_REASON_OTHER_WDT',
+  'RESET_REASON_DEEP_SLEEP',
+  'RESET_REASON_BROWNOUT',
+  'RESET_REASON_SDIO',
+  'RESET_REASON_USB',
+  'RESET_REASON_JTAG',
+  'RESET_REASON_EFUSE',
+  'RESET_REASON_POWER_GLITCH',
+  'RESET_REASON_CPU_LOCKUP',
+  'RESET_REASON_FIRMWARE_UPDATE',
+  'RESET_REASON_FIRMWARE_UPDATE_FAILED',
+  'RESET_REASON_FIRMWARE_UPDATE_TIMEOUT',
+  'RESET_REASON_FACTORY_RESET',
+  'RESET_REASON_SAFE_MODE',
+  'RESET_REASON_DFU_MODE',
+  'RESET_REASON_USER_REQUESTED',
+);
+// #endregion ResetReason
+
 // #region SparkPlatform
 export const SparkPlatform = Enum(
   'PLATFORM_UNKNOWN',
@@ -411,6 +439,7 @@ export type SequenceStatus = Enum<typeof SequenceStatus>;
 export type SequenceError = Enum<typeof SequenceError>;
 export type SequenceStoreMode = Enum<typeof SequenceStoreMode>;
 export type Spark2Hardware = Enum<typeof Spark2Hardware>;
+export type ResetReason = Enum<typeof ResetReason>;
 export type SparkPlatform = Enum<typeof SparkPlatform>;
 export type TouchCalibrated = Enum<typeof TouchCalibrated>;
 export type WifiSecurityType = Enum<typeof WifiSecurityType>;
