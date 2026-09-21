@@ -6,6 +6,7 @@ import "nanopb.proto";
 package blox.DisplaySettings;
 
 message Widget {
+  // 1-indexed
   uint32 pos = 1 [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
   bytes color = 2 [
     (brewblox.field).hexstr = true,

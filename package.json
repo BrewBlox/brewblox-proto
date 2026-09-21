@@ -6,8 +6,15 @@
   "repository": "git@github.com:brewblox/brewblox-proto.git",
   "author": "BrewPi <dev@brewpi.com>",
   "license": "GPL-3.0-or-later",
+  "scripts": {
+    "generate": "node scripts/generate-ts.mjs"
+  },
   "dependencies": {
     "typescript-string-enums": "^1.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.8",
+    "protobufjs": "7"
   },
   "packageManager": "yarn@4.2.2"
 }
