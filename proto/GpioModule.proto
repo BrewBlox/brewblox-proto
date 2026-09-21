@@ -212,7 +212,11 @@ message AnalogChannel {
 message Block {
   option (brewblox.msg).objtype = GpioModule;
   option (brewblox.msg).impl = IoArrayInterface;
+  // Only one of the next two resolves at runtime: the module detects which
+  // sensor frontend is attached. Both are declared because a setup must be
+  // valid before detection.
   option (brewblox.msg).impl = OneWireBusInterface;
+  option (brewblox.msg).impl = AnalogArrayInterface;
 
   repeated GpioModule.Channel channels = 1
       [ (brewblox.field).stored = true, (nanopb).max_count = 8 ];
