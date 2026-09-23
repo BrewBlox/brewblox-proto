@@ -71,7 +71,7 @@ message Block {
     (brewblox.field).stored = true
   ];
   bool enabled = 3
-      [ (brewblox.field).changed = true, (brewblox.field).stored = true ];
+      [ (brewblox.field).in_changed = true, (brewblox.field).stored = true ];
   Result result = 4
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
   // a-zA-Z&|^!()

@@ -33,7 +33,7 @@ message Block {
   option (brewblox.msg).impl = ClaimableInterface;
 
   bool enabled = 7
-      [ (brewblox.field).changed = true, (brewblox.field).stored = true ];
+      [ (brewblox.field).in_changed = true, (brewblox.field).stored = true ];
 
   uint32 sensorId = 2 [
     (brewblox.field).objtype = TempSensorInterface,
@@ -41,7 +41,7 @@ message Block {
   ];
 
   sint32 storedSetting = 8 [
-    (brewblox.field).changed = true,
+    (brewblox.field).in_changed = true,
     (brewblox.field).unit = Celsius,
     (brewblox.field).scale = 4096,
     (brewblox.field).stored = true,
@@ -91,7 +91,7 @@ message Block {
   uint32 claimedBy = 13
       [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
   Claims.SettingMode settingMode = 14
-      [ (brewblox.field).changed = true, (brewblox.field).stored = true ];
+      [ (brewblox.field).in_changed = true, (brewblox.field).stored = true ];
 
   bool rampLimitEnabled = 16 [ (brewblox.field).stored = true ];
 

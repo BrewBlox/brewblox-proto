@@ -47,7 +47,7 @@ message Block {
   ];
 
   bool enabled = 11 [
-    (brewblox.field).changed = true,
+    (brewblox.field).in_changed = true,
     (brewblox.field).stored = true,
     (brewblox.field).logged = true
   ];

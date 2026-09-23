@@ -308,7 +308,7 @@ message Block {
   option (brewblox.msg).impl = EnablerInterface;
 
   bool enabled = 1 [
-    (brewblox.field).changed = true,
+    (brewblox.field).in_changed = true,
     (brewblox.field).stored = true,
     (brewblox.field).logged = true
   ];
@@ -318,7 +318,7 @@ message Block {
 
   bool overrideState = 3 [ (brewblox.field).stored = true ];
   uint32 activeInstruction = 4 [
-    (brewblox.field).changed = true,
+    (brewblox.field).in_changed = true,
     (brewblox.field).stored = true,
     (brewblox.field).logged = true,
     (nanopb).int_size = IS_16

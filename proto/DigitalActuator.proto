@@ -23,7 +23,7 @@ message Block {
       [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
 
   IoArray.DigitalState storedState = 11 [
-    (brewblox.field).changed = true,
+    (brewblox.field).in_changed = true,
     (brewblox.field).stored = true,
     (brewblox.field).logged = true
   ];
@@ -53,5 +53,5 @@ message Block {
   uint32 claimedBy = 10
       [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
   Claims.SettingMode settingMode = 12
-      [ (brewblox.field).changed = true, (brewblox.field).stored = true ];
+      [ (brewblox.field).in_changed = true, (brewblox.field).stored = true ];
 }

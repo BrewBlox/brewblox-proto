@@ -11,7 +11,7 @@ message Block {
   option (brewblox.msg).impl = EnablerInterface;
 
   bool enabled = 1
-      [ (brewblox.field).changed = true, (brewblox.field).stored = true ];
+      [ (brewblox.field).in_changed = true, (brewblox.field).stored = true ];
   uint32 timeout = 2 [
     (brewblox.field).unit = Second,
     (brewblox.field).stored = true,

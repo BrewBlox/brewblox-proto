@@ -75,7 +75,7 @@ message Block {
   ];
 
   uint32 uptime = 11 [
-    (brewblox.field).skip_changed = true,
+    (brewblox.field).in_changed = false,
     (brewblox.field).unit = Second,
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
@@ -84,7 +84,7 @@ message Block {
   ];
 
   uint32 updatesPerSecond = 12 [
-    (brewblox.field).skip_changed = true,
+    (brewblox.field).in_changed = false,
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
@@ -103,14 +103,14 @@ message Block {
       [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
 
   uint32 voltage5 = 17 [
-    (brewblox.field).skip_changed = true,
+    (brewblox.field).in_changed = false,
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
     (nanopb).int_size = IS_16
   ];
   uint32 voltageExternal = 18 [
-    (brewblox.field).skip_changed = true,
+    (brewblox.field).in_changed = false,
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
@@ -118,23 +118,23 @@ message Block {
   ];
 
   uint32 memoryFree = 19 [
-    (brewblox.field).skip_changed = true,
+    (brewblox.field).in_changed = false,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true
   ];
   uint32 memoryFreeContiguous = 20 [
-    (brewblox.field).skip_changed = true,
+    (brewblox.field).in_changed = false,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true
   ];
   uint32 memoryFreeLowest = 21 [
-    (brewblox.field).skip_changed = true,
+    (brewblox.field).in_changed = false,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true
   ];
 
   uint32 mainTaskStackFreeLowest = 22 [
-    (brewblox.field).skip_changed = true,
+    (brewblox.field).in_changed = false,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true
   ];
