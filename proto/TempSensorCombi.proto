@@ -15,7 +15,7 @@ message Block {
   option (brewblox.msg).objtype = TempSensorCombi;
   option (brewblox.msg).impl = TempSensorInterface;
 
-  sint32 value = 1 [
+  optional sint32 value = 1 [
     (brewblox.field).unit = Celsius,
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,

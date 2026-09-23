@@ -126,9 +126,9 @@ message FieldOpts {
   bool ipv4address = 12;
   bool omit_if_zero = 13;
   bool null_if_zero = 14;
-  // Membership of CHANGED reads; unset means readonly fields only. README.MD,
+  // Leaves a readonly field, or a subtree, out of CHANGED reads: README.MD,
   // Read modes.
-  optional bool in_changed = 16;
+  bool skip_changed = 16;
 }
 
 extend google.protobuf.FieldOptions {

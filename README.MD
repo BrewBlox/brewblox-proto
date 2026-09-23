@@ -72,26 +72,31 @@ sudo snap install --classic protobuf
 
 - `DEFAULT`: every readable field.
 - `STORED`: the fields marked `stored`, what the controller persists.
-- `CHANGED`: the readonly fields, unless `in_changed = false`, plus the fields with
-  `in_changed = true`, without the block name. A `BLOCK_READ_ALL` in this mode returns only the blocks whose CHANGED fields
-  differ from what the previous CHANGED read-all on the same connection returned. The first
-  CHANGED read-all on a connection returns every block, and so does one from any other
-  connection than the one that did the previous CHANGED read-all: one reader per controller.
-  The service polls with this read every second; a `DEFAULT` read every few seconds, at
+- `CHANGED`: the readonly fields, unless `skip_changed`, plus the stored fields the
+  firmware wrote itself since the previous CHANGED read, without the block name. A
+  `BLOCK_READ_ALL` in this mode returns only the blocks whose CHANGED fields differ from
+  what the previous CHANGED read-all on the same connection returned. The first CHANGED
+  read-all on a connection returns every block, and so does one from any other connection
+  than the one that did the previous CHANGED read-all: one reader per controller. The
+  service polls with this read every second; a `DEFAULT` read every few seconds, at
   connect and after any error is its baseline and its recovery.
 
 Decoding a CHANGED payload:
 
 - A message-typed field is traversed when any field below it is covered, and carries only
-  covered fields. A covered field absent from the payload is zero, whether or not its
-  parent is present; an EXCLUSIVE mask entry marks a field invalid, as in every mode.
+  covered fields. A covered field absent from the payload is zero, or invalid when it is
+  `optional`, whether or not its parent is present.
 - A repeated message field is included when any field below it is covered, with complete
   elements: the list replaces the previous one as a whole.
-- `in_changed = false` on a message-typed field prunes its subtree.
+- A stored field marked `optional` is present when the firmware wrote it since the
+  previous CHANGED read (a Sequence instruction, a claim), and then carries its value,
+  default included; absent, it is unchanged.
+- `skip_changed` on a message-typed field prunes its subtree.
 - A block without any covered field never appears in a CHANGED read-all.
 
-The option behind it, `in_changed`, is unset on most fields: readonly fields are in, the
-rest out. `in_changed = false` leaves a readonly field to the full read (clocks, counters,
-readings); `in_changed = true` puts a writable field in, because the firmware moves it by
-itself (a Sequence instruction, a claim). `logged` selects what the service publishes to
-history and does not affect what the firmware sends.
+Presence, in every read mode: a readonly field marked `optional` is nullable, and absent
+means invalid. A readonly field without it is zero when absent. A stored field marked
+`optional` is present in DEFAULT and STORED reads and in the controller's persisted blobs.
+Masks stay what they are for writes; read responses carry none. `skip_changed` leaves a
+readonly field to the full read (clocks, counters, readings). `logged` selects what the
+service publishes to history and does not affect what the firmware sends.

@@ -22,14 +22,11 @@ message Block {
   uint32 channel = 2
       [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
 
-  IoArray.DigitalState storedState = 11 [
-    (brewblox.field).in_changed = true,
-    (brewblox.field).stored = true,
-    (brewblox.field).logged = true
-  ];
-  IoArray.DigitalState desiredState = 6
+  optional IoArray.DigitalState storedState = 11
+      [ (brewblox.field).stored = true, (brewblox.field).logged = true ];
+  optional IoArray.DigitalState desiredState = 6
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
-  IoArray.DigitalState state = 3
+  optional IoArray.DigitalState state = 3
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
 
   bool invert = 4 [ (brewblox.field).stored = true ];
@@ -44,7 +41,7 @@ message Block {
     (brewblox.field).scale = 1000,
     (brewblox.field).stored = true
   ];
-  uint32 transitionDurationValue = 9 [
+  optional uint32 transitionDurationValue = 9 [
     (brewblox.field).unit = Second,
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true
@@ -52,6 +49,6 @@ message Block {
 
   uint32 claimedBy = 10
       [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
-  Claims.SettingMode settingMode = 12
-      [ (brewblox.field).in_changed = true, (brewblox.field).stored = true ];
+  optional Claims.SettingMode settingMode = 12
+      [ (brewblox.field).stored = true ];
 }

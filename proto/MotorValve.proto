@@ -32,16 +32,13 @@ message Block {
   uint32 channel = 2
       [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
 
-  IoArray.DigitalState storedState = 9 [
-    (brewblox.field).in_changed = true,
-    (brewblox.field).stored = true,
-    (brewblox.field).logged = true
-  ];
-  IoArray.DigitalState desiredState = 7
+  optional IoArray.DigitalState storedState = 9
+      [ (brewblox.field).stored = true, (brewblox.field).logged = true ];
+  optional IoArray.DigitalState desiredState = 7
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
-  IoArray.DigitalState state = 3
+  optional IoArray.DigitalState state = 3
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
-  ValveState valveState = 6
+  optional ValveState valveState = 6
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
 
   Constraints.DeprecatedDigitalConstraints constrainedBy = 5;
@@ -50,8 +47,8 @@ message Block {
 
   uint32 claimedBy = 8
       [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
-  Claims.SettingMode settingMode = 10
-      [ (brewblox.field).in_changed = true, (brewblox.field).stored = true ];
+  optional Claims.SettingMode settingMode = 10
+      [ (brewblox.field).stored = true ];
 
   // Deprecated fields
   bool startChannel = 90

@@ -23,7 +23,7 @@ message Block {
   uint32 channel = 2
       [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
 
-  IoArray.DigitalState state = 3
+  optional IoArray.DigitalState state = 3
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
 
   bool invert = 4 [ (brewblox.field).stored = true ];
@@ -33,5 +33,6 @@ message Block {
     (brewblox.field).scale = 1000,
     (brewblox.field).stored = true
   ];
-  IoArray.DigitalState hwState = 7 [ (brewblox.field).readonly = true ];
+  optional IoArray.DigitalState hwState = 7
+      [ (brewblox.field).readonly = true ];
 }
