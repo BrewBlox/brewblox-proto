@@ -22,15 +22,17 @@ message Block {
 
   optional bool enabled = 10 [ (brewblox.field).stored = true ];
 
-  uint32 targetId = 1 [
+  optional uint32 targetId = 1 [
     (brewblox.field).objtype = SetpointSensorPairInterface,
     (brewblox.field).stored = true
   ];
-  uint32 referenceId = 3 [
+  optional uint32 referenceId = 3 [
     (brewblox.field).objtype = SetpointSensorPairInterface,
     (brewblox.field).stored = true
   ];
 
+  // Written without settingMode, it also sets the mode to STORED, unless the
+  // block is claimed.
   optional sint32 storedSetting = 13 [
     (brewblox.field).unit = DeltaCelsius,
     (brewblox.field).scale = 4096,
@@ -60,8 +62,13 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
-  ReferenceKind referenceSettingOrValue = 4 [ (brewblox.field).stored = true ];
-  Constraints.DeprecatedAnalogConstraints constrainedBy = 8;
+  optional ReferenceKind referenceSettingOrValue = 4
+      [ (brewblox.field).stored = true ];
+  // Constraints in their format before 2023-02. A stored record or a restored
+  // backup that still carries them has them converted into `constraints`; no
+  // read carries them.
+  Constraints.DeprecatedAnalogConstraints constrainedBy = 8
+      [ (brewblox.field).skip_changed = true ];
   Constraints.AnalogConstraints constraints = 15
       [ (brewblox.field).stored = true ];
 

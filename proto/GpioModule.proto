@@ -205,6 +205,11 @@ message AnalogChannel {
   ];
 }
 
+message ChannelList {
+  repeated GpioModule.Channel items = 1
+      [ (brewblox.field).stored = true, (nanopb).max_count = 8 ];
+}
+
 message Block {
   option (brewblox.msg).objtype = GpioModule;
   option (brewblox.msg).impl = IoArrayInterface;
@@ -214,11 +219,13 @@ message Block {
   option (brewblox.msg).impl = OneWireBusInterface;
   option (brewblox.msg).impl = AnalogArrayInterface;
 
-  repeated GpioModule.Channel channels = 1
-      [ (brewblox.field).stored = true, (nanopb).max_count = 8 ];
-  uint32 modulePosition = 2
+  // Read at load only: blobs from before the wrapper.
+  repeated GpioModule.Channel channelsLegacy = 1
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_CALLBACK ];
+  ChannelList channels = 22 [ (brewblox.field).stored = true ];
+  optional uint32 modulePosition = 2
       [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
-  bool useExternalPower = 14 [ (brewblox.field).stored = true ];
+  optional bool useExternalPower = 14 [ (brewblox.field).stored = true ];
   GpioModule.Status status = 17 [ (brewblox.field).readonly = true ];
 
   repeated AnalogChannel analogChannels = 20 [

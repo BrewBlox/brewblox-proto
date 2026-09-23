@@ -6,19 +6,19 @@ import "nanopb.proto";
 package blox.Constraints;
 
 message ValueConstraint {
-  sint32 value = 1 [
+  optional sint32 value = 1 [
     (brewblox.field).scale = 4096,
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
 
   // Generic for analog constraints
-  bool enabled = 50 [ (brewblox.field).stored = true ];
+  optional bool enabled = 50 [ (brewblox.field).stored = true ];
   bool limiting = 51 [ (brewblox.field).readonly = true ];
 }
 
 message BalancedConstraint {
-  uint32 balancerId = 1 [
+  optional uint32 balancerId = 1 [
     (brewblox.field).objtype = BalancerInterface,
     (brewblox.field).stored = true
   ];
@@ -26,7 +26,7 @@ message BalancedConstraint {
       [ (brewblox.field).scale = 4096, (brewblox.field).readonly = true ];
 
   // Generic for analog constraints
-  bool enabled = 50 [ (brewblox.field).stored = true ];
+  optional bool enabled = 50 [ (brewblox.field).stored = true ];
   bool limiting = 51 [ (brewblox.field).readonly = true ];
 
   // Deprecated fields
@@ -34,7 +34,7 @@ message BalancedConstraint {
 }
 
 message DurationConstraint {
-  uint32 duration = 1 [
+  optional uint32 duration = 1 [
     (brewblox.field).unit = Second,
     (brewblox.field).scale = 1000,
     (brewblox.field).stored = true,
@@ -42,7 +42,7 @@ message DurationConstraint {
   ];
 
   // Generic for digital constraints
-  bool enabled = 50 [ (brewblox.field).stored = true ];
+  optional bool enabled = 50 [ (brewblox.field).stored = true ];
   bool limiting = 51 [ (brewblox.field).readonly = true ];
   uint32 remaining = 52 [
     (brewblox.field).unit = Second,
@@ -53,11 +53,11 @@ message DurationConstraint {
 }
 
 message MutexedConstraint {
-  uint32 mutexId = 1 [
+  optional uint32 mutexId = 1 [
     (brewblox.field).objtype = MutexInterface,
     (brewblox.field).stored = true
   ];
-  uint32 extraHoldTime = 2 [
+  optional uint32 extraHoldTime = 2 [
     (brewblox.field).unit = Second,
     (brewblox.field).scale = 1000,
     (brewblox.field).stored = true,
@@ -66,7 +66,7 @@ message MutexedConstraint {
   bool hasLock = 4 [ (brewblox.field).readonly = true ];
 
   // Generic for digital constraints
-  bool enabled = 50 [ (brewblox.field).stored = true ];
+  optional bool enabled = 50 [ (brewblox.field).stored = true ];
   bool limiting = 51 [ (brewblox.field).readonly = true ];
   uint32 remaining = 52 [
     (brewblox.field).unit = Second,

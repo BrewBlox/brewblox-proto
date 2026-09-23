@@ -23,13 +23,19 @@ message Point {
   }
 }
 
+message PointList {
+  repeated Point items = 1 [ (brewblox.field).stored = true ];
+}
+
 message Block {
   option (brewblox.msg).objtype = SetpointProfile;
   option (brewblox.msg).impl = EnablerInterface;
 
-  repeated Point points = 1 [ (brewblox.field).stored = true ];
+  // Read at load only: blobs from before the wrapper.
+  repeated Point pointsLegacy = 1 [ (brewblox.field).ignored = true ];
+  PointList points = 8 [ (brewblox.field).stored = true ];
   optional bool enabled = 3 [ (brewblox.field).stored = true ];
-  uint32 targetId = 4 [
+  optional uint32 targetId = 4 [
     (brewblox.field).objtype = SetpointSensorPair,
     (brewblox.field).stored = true
   ];
@@ -46,7 +52,7 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
-  bool interpolateDisabled = 7 [ (brewblox.field).stored = true ];
+  optional bool interpolateDisabled = 7 [ (brewblox.field).stored = true ];
 
   // Deprecated field
   bool drivenTargetId = 90

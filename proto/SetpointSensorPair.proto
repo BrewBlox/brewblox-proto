@@ -34,11 +34,13 @@ message Block {
 
   optional bool enabled = 7 [ (brewblox.field).stored = true ];
 
-  uint32 sensorId = 2 [
+  optional uint32 sensorId = 2 [
     (brewblox.field).objtype = TempSensorInterface,
     (brewblox.field).stored = true
   ];
 
+  // Written without settingMode, it also sets the mode to STORED, unless the
+  // block is claimed.
   optional sint32 storedSetting = 8 [
     (brewblox.field).unit = Celsius,
     (brewblox.field).scale = 4096,
@@ -76,31 +78,31 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
-  FilterChoice filter = 9 [ (brewblox.field).stored = true ];
-  sint32 filterThreshold = 10 [
+  optional FilterChoice filter = 9 [ (brewblox.field).stored = true ];
+  optional sint32 filterThreshold = 10 [
     (brewblox.field).unit = DeltaCelsius,
     (brewblox.field).scale = 4096,
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
 
-  bool resetFilter = 12;
+  optional bool resetFilter = 12;
 
   uint32 claimedBy = 13
       [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
   optional Claims.SettingMode settingMode = 14
       [ (brewblox.field).stored = true ];
 
-  bool rampLimitEnabled = 16 [ (brewblox.field).stored = true ];
+  optional bool rampLimitEnabled = 16 [ (brewblox.field).stored = true ];
 
-  uint32 rampLimit = 17 [
+  optional uint32 rampLimit = 17 [
     (brewblox.field).unit = DeltaCelsius,
     (brewblox.field).scale = 4096,
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
 
-  uint32 rampDuration = 18 [
+  optional uint32 rampDuration = 18 [
     (brewblox.field).unit = Second,
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_32

@@ -91,15 +91,15 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
-  uint32 systemTime = 13
+  optional uint32 systemTime = 13
       [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
 
-  string timeZone = 14
+  optional string timeZone = 14
       [ (brewblox.field).stored = true, (nanopb).max_size = 32 ];
 
-  TemperatureUnit tempUnit = 15 [ (brewblox.field).stored = true ];
+  optional TemperatureUnit tempUnit = 15 [ (brewblox.field).stored = true ];
 
-  uint32 displayBrightness = 16
+  optional uint32 displayBrightness = 16
       [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
 
   uint32 voltage5 = 17 [

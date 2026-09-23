@@ -11,13 +11,16 @@ message Block {
   option (brewblox.msg).impl = EnablerInterface;
 
   optional bool enabled = 1 [ (brewblox.field).stored = true ];
-  uint32 timeout = 2 [
+  optional uint32 timeout = 2 [
     (brewblox.field).unit = Second,
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
 
-  sint32 setting = 3 [
+  // Counts only with the time it arrived: a setting written before the
+  // controller's clock is set has no value until the next one. The service
+  // sets the clock on connect.
+  optional sint32 setting = 3 [
     (brewblox.field).unit = Celsius,
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,

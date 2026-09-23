@@ -62,11 +62,21 @@ message AnalogCompare {
   ];
 };
 
+message DigitalCompareList {
+  repeated DigitalCompare items = 1
+      [ (brewblox.field).stored = true, (nanopb).max_count = 16 ];
+}
+
+message AnalogCompareList {
+  repeated AnalogCompare items = 1
+      [ (brewblox.field).stored = true, (nanopb).max_count = 16 ];
+}
+
 message Block {
   option (brewblox.msg).objtype = ActuatorLogic;
   option (brewblox.msg).impl = EnablerInterface;
 
-  uint32 targetId = 1 [
+  optional uint32 targetId = 1 [
     (brewblox.field).objtype = ActuatorDigitalInterface,
     (brewblox.field).stored = true
   ];
@@ -74,14 +84,17 @@ message Block {
   Result result = 4
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
   // a-zA-Z&|^!()
-  string expression = 5
+  optional string expression = 5
       [ (brewblox.field).stored = true, (nanopb).max_length = 64 ];
+  // Read at load only: blobs from before the wrappers.
+  repeated DigitalCompare digitalLegacy = 6
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_CALLBACK ];
+  repeated AnalogCompare analogLegacy = 7
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_CALLBACK ];
   // a-z
-  repeated DigitalCompare digital = 6
-      [ (brewblox.field).stored = true, (nanopb).max_count = 16 ];
+  DigitalCompareList digital = 9 [ (brewblox.field).stored = true ];
   // A-Z
-  repeated AnalogCompare analog = 7
-      [ (brewblox.field).stored = true, (nanopb).max_count = 16 ];
+  AnalogCompareList analog = 10 [ (brewblox.field).stored = true ];
   uint32 errorPos = 8
       [ (brewblox.field).readonly = true, (nanopb).int_size = IS_8 ];
 

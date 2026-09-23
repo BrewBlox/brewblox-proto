@@ -10,11 +10,11 @@ message Block {
   option (brewblox.msg).objtype = Pid;
   option (brewblox.msg).impl = EnablerInterface;
 
-  uint32 inputId = 1 [
+  optional uint32 inputId = 1 [
     (brewblox.field).objtype = SetpointSensorPairInterface,
     (brewblox.field).stored = true
   ];
-  uint32 outputId = 2 [
+  optional uint32 outputId = 2 [
     (brewblox.field).objtype = ActuatorAnalogInterface,
     (brewblox.field).stored = true
   ];
@@ -51,18 +51,18 @@ message Block {
   bool active = 12
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
 
-  sint32 kp = 13 [
+  optional sint32 kp = 13 [
     (brewblox.field).unit = InverseCelsius,
     (brewblox.field).scale = 4096,
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
-  uint32 ti = 14 [
+  optional uint32 ti = 14 [
     (brewblox.field).unit = Second,
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_16
   ];
-  uint32 td = 15 [
+  optional uint32 td = 15 [
     (brewblox.field).unit = Second,
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_16
@@ -109,19 +109,18 @@ message Block {
   ];
 
   // when non-zero, resets integral to make i equal to what has been sent
-  sint32 integralReset = 23 [
+  optional sint32 integralReset = 23 [
     (brewblox.field).scale = 4096,
-    (brewblox.field).logged = true,
     (nanopb).int_size = IS_32
   ];
 
-  sint32 boilPointAdjust = 24 [
+  optional sint32 boilPointAdjust = 24 [
     (brewblox.field).unit = DeltaCelsius,
     (brewblox.field).scale = 4096,
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
-  sint32 boilMinOutput = 25 [
+  optional sint32 boilMinOutput = 25 [
     (brewblox.field).scale = 4096,
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
@@ -132,10 +131,10 @@ message Block {
   SetpointSensorPair.FilterChoice derivativeFilter = 27
       [ (brewblox.field).readonly = true ];
 
-  SetpointSensorPair.FilterChoice derivativeFilterChoice = 28
+  optional SetpointSensorPair.FilterChoice derivativeFilterChoice = 28
       [ (brewblox.field).stored = true ];
 
-  sint32 kff = 29 [
+  optional sint32 kff = 29 [
     (brewblox.field).unit = InverseCelsius,
     (brewblox.field).scale = 4096,
     (brewblox.field).stored = true,
@@ -149,7 +148,7 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
-  uint32 ambientId = 31 [
+  optional uint32 ambientId = 31 [
     (brewblox.field).objtype = TempSensorInterface,
     (brewblox.field).stored = true
   ];
@@ -178,7 +177,7 @@ message Block {
   ];
 
   // Smoothing band for proportional/derivative blending
-  sint32 smoothBand = 34 [
+  optional sint32 smoothBand = 34 [
     (brewblox.field).unit = DeltaCelsius,
     (brewblox.field).scale = 4096,
     (brewblox.field).stored = true,

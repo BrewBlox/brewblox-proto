@@ -16,19 +16,20 @@ message Block {
   option (brewblox.msg).impl = DigitalInterface;
   option (brewblox.msg).impl = IoClaimerInterface;
 
-  uint32 hwDevice = 1 [
+  // A new device clears channel, unless the same write sets it.
+  optional uint32 hwDevice = 1 [
     (brewblox.field).objtype = IoArrayInterface,
     (brewblox.field).stored = true
   ];
-  uint32 channel = 2
+  optional uint32 channel = 2
       [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
 
   optional IoArray.DigitalState state = 3
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
 
-  bool invert = 4 [ (brewblox.field).stored = true ];
-  ToggleBehavior behavior = 5 [ (brewblox.field).stored = true ];
-  uint32 minActiveTime = 6 [
+  optional bool invert = 4 [ (brewblox.field).stored = true ];
+  optional ToggleBehavior behavior = 5 [ (brewblox.field).stored = true ];
+  optional uint32 minActiveTime = 6 [
     (brewblox.field).unit = Second,
     (brewblox.field).scale = 1000,
     (brewblox.field).stored = true

@@ -25,13 +25,16 @@ message Block {
   option (brewblox.msg).impl = ClaimableInterface;
   option (brewblox.msg).impl = IoClaimerInterface;
 
-  uint32 hwDevice = 1 [
+  // A new device clears channel, unless the same write sets it.
+  optional uint32 hwDevice = 1 [
     (brewblox.field).objtype = DS2408Interface,
     (brewblox.field).stored = true
   ];
-  uint32 channel = 2
+  optional uint32 channel = 2
       [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
 
+  // Written without settingMode, it also sets the mode to STORED, unless the
+  // block is claimed.
   optional IoArray.DigitalState storedState = 9
       [ (brewblox.field).stored = true, (brewblox.field).logged = true ];
   optional IoArray.DigitalState desiredState = 7
@@ -41,7 +44,11 @@ message Block {
   optional ValveState valveState = 6
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
 
-  Constraints.DeprecatedDigitalConstraints constrainedBy = 5;
+  // Constraints in their format before 2023-02. A stored record or a restored
+  // backup that still carries them has them converted into `constraints`; no
+  // read carries them.
+  Constraints.DeprecatedDigitalConstraints constrainedBy = 5
+      [ (brewblox.field).skip_changed = true ];
   Constraints.DigitalConstraints constraints = 11
       [ (brewblox.field).stored = true ];
 

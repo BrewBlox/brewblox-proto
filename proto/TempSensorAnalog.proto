@@ -26,13 +26,14 @@ message Block {
   option (brewblox.msg).impl = TempSensorInterface;
   option (brewblox.msg).impl = AnalogClaimerInterface;
 
-  TempSensorAnalogType sensorType = 1 [ (brewblox.field).stored = true ];
+  optional TempSensorAnalogType sensorType = 1
+      [ (brewblox.field).stored = true ];
 
-  uint32 analogDevice = 2 [
+  optional uint32 analogDevice = 2 [
     (brewblox.field).objtype = AnalogArrayInterface,
     (brewblox.field).stored = true
   ];
-  uint32 analogChannel = 3
+  optional uint32 analogChannel = 3
       [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
 
   optional sint32 value = 4 [
@@ -44,7 +45,7 @@ message Block {
   ];
 
   GpioModule.AnalogSensorType detected = 6 [ (brewblox.field).readonly = true ];
-  TempSensorAnalogSpec spec = 7 [ (brewblox.field).stored = true ];
+  optional TempSensorAnalogSpec spec = 7 [ (brewblox.field).stored = true ];
 
   sint32 resistance = 8 [
     (brewblox.field).unit = Ohm,
@@ -88,7 +89,8 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
-  sint32 spec_r0_override = 13 [
+  optional sint32 spec_r0_override = 13 [
+    (brewblox.field).stored = true,
     (brewblox.field).unit = Ohm,
     (brewblox.field).scale = 16384,
     (brewblox.field).logged = true,
@@ -96,21 +98,24 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
-  sint32 spec_a_override = 14 [
+  optional sint32 spec_a_override = 14 [
+    (brewblox.field).stored = true,
     (brewblox.field).scale = 268435456,
     (brewblox.field).logged = true,
     (brewblox.field).omit_if_zero = true,
     (nanopb).int_size = IS_32
   ];
 
-  sint32 spec_b_override = 15 [
+  optional sint32 spec_b_override = 15 [
+    (brewblox.field).stored = true,
     (brewblox.field).scale = 2199023255552,
     (brewblox.field).logged = true,
     (brewblox.field).omit_if_zero = true,
     (nanopb).int_size = IS_32
   ];
 
-  sint32 spec_c_override = 16 [
+  optional sint32 spec_c_override = 16 [
+    (brewblox.field).stored = true,
     (brewblox.field).scale = 144115188075855872,
     (brewblox.field).logged = true,
     (brewblox.field).omit_if_zero = true,

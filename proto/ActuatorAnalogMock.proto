@@ -17,6 +17,8 @@ message Block {
 
   optional bool enabled = 13 [ (brewblox.field).stored = true ];
 
+  // Written without settingMode, it also sets the mode to STORED, unless the
+  // block is claimed.
   optional sint32 storedSetting = 11 [
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
@@ -42,28 +44,32 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
-  sint32 minSetting = 4 [
+  optional sint32 minSetting = 4 [
     (brewblox.field).scale = 4096,
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
-  sint32 maxSetting = 5 [
+  optional sint32 maxSetting = 5 [
     (brewblox.field).scale = 4096,
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
-  sint32 minValue = 6 [
+  optional sint32 minValue = 6 [
     (brewblox.field).scale = 4096,
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
-  sint32 maxValue = 7 [
+  optional sint32 maxValue = 7 [
     (brewblox.field).scale = 4096,
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
 
-  Constraints.DeprecatedAnalogConstraints constrainedBy = 8;
+  // Constraints in their format before 2023-02. A stored record or a restored
+  // backup that still carries them has them converted into `constraints`; no
+  // read carries them.
+  Constraints.DeprecatedAnalogConstraints constrainedBy = 8
+      [ (brewblox.field).skip_changed = true ];
   Constraints.AnalogConstraints constraints = 14
       [ (brewblox.field).stored = true ];
 
