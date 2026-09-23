@@ -485,7 +485,7 @@ export interface GpioModuleChannel extends IoChannel {
   name: string;
   capabilities: Readonly<ChannelCapabilities>;
   claimedBy: Readonly<Link>;
-  errorFlags: GpioErrorFlags;
+  errorFlags: Readonly<GpioErrorFlags>;
 }
 
 export interface GpioModuleStatus {

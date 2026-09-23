@@ -15,7 +15,8 @@ message Block {
   option (brewblox.msg).impl = EnablerInterface;
   option (brewblox.msg).impl = ClaimableInterface;
 
-  bool enabled = 8 [ (brewblox.field).stored = true ];
+  bool enabled = 8
+      [ (brewblox.field).changed = true, (brewblox.field).stored = true ];
 
   uint32 actuatorId = 1 [
     (brewblox.field).objtype = ActuatorDigitalInterface,
@@ -23,6 +24,7 @@ message Block {
   ];
 
   sint32 storedSetting = 11 [
+    (brewblox.field).changed = true,
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
     (brewblox.field).stored = true,
@@ -58,7 +60,8 @@ message Block {
 
   uint32 claimedBy = 10
       [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
-  Claims.SettingMode settingMode = 12 [ (brewblox.field).stored = true ];
+  Claims.SettingMode settingMode = 12
+      [ (brewblox.field).changed = true, (brewblox.field).stored = true ];
 
   // Deprecated field
   bool drivenActuatorId = 90

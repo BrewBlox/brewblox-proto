@@ -20,7 +20,8 @@ message Block {
   option (brewblox.msg).impl = EnablerInterface;
   option (brewblox.msg).impl = ClaimableInterface;
 
-  bool enabled = 10 [ (brewblox.field).stored = true ];
+  bool enabled = 10
+      [ (brewblox.field).changed = true, (brewblox.field).stored = true ];
 
   uint32 targetId = 1 [
     (brewblox.field).objtype = SetpointSensorPairInterface,
@@ -32,6 +33,7 @@ message Block {
   ];
 
   sint32 storedSetting = 13 [
+    (brewblox.field).changed = true,
     (brewblox.field).unit = DeltaCelsius,
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
@@ -67,7 +69,8 @@ message Block {
 
   uint32 claimedBy = 12
       [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
-  Claims.SettingMode settingMode = 14 [ (brewblox.field).stored = true ];
+  Claims.SettingMode settingMode = 14
+      [ (brewblox.field).changed = true, (brewblox.field).stored = true ];
 
   // Deprecated field
   bool drivenTargetId = 90

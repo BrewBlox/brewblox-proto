@@ -46,8 +46,11 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
-  bool enabled = 11
-      [ (brewblox.field).stored = true, (brewblox.field).logged = true ];
+  bool enabled = 11 [
+    (brewblox.field).changed = true,
+    (brewblox.field).stored = true,
+    (brewblox.field).logged = true
+  ];
   bool active = 12
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
 

@@ -903,6 +903,9 @@ class Generator {
   //   divides it out before the API, so the TS type stays `number`.
   // - logged / stored: read-mode filters in the service (which fields a
   //   logged or stored read returns); they never change a field's type.
+  // - skip_changed / changed: what the firmware puts in a CHANGED read (the
+  //   1 s poll: readonly fields unless skip_changed, plus changed fields);
+  //   they never change a field's type.
   // - ignored (and nanopb FT_IGNORE): handled before this method is reached;
   //   such fields are filtered out in emittedFields().
   // Every other option (unit, objtype, readonly, datetime, hexed, hexstr,

@@ -24,11 +24,13 @@ message Block {
   bool enableIoSupply12V = 3 [ (brewblox.field).stored = true ];
   bool soundAlarm = 5;
   uint32 voltage5 = 6 [
+    (brewblox.field).skip_changed = true,
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
   ];
   uint32 voltage12 = 7 [
+    (brewblox.field).skip_changed = true,
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16

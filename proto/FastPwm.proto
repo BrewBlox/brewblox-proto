@@ -17,7 +17,8 @@ message Block {
   option (brewblox.msg).impl = ClaimableInterface;
   option (brewblox.msg).impl = IoClaimerInterface;
 
-  bool enabled = 8 [ (brewblox.field).stored = true ];
+  bool enabled = 8
+      [ (brewblox.field).changed = true, (brewblox.field).stored = true ];
 
   uint32 hwDevice = 1 [
     (brewblox.field).objtype = IoArrayInterface,
@@ -27,6 +28,7 @@ message Block {
       [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
 
   sint32 storedSetting = 14 [
+    (brewblox.field).changed = true,
     (brewblox.field).scale = 4096,
     (brewblox.field).stored = true,
     (brewblox.field).logged = true,
@@ -72,5 +74,6 @@ message Block {
 
   uint32 claimedBy = 13
       [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
-  Claims.SettingMode settingMode = 15 [ (brewblox.field).stored = true ];
+  Claims.SettingMode settingMode = 15
+      [ (brewblox.field).changed = true, (brewblox.field).stored = true ];
 }

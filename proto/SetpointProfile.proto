@@ -28,7 +28,8 @@ message Block {
   option (brewblox.msg).impl = EnablerInterface;
 
   repeated Point points = 1 [ (brewblox.field).stored = true ];
-  bool enabled = 3 [ (brewblox.field).stored = true ];
+  bool enabled = 3
+      [ (brewblox.field).changed = true, (brewblox.field).stored = true ];
   uint32 targetId = 4 [
     (brewblox.field).objtype = SetpointSensorPair,
     (brewblox.field).stored = true
@@ -41,12 +42,13 @@ message Block {
     (nanopb).int_size = IS_32
   ];
   uint32 start = 6 [
+    (brewblox.field).changed = true,
     (brewblox.field).datetime = true,
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
 
-  bool interpolateDisabled = 7 [ (brewblox.field).stored = true];
+  bool interpolateDisabled = 7 [ (brewblox.field).stored = true ];
 
   // Deprecated field
   bool drivenTargetId = 90

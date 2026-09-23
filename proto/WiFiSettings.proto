@@ -33,6 +33,7 @@ message Block {
   Cipher cipher = 4;
   // dBm
   int32 signal = 5 [
+    (brewblox.field).skip_changed = true,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
     (nanopb).int_size = IS_8

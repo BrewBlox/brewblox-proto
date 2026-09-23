@@ -307,14 +307,18 @@ message Block {
   option (brewblox.msg).objtype = Sequence;
   option (brewblox.msg).impl = EnablerInterface;
 
-  bool enabled = 1
-      [ (brewblox.field).stored = true, (brewblox.field).logged = true ];
+  bool enabled = 1 [
+    (brewblox.field).changed = true,
+    (brewblox.field).stored = true,
+    (brewblox.field).logged = true
+  ];
   repeated Instruction instructions = 2 [ (brewblox.field).stored = true ];
   uint32 variablesId = 11
       [ (brewblox.field).objtype = Variables, (brewblox.field).stored = true ];
 
   bool overrideState = 3 [ (brewblox.field).stored = true ];
   uint32 activeInstruction = 4 [
+    (brewblox.field).changed = true,
     (brewblox.field).stored = true,
     (brewblox.field).logged = true,
     (nanopb).int_size = IS_16

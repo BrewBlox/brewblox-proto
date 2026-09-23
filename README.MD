@@ -31,10 +31,12 @@ TypeScript conventions: `unit` becomes `Quantity`, `objtype` becomes `Link`,
 `omit_if_zero` makes the property optional, `null_if_zero` adds `| null` to
 each element (so a repeated field becomes `(T | null)[]`),
 `bitfield` becomes `number` (or the flag enum named in the generator's
-bit-field table), and `ignored` fields are skipped. `scale`, `logged` and
-`stored` have no effect on the types: `scale` only changes the wire integer
-(the service divides it out), and `logged`/`stored` only select which fields
-a logged or stored read returns.
+bit-field table), and `ignored` fields are skipped. `scale`, `logged`,
+`stored`, `skip_changed` and `changed` have no effect on the types: `scale`
+only changes the wire integer (the service divides it out), `logged` selects
+what the service publishes to history, `stored` what a stored read returns,
+and `skip_changed`/`changed` what the firmware puts in a changed read (the
+1 s poll: readonly fields unless `skip_changed`, plus `changed` fields).
 A `message Block` with `(brewblox.msg).objtype = X` becomes
 `XBlock extends Block { type: 'X'; data: {...} }`. Enums become
 `typescript-string-enums` enums with the first declared name for each value.
