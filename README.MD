@@ -35,8 +35,8 @@ bit-field table), and `ignored` fields are skipped. `scale`, `logged`,
 `stored`, `skip_changed` and `changed` have no effect on the types: `scale`
 only changes the wire integer (the service divides it out), `logged` selects
 what the service publishes to history, `stored` what a stored read returns,
-and `skip_changed`/`changed` what the firmware puts in a changed read (the
-1 s poll: readonly fields unless `skip_changed`, plus `changed` fields).
+and `skip_changed`/`changed` select the fields of a changed read (Read modes,
+below).
 A `message Block` with `(brewblox.msg).objtype = X` becomes
 `XBlock extends Block { type: 'X'; data: {...} }`. Enums become
 `typescript-string-enums` enums with the first declared name for each value.
@@ -66,3 +66,35 @@ These files are not generated:
 Install protobuf compiler:
 
 sudo snap install --classic protobuf
+
+## Read modes
+
+`ReadMode` in `command.proto` selects the fields a block read returns:
+
+- `DEFAULT`: every readable field.
+- `STORED`: the fields marked `stored`, what the controller persists.
+- `CHANGED`: the fields marked `readonly` or `changed` and not `skip_changed`, without the
+  block name. A `BLOCK_READ_ALL` in this mode returns only the blocks whose CHANGED fields
+  differ from what the previous CHANGED read-all on the same connection returned. The first
+  CHANGED read-all on a connection returns every block, and so does one from any other
+  connection than the one that did the previous CHANGED read-all: one reader per controller.
+  The service polls with this read every second; a `DEFAULT` read every few seconds, at
+  connect and after any error is its baseline and its recovery.
+
+Decoding a CHANGED payload:
+
+- A message-typed field is traversed when any field below it is covered, and carries only
+  covered fields. A covered field absent from the payload is zero, whether or not its
+  parent is present; an EXCLUSIVE mask entry marks a field invalid, as in every mode.
+- A repeated message field is included when any field below it is covered, with complete
+  elements: the list replaces the previous one as a whole.
+- `skip_changed` on a message-typed field prunes its subtree.
+- A block without any covered field never appears in a CHANGED read-all.
+
+The field options behind it:
+
+- `skip_changed`: a readonly field left to the full read (clocks, counters, readings).
+- `changed`: a writable field the firmware moves by itself (a Sequence instruction, a
+  claim), so a changed read reports it.
+- `logged`: what the service publishes to history. It does not affect what the firmware
+  sends.

@@ -126,12 +126,7 @@ message FieldOpts {
   bool ipv4address = 12;
   bool omit_if_zero = 13;
   bool null_if_zero = 14;
-  // What a CHANGED read (the 1 s poll) carries: every readonly field that is
-  // not skip_changed, plus every changed field. Both describe firmware
-  // behaviour; logged is the history pickup and plays no part.
-  // skip_changed: readonly, but left to the full read (clocks, counters,
-  // resource readings). changed: writable, but moved by the firmware itself
-  // (a Sequence instruction, a claim), so a changed read reports it.
+  // Membership of CHANGED reads: README.MD, Read modes.
   bool skip_changed = 16;
   bool changed = 17;
 }

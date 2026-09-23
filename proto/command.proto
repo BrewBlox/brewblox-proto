@@ -94,10 +94,8 @@ enum MaskMode {
 enum ReadMode {
   DEFAULT = 0;
   STORED = 1;
-  // The 1 s poll: readonly and changed fields, not skip_changed ones, no
-  // block name. Was LOGGED, same wire value. A BLOCK_READ_ALL carries only the
-  // blocks whose changed set differs from the previous CHANGED read-all on the
-  // same connection; the first on a connection carries every block.
+  // Only what changed since the previous CHANGED read-all: README.MD, Read
+  // modes.
   CHANGED = 2;
 }
 
