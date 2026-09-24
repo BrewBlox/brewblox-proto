@@ -221,19 +221,6 @@ const SKIPPED_FIELDS = new Set([
   'blox.MotorValve.Block.constrainedBy',
 ]);
 
-// Readonly enum fields the UI treats as nullable. Nothing in the proto or the
-// codec produces null for them; this is a UI convention kept for now. Drop
-// the entries once the UI is checked to tolerate the change.
-const NULLABLE_FIELDS = new Set([
-  'blox.DigitalActuator.Block.desiredState',
-  'blox.DigitalActuator.Block.state',
-  'blox.DigitalInput.Block.state',
-  'blox.DigitalInput.Block.hwState',
-  'blox.MotorValve.Block.desiredState',
-  'blox.MotorValve.Block.state',
-  'blox.MotorValve.Block.valveState',
-]);
-
 // Singular submessage fields are required by default (the firmware always
 // sets block-level submessages). The members of the constraint collections
 // are chosen by the user, and json_format omits unset submessages.
@@ -989,7 +976,15 @@ class Generator {
     } else if (field.repeated) {
       out = union ? `(${element})[]` : `${element}[]`;
     }
-    if (NULLABLE_FIELDS.has(name)) {
+    // A readonly field marked optional is absent while the block reports it
+    // invalid, and the service sends null for it. A unit or objtype field
+    // is unaffected: the null lands inside Quantity.value / Link.id.
+    if (
+      opts.readonly &&
+      field.options?.proto3_optional &&
+      !opts.unit &&
+      !opts.objtype
+    ) {
       out = `${out} | null`;
     }
     if (opts.readonly) {
