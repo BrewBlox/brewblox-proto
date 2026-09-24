@@ -678,6 +678,8 @@ export interface SetpointSensorPairBlock extends Block {
     rampDuration: Quantity;
     // Measured sensor update interval.
     // Allows the UI to translate filter choices to 95% step response delays.
+    // It jitters by milliseconds from sample to sample, so a changed read
+    // leaves it to the full read.
     updateInterval: Readonly<Quantity>;
   };
 }

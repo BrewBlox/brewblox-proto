@@ -113,9 +113,12 @@ message Block {
 
   // Measured sensor update interval.
   // Allows the UI to translate filter choices to 95% step response delays.
+  // It jitters by milliseconds from sample to sample, so a changed read
+  // leaves it to the full read.
   uint32 updateInterval = 19 [
     (brewblox.field).unit = Millisecond,
     (brewblox.field).readonly = true,
+    (brewblox.field).skip_changed = true,
     (nanopb).int_size = IS_16
   ];
 
