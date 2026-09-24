@@ -33,12 +33,24 @@ message Widget {
   };
 }
 
+message WidgetList {
+  repeated Widget items = 1
+      [ (brewblox.field).stored = true, (nanopb).max_count = 6 ];
+}
+
 message Block {
   option (brewblox.msg).objtype = DisplaySettings;
 
-  repeated Widget widgets = 1
-      [ (brewblox.field).stored = true, (nanopb).max_count = 6 ];
-  string name = 2 [ (brewblox.field).stored = true, (nanopb).max_size = 40 ];
+  // The settings that moved to SysInfo had these numbers; old records still
+  // carry them.
+  reserved 3, 4, 5;
+
+  // Read at load only: blobs from before the wrapper.
+  repeated Widget widgetsLegacy = 1
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_CALLBACK ];
+  WidgetList widgets = 6 [ (brewblox.field).stored = true ];
+  optional string name = 2
+      [ (brewblox.field).stored = true, (nanopb).max_size = 40 ];
 
   // Deprecated fields
   bool brightness = 90

@@ -85,30 +85,25 @@ enum ErrorCode {
   DUPLICATE_BLOCK_NAME = 61;
 }
 
-enum MaskMode {
-  NO_MASK = 0;
-  INCLUSIVE = 1;
-  EXCLUSIVE = 2;
-}
-
 enum ReadMode {
   DEFAULT = 0;
   STORED = 1;
-  LOGGED = 2;
+  // Only what changed since the previous CHANGED read-all: README.MD, Read
+  // modes.
+  CHANGED = 2;
 }
 
-message MaskField {
-  repeated uint32 address = 2
-      [ (nanopb).int_size = IS_16, (nanopb).max_count = 4 ];
-}
-
+// A write applies the fields present in the content and keeps the rest:
+// README.MD, Writes.
 message Payload {
   uint32 blockId = 1;
   brewblox.BlockType blockType = 2;
   string name = 3;
   string content = 4; // Block message: proto encoded, then base64 encoded
-  MaskMode maskMode = 6;
-  repeated MaskField maskFields = 7;
+
+  // The mask fields, removed with writes by presence.
+  reserved 6, 7;
+  reserved "maskMode", "maskFields";
 }
 
 message Request {

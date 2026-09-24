@@ -31,10 +31,13 @@ TypeScript conventions: `unit` becomes `Quantity`, `objtype` becomes `Link`,
 `omit_if_zero` makes the property optional, `null_if_zero` adds `| null` to
 each element (so a repeated field becomes `(T | null)[]`),
 `bitfield` becomes `number` (or the flag enum named in the generator's
-bit-field table), and `ignored` fields are skipped. `scale`, `logged` and
-`stored` have no effect on the types: `scale` only changes the wire integer
-(the service divides it out), and `logged`/`stored` only select which fields
-a logged or stored read returns.
+bit-field table), and `ignored` fields are skipped. A list wrapper, a message
+whose one field is the repeated or map field `items`, becomes that field's type:
+the service's API carries the list without the wrapper (Writes, below).
+`scale`, `logged`, `stored` and `skip_changed` have no effect on the types:
+`scale` only changes the wire integer (the service divides it out), `logged`
+selects what the service publishes to history, `stored` what a stored read
+returns, and `skip_changed` what a changed read leaves out (Read modes, below).
 A `message Block` with `(brewblox.msg).objtype = X` becomes
 `XBlock extends Block { type: 'X'; data: {...} }`. Enums become
 `typescript-string-enums` enums with the first declared name for each value.
@@ -64,3 +67,59 @@ These files are not generated:
 Install protobuf compiler:
 
 sudo snap install --classic protobuf
+
+## Read modes
+
+`ReadMode` in `command.proto` selects the fields a block read returns:
+
+- `DEFAULT`: every readable field.
+- `STORED`: the fields marked `stored`, what the controller persists.
+- `CHANGED`: the readonly fields, unless `skip_changed`, plus the stored fields the
+  firmware writes itself, without the block name. A
+  `BLOCK_READ_ALL` in this mode returns only the blocks whose CHANGED fields differ from
+  what the previous CHANGED read-all on the same connection returned. The first CHANGED
+  read-all on a connection returns every block, and so does one after a `VERSION` request,
+  or from any other connection than the one that did the previous CHANGED read-all: one
+  reader per controller. The
+  service polls with this read every second; a `DEFAULT` read every few seconds, at
+  connect and after any error is its baseline and its recovery.
+
+Decoding a CHANGED payload:
+
+- A message-typed field is traversed when any field below it is covered, and carries only
+  covered fields. A covered field absent from the payload is zero, or invalid when it is
+  `optional`, whether or not its parent is present.
+- A repeated message field is included when any field below it is covered, with complete
+  elements: the list replaces the previous one as a whole.
+- A stored field the firmware writes itself (`enabled`, `settingMode`, `storedSetting`,
+  `storedState`, the Sequence's `activeInstruction`, the SetpointProfile's `start`) is in
+  every CHANGED read of its block and carries its current value, default included. Any
+  field present that is not covered is such a field: apply it; an absent one is kept.
+- `skip_changed` on a message-typed field prunes its subtree.
+- A block without any covered field never appears in a CHANGED read-all.
+
+Presence, in every read mode: a readonly field marked `optional` is nullable, and absent
+means invalid. A readonly field without it is zero when absent. A stored field is present
+in DEFAULT and STORED reads and in the controller's persisted blobs. `skip_changed` leaves a
+readonly field to the full read (clocks, counters, readings). `logged` selects what the
+service publishes to history and does not affect what the firmware sends.
+
+## Writes
+
+A write applies the fields present in the payload and keeps the rest, at every level:
+
+- Every writable scalar or enum field is `optional`: present is applied, absent is kept.
+- A sub-message is applied when present, field by field by the same rule.
+- A list lives in a wrapper message with one repeated field, `items`: an absent wrapper
+  keeps the list, a present wrapper replaces it whole, empty included. A field of a list
+  element is never `optional`; an element is complete.
+- A map merges by key: the keys a write carries replace their entries, the others are
+  kept, and a present but empty wrapper changes nothing. Variables, the only map, deletes
+  a key written with its `empty` value.
+- There are no masks. A block create is complete, like a stored record: every stored
+  field applies, and an absent one takes its zero. A field that is not stored applies only
+  when present.
+
+The fields marked `ignored` next to a wrapper (`instructionsLegacy` and the like) carry the
+list's old field number. The controller reads them from records persisted before the
+wrapper; the service never sends them.

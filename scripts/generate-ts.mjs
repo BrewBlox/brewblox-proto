@@ -664,6 +664,22 @@ function isEnum(obj) {
   return obj instanceof protobuf.Enum;
 }
 
+// A list wrapper is a message whose one field is the repeated or map field
+// `items`. The service's API carries the list without the wrapper, so a field
+// of a wrapper type takes the list's type; returns the `items` field, or null.
+function wrappedItems(field) {
+  const target = field.resolvedType;
+  if (!target || !isType(target) || field.repeated || field.map) {
+    return null;
+  }
+  const fields = target.fieldsArray;
+  if (fields.length !== 1) {
+    return null;
+  }
+  const [items] = fields;
+  return items.name === 'items' && (items.repeated || items.map) ? items : null;
+}
+
 function* walk(ns) {
   for (const obj of Object.values(ns.nested ?? {})) {
     yield obj;
@@ -811,7 +827,7 @@ class Generator {
     }
     stack.add(name);
     for (const field of this.emittedFields(type)) {
-      const target = field.resolvedType;
+      const target = (wrappedItems(field) ?? field).resolvedType;
       if (!target || FIELD_TYPE_OVERRIDES[`${name}.${field.name}`]) {
         continue;
       }
@@ -878,7 +894,7 @@ class Generator {
       }
       seen.add(name);
       for (const field of this.emittedFields(type)) {
-        const target = field.resolvedType;
+        const target = (wrappedItems(field) ?? field).resolvedType;
         if (
           target &&
           isType(target) &&
@@ -903,6 +919,8 @@ class Generator {
   //   divides it out before the API, so the TS type stays `number`.
   // - logged / stored: read-mode filters in the service (which fields a
   //   logged or stored read returns); they never change a field's type.
+  // - skip_changed: which fields a CHANGED read leaves out; it never changes
+  //   a field's type.
   // - ignored (and nanopb FT_IGNORE): handled before this method is reached;
   //   such fields are filtered out in emittedFields().
   // Every other option (unit, objtype, readonly, datetime, hexed, hexstr,
@@ -914,6 +932,15 @@ class Generator {
     const override = FIELD_TYPE_OVERRIDES[name];
     if (override) {
       return { type: override, optional: false, opts };
+    }
+    const items = wrappedItems(field);
+    if (items) {
+      const list = this.fieldType(field.resolvedType, items).type;
+      return {
+        type: opts.readonly ? `Readonly<${list}>` : list,
+        optional: false,
+        opts,
+      };
     }
     if (opts.objtype) {
       base = 'Link';

@@ -232,6 +232,10 @@ message TargetSequence {
   }
 }
 
+message InstructionList {
+  repeated Instruction items = 1 [ (brewblox.field).stored = true ];
+}
+
 message Instruction {
   option (nanopb_msgopt).submsg_callback = true;
 
@@ -307,20 +311,29 @@ message Block {
   option (brewblox.msg).objtype = Sequence;
   option (brewblox.msg).impl = EnablerInterface;
 
-  bool enabled = 1
+  optional bool enabled = 1
       [ (brewblox.field).stored = true, (brewblox.field).logged = true ];
-  repeated Instruction instructions = 2 [ (brewblox.field).stored = true ];
-  uint32 variablesId = 11
+  // Read at load only: blobs from before the wrapper.
+  repeated Instruction instructionsLegacy = 2
+      [ (brewblox.field).ignored = true ];
+  // A write keeps a running sequence at its active instruction when that
+  // instruction is still there and the ones before it keep their opcodes; the
+  // active one restarts with its new arguments. Otherwise the sequence restarts
+  // at the first instruction, and when the write removed the active one it is
+  // also disabled, unless the same write sets enabled.
+  InstructionList instructions = 13 [ (brewblox.field).stored = true ];
+  optional uint32 variablesId = 11
       [ (brewblox.field).objtype = Variables, (brewblox.field).stored = true ];
 
-  bool overrideState = 3 [ (brewblox.field).stored = true ];
-  uint32 activeInstruction = 4 [
+  optional bool overrideState = 3 [ (brewblox.field).stored = true ];
+  // Applies only when the same write sets overrideState.
+  optional uint32 activeInstruction = 4 [
     (brewblox.field).stored = true,
     (brewblox.field).logged = true,
     (nanopb).int_size = IS_16
   ];
 
-  SequenceStoreMode storeMode = 12 [ (brewblox.field).stored = true ];
+  optional SequenceStoreMode storeMode = 12 [ (brewblox.field).stored = true ];
 
   SequenceStatus status = 8 [ (brewblox.field).readonly = true ];
   SequenceError error = 9 [ (brewblox.field).readonly = true ];

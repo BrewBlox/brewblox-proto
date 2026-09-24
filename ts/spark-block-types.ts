@@ -265,6 +265,8 @@ export interface ActuatorAnalogMockBlock extends Block {
   type: 'ActuatorAnalogMock';
   data: {
     enabled: boolean;
+    // Written without settingMode, it also sets the mode to STORED, unless the
+    // block is claimed.
     storedSetting: number;
     desiredSetting: Readonly<number>;
     setting: Readonly<number>;
@@ -316,6 +318,8 @@ export interface ActuatorOffsetBlock extends Block {
     enabled: boolean;
     targetId: Link;
     referenceId: Link;
+    // Written without settingMode, it also sets the mode to STORED, unless the
+    // block is claimed.
     storedSetting: Quantity;
     desiredSetting: Readonly<Quantity>;
     setting: Readonly<Quantity>;
@@ -334,6 +338,8 @@ export interface ActuatorPwmBlock extends Block {
   data: {
     enabled: boolean;
     actuatorId: Link;
+    // Written without settingMode, it also sets the mode to STORED, unless the
+    // block is claimed.
     storedSetting: number;
     desiredSetting: Readonly<number>;
     setting: Readonly<number>;
@@ -374,8 +380,10 @@ export interface DeprecatedObjectBlock extends Block {
 export interface DigitalActuatorBlock extends Block {
   type: 'DigitalActuator';
   data: {
-    hwDevice: Link;
+    hwDevice: Link; // A new device clears channel, unless the same write sets it.
     channel: number;
+    // Written without settingMode, it also sets the mode to STORED, unless the
+    // block is claimed.
     storedState: DigitalState;
     desiredState: Readonly<DigitalState | null>;
     state: Readonly<DigitalState | null>;
@@ -394,7 +402,7 @@ export interface DigitalActuatorBlock extends Block {
 export interface DigitalInputBlock extends Block {
   type: 'DigitalInput';
   data: {
-    hwDevice: Link;
+    hwDevice: Link; // A new device clears channel, unless the same write sets it.
     channel: number;
     state: Readonly<DigitalState | null>;
     invert: boolean;
@@ -433,7 +441,7 @@ export interface DS2408Block extends Block {
     address: string;
     connected: Readonly<boolean>;
     connectMode: DS2408ConnectMode;
-    oneWireBusId: Link;
+    oneWireBusId: Link; // A write of 0 is ignored.
     // if connectMode is valve, the channels are [1,5]. Each valve uses 4 pins
     // if connectMode is actuator, the channels are [1,2,3,4,5,6,7,8]
     channels: Readonly<IoChannel[]>;
@@ -447,7 +455,7 @@ export interface DS2413Block extends Block {
   data: {
     address: string;
     connected: Readonly<boolean>;
-    oneWireBusId: Link;
+    oneWireBusId: Link; // A write of 0 is ignored.
     channels: Readonly<IoChannel[]>;
   };
 }
@@ -458,8 +466,10 @@ export interface FastPwmBlock extends Block {
   type: 'FastPwm';
   data: {
     enabled: boolean;
-    hwDevice: Link;
+    hwDevice: Link; // A new device clears channel, unless the same write sets it.
     channel: number;
+    // Written without settingMode, it also sets the mode to STORED, unless the
+    // block is claimed.
     storedSetting: number;
     desiredSetting: Readonly<number>;
     setting: Readonly<number>;
@@ -485,7 +495,7 @@ export interface GpioModuleChannel extends IoChannel {
   name: string;
   capabilities: Readonly<ChannelCapabilities>;
   claimedBy: Readonly<Link>;
-  errorFlags: GpioErrorFlags;
+  errorFlags: Readonly<GpioErrorFlags>;
 }
 
 export interface GpioModuleStatus {
@@ -542,8 +552,10 @@ export interface MockPinsBlock extends Block {
 export interface MotorValveBlock extends Block {
   type: 'MotorValve';
   data: {
-    hwDevice: Link;
+    hwDevice: Link; // A new device clears channel, unless the same write sets it.
     channel: number;
+    // Written without settingMode, it also sets the mode to STORED, unless the
+    // block is claimed.
     storedState: DigitalState;
     desiredState: Readonly<DigitalState | null>;
     state: Readonly<DigitalState | null>;
@@ -607,10 +619,15 @@ export interface SequenceBlock extends Block {
   type: 'Sequence';
   data: {
     enabled: boolean;
+    // A write keeps a running sequence at its active instruction when that
+    // instruction is still there and the ones before it keep their opcodes; the
+    // active one restarts with its new arguments. Otherwise the sequence restarts
+    // at the first instruction, and when the write removed the active one it is
+    // also disabled, unless the same write sets enabled.
     instructions: string[];
     variablesId: Link;
     overrideState: boolean;
-    activeInstruction: number;
+    activeInstruction: number; // Applies only when the same write sets overrideState.
     storeMode: SequenceStoreMode;
     status: Readonly<SequenceStatus>;
     error: Readonly<SequenceError>;
@@ -644,6 +661,8 @@ export interface SetpointSensorPairBlock extends Block {
   data: {
     enabled: boolean;
     sensorId: Link;
+    // Written without settingMode, it also sets the mode to STORED, unless the
+    // block is claimed.
     storedSetting: Quantity;
     desiredSetting: Readonly<Quantity>;
     setting: Readonly<Quantity>;
@@ -757,6 +776,9 @@ export interface TempSensorExternalBlock extends Block {
   data: {
     enabled: boolean;
     timeout: Quantity;
+    // Counts only with the time it arrived: a setting written before the
+    // controller's clock is set has no value until the next one. The service
+    // sets the clock on connect.
     setting: Quantity;
     lastUpdated: Readonly<DateString | null>;
     value: Readonly<Quantity>;
@@ -788,7 +810,7 @@ export interface TempSensorOneWireBlock extends Block {
     value: Readonly<Quantity>;
     offset: Quantity;
     address: string;
-    oneWireBusId: Link;
+    oneWireBusId: Link; // A write of 0 is ignored.
   };
 }
 // #endregion TempSensorOneWire
@@ -820,6 +842,9 @@ export type VarContainer =
 export interface VariablesBlock extends Block {
   type: 'Variables';
   data: {
+    // A write merges by key: the keys it carries replace their entries, an
+    // `empty` entry deletes its key, and the other keys are kept; present but
+    // empty changes nothing. A create or a stored record is the whole map.
     variables: { [key: string]: VarContainer };
   };
 }
@@ -829,8 +854,13 @@ export interface VariablesBlock extends Block {
 export interface WiFiSettingsBlock extends Block {
   type: 'WiFiSettings';
   data: {
-    ssid: string; // Write-only
-    password: string; // Write-only
+    // Read: the network joined, absent while not connected.
+    // Write: the network to join, together with the password.
+    ssid: string;
+    // Write-only, never read back. A write with a password applies ssid,
+    // security and cipher with it, absent ones as empty or unsecured; a write
+    // without one applies none of them.
+    password: string;
     security: WifiSecurityType;
     cipher: WifiCipherType;
     signal: Readonly<number>; // dBm

@@ -15,33 +15,40 @@ message Block {
   option (brewblox.msg).impl = ClaimableInterface;
   option (brewblox.msg).impl = IoClaimerInterface;
 
-  uint32 hwDevice = 1 [
+  // A new device clears channel, unless the same write sets it.
+  optional uint32 hwDevice = 1 [
     (brewblox.field).objtype = IoArrayInterface,
     (brewblox.field).stored = true
   ];
-  uint32 channel = 2
+  optional uint32 channel = 2
       [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
 
-  IoArray.DigitalState storedState = 11
+  // Written without settingMode, it also sets the mode to STORED, unless the
+  // block is claimed.
+  optional IoArray.DigitalState storedState = 11
       [ (brewblox.field).stored = true, (brewblox.field).logged = true ];
-  IoArray.DigitalState desiredState = 6
+  optional IoArray.DigitalState desiredState = 6
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
-  IoArray.DigitalState state = 3
+  optional IoArray.DigitalState state = 3
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
 
-  bool invert = 4 [ (brewblox.field).stored = true ];
-  Constraints.DeprecatedDigitalConstraints constrainedBy = 5;
+  optional bool invert = 4 [ (brewblox.field).stored = true ];
+  // Constraints in their format before 2023-02. A stored record or a restored
+  // backup that still carries them has them converted into `constraints`; no
+  // read carries them.
+  Constraints.DeprecatedDigitalConstraints constrainedBy = 5
+      [ (brewblox.field).skip_changed = true ];
   Constraints.DigitalConstraints constraints = 13
       [ (brewblox.field).stored = true ];
 
-  IoArray.TransitionDurationPreset transitionDurationPreset = 7
+  optional IoArray.TransitionDurationPreset transitionDurationPreset = 7
       [ (brewblox.field).stored = true ];
-  uint32 transitionDurationSetting = 8 [
+  optional uint32 transitionDurationSetting = 8 [
     (brewblox.field).unit = Second,
     (brewblox.field).scale = 1000,
     (brewblox.field).stored = true
   ];
-  uint32 transitionDurationValue = 9 [
+  optional uint32 transitionDurationValue = 9 [
     (brewblox.field).unit = Second,
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true
@@ -49,5 +56,6 @@ message Block {
 
   uint32 claimedBy = 10
       [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
-  Claims.SettingMode settingMode = 12 [ (brewblox.field).stored = true ];
+  optional Claims.SettingMode settingMode = 12
+      [ (brewblox.field).stored = true ];
 }

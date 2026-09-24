@@ -75,6 +75,7 @@ message Block {
   ];
 
   uint32 uptime = 11 [
+    (brewblox.field).skip_changed = true,
     (brewblox.field).unit = Second,
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
@@ -83,45 +84,60 @@ message Block {
   ];
 
   uint32 updatesPerSecond = 12 [
+    (brewblox.field).skip_changed = true,
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
     (nanopb).int_size = IS_32
   ];
 
-  uint32 systemTime = 13
+  optional uint32 systemTime = 13
       [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
 
-  string timeZone = 14
+  optional string timeZone = 14
       [ (brewblox.field).stored = true, (nanopb).max_size = 32 ];
 
-  TemperatureUnit tempUnit = 15 [ (brewblox.field).stored = true ];
+  optional TemperatureUnit tempUnit = 15 [ (brewblox.field).stored = true ];
 
-  uint32 displayBrightness = 16
+  optional uint32 displayBrightness = 16
       [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
 
   uint32 voltage5 = 17 [
+    (brewblox.field).skip_changed = true,
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
     (nanopb).int_size = IS_16
   ];
   uint32 voltageExternal = 18 [
+    (brewblox.field).skip_changed = true,
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
     (nanopb).int_size = IS_16
   ];
 
-  uint32 memoryFree = 19
-      [ (brewblox.field).readonly = true, (brewblox.field).logged = true ];
-  uint32 memoryFreeContiguous = 20
-      [ (brewblox.field).readonly = true, (brewblox.field).logged = true ];
-  uint32 memoryFreeLowest = 21
-      [ (brewblox.field).readonly = true, (brewblox.field).logged = true ];
+  uint32 memoryFree = 19 [
+    (brewblox.field).skip_changed = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
+  uint32 memoryFreeContiguous = 20 [
+    (brewblox.field).skip_changed = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
+  uint32 memoryFreeLowest = 21 [
+    (brewblox.field).skip_changed = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
 
-  uint32 mainTaskStackFreeLowest = 22
-      [ (brewblox.field).readonly = true, (brewblox.field).logged = true ];
+  uint32 mainTaskStackFreeLowest = 22 [
+    (brewblox.field).skip_changed = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
 
   ResetReason resetReason = 23 [ (brewblox.field).readonly = true ];
 

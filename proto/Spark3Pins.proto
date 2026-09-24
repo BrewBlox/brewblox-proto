@@ -20,15 +20,17 @@ message Block {
   option (brewblox.msg).impl = IoArrayInterface;
   option (brewblox.msg).impl = OneWireBusInterface;
 
-  bool enableIoSupply5V = 2 [ (brewblox.field).stored = true ];
-  bool enableIoSupply12V = 3 [ (brewblox.field).stored = true ];
-  bool soundAlarm = 5;
+  optional bool enableIoSupply5V = 2 [ (brewblox.field).stored = true ];
+  optional bool enableIoSupply12V = 3 [ (brewblox.field).stored = true ];
+  optional bool soundAlarm = 5;
   uint32 voltage5 = 6 [
+    (brewblox.field).skip_changed = true,
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
   ];
   uint32 voltage12 = 7 [
+    (brewblox.field).skip_changed = true,
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
