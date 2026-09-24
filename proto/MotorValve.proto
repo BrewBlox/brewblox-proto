@@ -36,7 +36,7 @@ message Block {
   // Written without settingMode, it also sets the mode to STORED, unless the
   // block is claimed.
   optional IoArray.DigitalState storedState = 9
-      [ (brewblox.field).stored = true, (brewblox.field).logged = true ];
+      [ (brewblox.field).stored = true ];
   optional IoArray.DigitalState desiredState = 7
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
   optional IoArray.DigitalState state = 3

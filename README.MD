@@ -103,8 +103,9 @@ means invalid. A readonly field without it is zero when absent. A stored field i
 in DEFAULT and STORED reads and in the controller's persisted blobs. `skip_changed` leaves a
 readonly field to the full read (clocks, counters, readings). `logged` selects what the
 service publishes to history and does not affect what the firmware sends. Every logged field
-is a series in the history database, so a setting that almost never changes, or a constant
-derived from one, is not logged.
+is a series in the history database, so a setting that almost never changes, a constant
+derived from one, a stored copy of a logged value (`storedSetting`, `storedState`) and a
+timestamp are not logged.
 
 ## Writes
 
