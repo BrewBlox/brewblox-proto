@@ -29,7 +29,9 @@ TypeScript conventions: `unit` becomes `Quantity`, `objtype` becomes `Link`,
 `readonly` wraps the type in `Readonly<>`, `datetime` becomes
 `DateString | null`, `hexed`/`hexstr`/`ipv4address` become `string`,
 `omit_if_zero` makes the property optional, `null_if_zero` adds `| null` to
-each element (so a repeated field becomes `(T | null)[]`),
+each element (so a repeated field becomes `(T | null)[]`), a `readonly` field
+marked `optional` adds `| null` (it is absent while invalid, Presence below;
+a `unit` or `objtype` field carries the null inside its value or id),
 `bitfield` becomes `number` (or the flag enum named in the generator's
 bit-field table), and `ignored` fields are skipped. A list wrapper, a message
 whose one field is the repeated or map field `items`, becomes that field's type:
@@ -45,8 +47,7 @@ A `message Block` with `(brewblox.msg).objtype = X` becomes
 Everything the proto files cannot express is kept in commented tables at the
 top of the script: the interface blocks (`EnablerInterfaceBlock`, ...), the
 `BlockIntfType` and system block lists, the bit-flag enums, message and enum
-renames, and a handful of per-field conventions (nullable digital states,
-optional constraint members, `Sequence.instructions` as `string[]`). Add a
+renames, and a handful of per-field conventions (optional constraint members, `Sequence.instructions` as `string[]`). Add a
 table entry when a new proto construct needs a convention; the generator
 fails on anything it does not have a rule for.
 

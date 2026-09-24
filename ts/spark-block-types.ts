@@ -268,9 +268,9 @@ export interface ActuatorAnalogMockBlock extends Block {
     // Written without settingMode, it also sets the mode to STORED, unless the
     // block is claimed.
     storedSetting: number;
-    desiredSetting: Readonly<number>;
-    setting: Readonly<number>;
-    value: Readonly<number>;
+    desiredSetting: Readonly<number | null>;
+    setting: Readonly<number | null>;
+    value: Readonly<number | null>;
     minSetting: number;
     maxSetting: number;
     minValue: number;
@@ -341,9 +341,9 @@ export interface ActuatorPwmBlock extends Block {
     // Written without settingMode, it also sets the mode to STORED, unless the
     // block is claimed.
     storedSetting: number;
-    desiredSetting: Readonly<number>;
-    setting: Readonly<number>;
-    value: Readonly<number>;
+    desiredSetting: Readonly<number | null>;
+    setting: Readonly<number | null>;
+    value: Readonly<number | null>;
     period: Quantity;
     constraints: AnalogConstraints;
     claimedBy: Readonly<Link>;
@@ -471,9 +471,9 @@ export interface FastPwmBlock extends Block {
     // Written without settingMode, it also sets the mode to STORED, unless the
     // block is claimed.
     storedSetting: number;
-    desiredSetting: Readonly<number>;
-    setting: Readonly<number>;
-    value: Readonly<number>;
+    desiredSetting: Readonly<number | null>;
+    setting: Readonly<number | null>;
+    value: Readonly<number | null>;
     invert: boolean;
     frequency: PwmFrequency;
     constraints: AnalogConstraints;
@@ -584,16 +584,16 @@ export interface PidBlock extends Block {
     outputId: Link;
     inputValue: Readonly<Quantity>;
     inputSetting: Readonly<Quantity>;
-    outputValue: Readonly<number>;
-    outputSetting: Readonly<number>;
+    outputValue: Readonly<number | null>;
+    outputSetting: Readonly<number | null>;
     enabled: boolean;
     active: Readonly<boolean>;
     kp: Quantity;
     ti: Quantity;
     td: Quantity;
-    p: Readonly<number>;
-    i: Readonly<number>;
-    d: Readonly<number>;
+    p: Readonly<number | null>;
+    i: Readonly<number | null>;
+    d: Readonly<number | null>;
     error: Readonly<Quantity>;
     integral: Readonly<number>;
     derivative: Readonly<number>;
@@ -604,11 +604,11 @@ export interface PidBlock extends Block {
     derivativeFilter: Readonly<FilterChoice>;
     derivativeFilterChoice: FilterChoice;
     kff: Quantity;
-    ff: Readonly<number>;
+    ff: Readonly<number | null>;
     ambientId: Link;
     ambientValue: Readonly<Quantity>;
     ambientOffset: Readonly<Quantity>;
-    smoothGain: Readonly<number>;
+    smoothGain: Readonly<number | null>;
     smoothBand: Quantity; // Smoothing band for proportional/derivative blending
   };
 }
