@@ -141,6 +141,17 @@ message Block {
 
   ResetReason resetReason = 23 [ (brewblox.field).readonly = true ];
 
+  // Temperature of the controller's own chip, from its internal sensor. Null
+  // on a platform without one, or when the read fails.
+  optional sint32 chipTemperature = 24 [
+    (brewblox.field).skip_changed = true,
+    (brewblox.field).unit = Celsius,
+    (brewblox.field).scale = 4096,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true,
+    (nanopb).int_size = IS_32
+  ];
+
   // Deprecated fields
   bool command = 90
       [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
