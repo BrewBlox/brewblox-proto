@@ -621,7 +621,8 @@ export interface SequenceBlock extends Block {
     enabled: boolean;
     // A write keeps a running sequence at its active instruction when that
     // instruction is still there and the ones before it keep their opcodes; the
-    // active one restarts with its new arguments. Otherwise the sequence restarts
+    // active one continues with its new arguments and keeps its elapsed time, so
+    // a shortened WAIT_DURATION can finish at once. Otherwise the sequence restarts
     // at the first instruction, and when the write removed the active one it is
     // also disabled, unless the same write sets enabled.
     instructions: string[];
@@ -631,6 +632,9 @@ export interface SequenceBlock extends Block {
     storeMode: SequenceStoreMode;
     status: Readonly<SequenceStatus>;
     error: Readonly<SequenceError>;
+    // Time the active instruction has run, not counting time disabled. 0 when no
+    // instruction runs: past the last one, or before the active one's first
+    // update.
     elapsed: Readonly<Quantity>;
   };
 }

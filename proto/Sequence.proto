@@ -318,7 +318,8 @@ message Block {
       [ (brewblox.field).ignored = true ];
   // A write keeps a running sequence at its active instruction when that
   // instruction is still there and the ones before it keep their opcodes; the
-  // active one restarts with its new arguments. Otherwise the sequence restarts
+  // active one continues with its new arguments and keeps its elapsed time, so
+  // a shortened WAIT_DURATION can finish at once. Otherwise the sequence restarts
   // at the first instruction, and when the write removed the active one it is
   // also disabled, unless the same write sets enabled.
   InstructionList instructions = 13 [ (brewblox.field).stored = true ];
@@ -338,6 +339,9 @@ message Block {
   SequenceStatus status = 8 [ (brewblox.field).readonly = true ];
   SequenceError error = 9 [ (brewblox.field).readonly = true ];
 
+  // Time the active instruction has run, not counting time disabled. 0 when no
+  // instruction runs: past the last one, or before the active one's first
+  // update.
   uint32 elapsed = 10 [
     (brewblox.field).unit = Second,
     (brewblox.field).scale = 1000,
