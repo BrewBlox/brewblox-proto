@@ -24,6 +24,8 @@ message EnableDisable {
 message Wait {}
 
 message WaitDuration {
+  // At most 4294967 s (about 49.7 days): the firmware counts the wait in
+  // 32-bit milliseconds, so a longer duration is an INVALID_ARGUMENT error.
   oneof duration {
     uint32 __raw__duration = 1 [
       (brewblox.field).unit = Second,

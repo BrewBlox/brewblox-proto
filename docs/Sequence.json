@@ -54,7 +54,7 @@
     },
     {
       "name": "WAIT_DURATION",
-      "desc": "Waits until a given duration has elapsed since the instruction was started. If the *Sequence* is disabled while this instruction is active, time spent disabled is **not** included. If the controller is shut down while this instruction is active, time spent shut down is included.",
+      "desc": "Waits until a given duration has elapsed since the instruction was started. If the *Sequence* is disabled while this instruction is active, time spent disabled is **not** included. If the controller is shut down while this instruction is active, time spent shut down is included. A duration longer than 4294967 seconds (about 49.7 days) is an <code>INVALID_ARGUMENT</code> error.",
       "arguments": [
         {
           "name": "duration",
@@ -62,7 +62,9 @@
           "type": "Duration string or integer seconds"
         }
       ],
-      "errors": [],
+      "errors": [
+        "INVALID_ARGUMENT"
+      ],
       "example": [
         "WAIT_DURATION duration=1h10m5s"
       ]
