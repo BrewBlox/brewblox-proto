@@ -36,10 +36,11 @@ a `unit` or `objtype` field carries the null inside its value or id),
 bit-field table), and `ignored` fields are skipped. A list wrapper, a message
 whose one field is the repeated or map field `items`, becomes that field's type:
 the service's API carries the list without the wrapper (Writes, below).
-`scale`, `logged`, `stored` and `skip_changed` have no effect on the types:
-`scale` only changes the wire integer (the service divides it out), `logged`
-selects what the service publishes to history, `stored` what a stored read
-returns, and `skip_changed` what a changed read leaves out (Read modes, below).
+`scale`, `logged`, `logged_decimals`, `stored` and `skip_changed` have no effect
+on the types: `scale` only changes the wire integer (the service divides it out),
+`logged` selects what the service publishes to history, `logged_decimals` how many
+decimals a value keeps there, `stored` what a stored read returns, and
+`skip_changed` what a changed read leaves out (Read modes, below).
 A `message Block` with `(brewblox.msg).objtype = X` becomes
 `XBlock extends Block { type: 'X'; data: {...} }`. Enums become
 `typescript-string-enums` enums with the first declared name for each value.

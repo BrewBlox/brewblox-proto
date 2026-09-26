@@ -23,6 +23,7 @@ message Block {
     (brewblox.field).unit = Celsius,
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 3,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
@@ -30,18 +31,21 @@ message Block {
     (brewblox.field).unit = Celsius,
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 3,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
   optional sint32 outputValue = 7 [
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 2,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
   optional sint32 outputSetting = 8 [
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 2,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
@@ -71,18 +75,21 @@ message Block {
   optional sint32 p = 16 [
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 2,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
   optional sint32 i = 17 [
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 2,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
   optional sint32 d = 18 [
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 2,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
@@ -91,12 +98,14 @@ message Block {
     (brewblox.field).unit = DeltaCelsius,
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 3,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
   sint32 integral = 20 [
     (brewblox.field).scale = 256,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 0,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
@@ -144,6 +153,7 @@ message Block {
   optional sint32 ff = 30 [
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 2,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
@@ -157,6 +167,7 @@ message Block {
     (brewblox.field).unit = Celsius,
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 3,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
@@ -165,6 +176,7 @@ message Block {
     (brewblox.field).unit = DeltaCelsius,
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 3,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
@@ -172,6 +184,7 @@ message Block {
   optional sint32 smoothGain = 35 [
     (brewblox.field).scale = 16384,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 3,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_16
   ];

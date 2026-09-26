@@ -908,6 +908,8 @@ class Generator {
   //   logged or stored read returns); they never change a field's type.
   // - skip_changed: which fields a CHANGED read leaves out; it never changes
   //   a field's type.
+  // - logged_decimals: how many decimals a logged value keeps in history; the
+  //   API value and its type are unchanged.
   // - ignored (and nanopb FT_IGNORE): handled before this method is reached;
   //   such fields are filtered out in emittedFields().
   // Every other option (unit, objtype, readonly, datetime, hexed, hexstr,
