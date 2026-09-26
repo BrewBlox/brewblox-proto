@@ -80,6 +80,7 @@ message Block {
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 0,
     (nanopb).int_size = IS_32
   ];
 
@@ -88,6 +89,7 @@ message Block {
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 1,
     (nanopb).int_size = IS_32
   ];
 
@@ -107,6 +109,7 @@ message Block {
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 2,
     (nanopb).int_size = IS_16
   ];
   uint32 voltageExternal = 18 [
@@ -114,6 +117,7 @@ message Block {
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 2,
     (nanopb).int_size = IS_16
   ];
 

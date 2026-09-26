@@ -129,6 +129,10 @@ message FieldOpts {
   // Leaves a readonly field, or a subtree, out of CHANGED reads: README.MD,
   // Read modes.
   bool skip_changed = 16;
+  // Decimals of the value in history, coarser than its scale allows: the digits
+  // past them are noise, or finer than anyone reads. Absent: the scale's own
+  // decimals. Optional because 0 is a value. API reads are not affected.
+  optional int32 logged_decimals = 17;
 }
 
 extend google.protobuf.FieldOptions {

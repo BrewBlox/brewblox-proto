@@ -175,6 +175,7 @@ message AnalogChannel {
     (brewblox.field).unit = Ohm,
     (brewblox.field).scale = 16384,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 3,
     (brewblox.field).readonly = true,
     (brewblox.field).omit_if_zero = true,
     (nanopb).int_size = IS_32
@@ -183,6 +184,7 @@ message AnalogChannel {
     (brewblox.field).unit = Ohm,
     (brewblox.field).scale = 16384,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 3,
     (brewblox.field).readonly = true,
     (brewblox.field).omit_if_zero = true,
     (nanopb).int_size = IS_32
@@ -191,6 +193,7 @@ message AnalogChannel {
     (brewblox.field).unit = Ohm,
     (brewblox.field).scale = 16384,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 3,
     (brewblox.field).readonly = true,
     (brewblox.field).omit_if_zero = true,
     (nanopb).int_size = IS_32
@@ -199,6 +202,7 @@ message AnalogChannel {
   sint32 bridgeOutput = 7 [
     (brewblox.field).scale = 262144,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 5,
     (brewblox.field).readonly = true,
     (brewblox.field).omit_if_zero = true,
     (nanopb).int_size = IS_32
@@ -238,6 +242,7 @@ message Block {
     (brewblox.field).unit = MilliBar,
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 2,
     (brewblox.field).readonly = true,
     (brewblox.field).omit_if_zero = true,
     (nanopb).int_size = IS_32
