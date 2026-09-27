@@ -137,10 +137,13 @@ message Block {
     (brewblox.field).logged = true
   ];
 
+  // The least free stack the main task had, in bytes. A Spark 2/3 cannot measure it and
+  // reports 0, which is left out.
   uint32 mainTaskStackFreeLowest = 22 [
     (brewblox.field).skip_changed = true,
     (brewblox.field).readonly = true,
-    (brewblox.field).logged = true
+    (brewblox.field).logged = true,
+    (brewblox.field).omit_if_zero = true
   ];
 
   ResetReason resetReason = 23 [ (brewblox.field).readonly = true ];
