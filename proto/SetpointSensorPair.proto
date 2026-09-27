@@ -52,6 +52,7 @@ message Block {
     (brewblox.field).unit = Celsius,
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 3,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
@@ -59,6 +60,7 @@ message Block {
     (brewblox.field).unit = Celsius,
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 3,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
@@ -66,6 +68,7 @@ message Block {
     (brewblox.field).unit = Celsius,
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 3,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
@@ -73,6 +76,7 @@ message Block {
     (brewblox.field).unit = Celsius,
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 3,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
