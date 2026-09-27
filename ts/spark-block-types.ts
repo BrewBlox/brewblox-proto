@@ -736,7 +736,9 @@ export interface SysInfoBlock extends Block {
     memoryFree: Readonly<number>;
     memoryFreeContiguous: Readonly<number>;
     memoryFreeLowest: Readonly<number>;
-    mainTaskStackFreeLowest: Readonly<number>;
+    // The least free stack the main task had, in bytes. A Spark 2/3 cannot measure it and
+    // reports 0, which is left out.
+    mainTaskStackFreeLowest?: Readonly<number>;
     resetReason: Readonly<ResetReason>;
   };
 }
