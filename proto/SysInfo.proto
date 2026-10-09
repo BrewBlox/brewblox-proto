@@ -74,10 +74,10 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
+  // Seconds since the controller started.
   uint32 uptime = 11 [
     (brewblox.field).skip_changed = true,
     (brewblox.field).unit = Second,
-    (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
     (brewblox.field).logged_decimals = 0,

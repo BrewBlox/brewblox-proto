@@ -725,7 +725,7 @@ export interface SysInfoBlock extends Block {
     releaseDate: Readonly<string>;
     protocolDate: Readonly<string>;
     ip: Readonly<string>;
-    uptime: Readonly<Quantity>;
+    uptime: Readonly<Quantity>; // Seconds since the controller started.
     updatesPerSecond: Readonly<number>;
     systemTime: DateString | null;
     timeZone: string;
