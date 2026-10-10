@@ -740,9 +740,6 @@ export interface SysInfoBlock extends Block {
     // reports 0, which is left out.
     mainTaskStackFreeLowest?: Readonly<number>;
     resetReason: Readonly<ResetReason>;
-    // Temperature of the controller's own chip, from its internal sensor. Null
-    // on a platform without one, or when the read fails.
-    chipTemperature: Readonly<Quantity>;
   };
 }
 // #endregion SysInfo
