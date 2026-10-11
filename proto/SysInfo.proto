@@ -80,7 +80,6 @@ message Block {
     (brewblox.field).unit = Second,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
-    (brewblox.field).logged_decimals = 0,
     (nanopb).int_size = IS_32
   ];
 
