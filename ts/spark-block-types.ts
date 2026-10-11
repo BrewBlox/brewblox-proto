@@ -783,11 +783,15 @@ export interface TempSensorExternalBlock extends Block {
   type: 'TempSensorExternal';
   data: {
     enabled: boolean;
+    // Seconds after the setting's arrival, on the controller's steady clock;
+    // 0 never times out and keeps the setting through a reboot.
     timeout: Quantity;
-    // Counts only with the time it arrived: a setting written before the
-    // controller's clock is set has no value until the next one. The service
-    // sets the clock on connect.
+    // Counts from its arrival, on the controller's steady clock. It survives a
+    // reboot when timeout is 0, or when the controller's clock was set at its
+    // arrival and at the load and shows it younger than timeout.
     setting: Quantity;
+    // When the setting arrived, on the controller's clock; 0 when it arrived
+    // before the clock was set.
     lastUpdated: Readonly<DateString | null>;
     value: Readonly<Quantity>;
   };
