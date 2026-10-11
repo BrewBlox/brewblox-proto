@@ -239,7 +239,7 @@
     },
     {
       "name": "WAIT_SETPOINT",
-      "desc": "Waits until the measured value of a *Setpoint* block is close enough to its desired setting. The <code>precision</code> argument is not centered on the desired setting: the instruction will finish if either <code>value >= setting - precision</code> or <code>value <= setting + precision</code> is true.",
+      "desc": "Waits until the measured value of a *Setpoint* block is close enough to its desired setting: the instruction finishes when <code>setting - precision <= value <= setting + precision</code>.",
       "arguments": [
         {
           "name": "target",
