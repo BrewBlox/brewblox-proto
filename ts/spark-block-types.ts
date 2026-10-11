@@ -875,7 +875,9 @@ export interface WiFiSettingsBlock extends Block {
     password: string;
     security: WifiSecurityType;
     cipher: WifiCipherType;
-    signal: Readonly<number>; // dBm
+    // dBm, absent while not connected: a signal is negative, and the firmware
+    // sends 0 for no reading
+    signal?: Readonly<number>;
   };
 }
 // #endregion WiFiSettings

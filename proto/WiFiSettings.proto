@@ -34,8 +34,10 @@ message Block {
   optional string password = 2 [ (nanopb).max_size = 64 ];
   optional Security security = 3;
   optional Cipher cipher = 4;
-  // dBm
+  // dBm, absent while not connected: a signal is negative, and the firmware
+  // sends 0 for no reading
   int32 signal = 5 [
+    (brewblox.field).omit_if_zero = true,
     (brewblox.field).skip_changed = true,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
