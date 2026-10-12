@@ -239,8 +239,6 @@ message InstructionList {
 }
 
 message Instruction {
-  option (nanopb_msgopt).submsg_callback = true;
-
   oneof instruction {
     Restart RESTART = 1 [ (brewblox.field).stored = true ];
     EnableDisable ENABLE = 2 [ (brewblox.field).stored = true ];
