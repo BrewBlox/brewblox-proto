@@ -270,7 +270,8 @@ message Instruction {
     TargetSequence START_SEQUENCE = 18 [ (brewblox.field).stored = true ];
     TargetSequence WAIT_SEQUENCE = 19 [ (brewblox.field).stored = true ];
 
-    // Special case: comment lines start with #
+    // Special case: comment lines start with #. A blank line is a COMMENT
+    // without text, so a lone # reads back as a blank line.
     Comment COMMENT = 200 [ (brewblox.field).stored = true ];
   }
 }
