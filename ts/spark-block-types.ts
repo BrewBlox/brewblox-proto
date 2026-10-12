@@ -623,9 +623,10 @@ export interface SequenceBlock extends Block {
     // instructions before it keep their opcodes, comments and blank lines not
     // counted: comments added or removed above it move it with them. The active
     // one continues with its new arguments and keeps its elapsed time, so a
-    // shortened WAIT_DURATION can finish at once. Otherwise the sequence restarts
-    // at the first instruction, and when the write removed the active one it is
-    // also disabled, unless the same write sets enabled.
+    // shortened WAIT_DURATION can finish at once; an instruction of another opcode
+    // in its place starts over there. Otherwise the sequence restarts at the first
+    // instruction, and when the write removed the active one it is also disabled,
+    // unless the same write sets enabled.
     instructions: string[];
     variablesId: Link;
     overrideState: boolean;
