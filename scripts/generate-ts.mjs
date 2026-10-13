@@ -221,20 +221,6 @@ const SKIPPED_FIELDS = new Set([
   'blox.MotorValve.Block.constrainedBy',
 ]);
 
-// Singular submessage fields are required by default (the firmware always
-// sets block-level submessages). The members of the constraint collections
-// are chosen by the user, and json_format omits unset submessages.
-const OPTIONAL_SUBMESSAGE_FIELDS = new Set([
-  'blox.Constraints.AnalogConstraints.min',
-  'blox.Constraints.AnalogConstraints.max',
-  'blox.Constraints.AnalogConstraints.balanced',
-  'blox.Constraints.DigitalConstraints.minOff',
-  'blox.Constraints.DigitalConstraints.minOn',
-  'blox.Constraints.DigitalConstraints.delayedOff',
-  'blox.Constraints.DigitalConstraints.delayedOn',
-  'blox.Constraints.DigitalConstraints.mutexed',
-]);
-
 // `bitfield = true` only says "this is a bitmask"; it does not name the flag
 // enum. Fields listed here get the numeric TS enum instead of `number`.
 const BITFIELD_ENUMS = {
@@ -997,7 +983,13 @@ class Generator {
     if (opts.omit_if_zero && !field.repeated) {
       optional = true; // the service deletes the key when the value is 0
     }
-    if (OPTIONAL_SUBMESSAGE_FIELDS.has(name)) {
+    // A singular submessage is always in a read unless its .proto marks it
+    // optional; the service leaves an absent submessage out of a read
+    if (
+      field.options?.proto3_optional &&
+      field.resolvedType &&
+      !isEnum(field.resolvedType)
+    ) {
       optional = true;
     }
     if (field.partOf && field.partOf.oneof.length > 1) {

@@ -2,6 +2,7 @@
 // Do not edit by hand: run `yarn generate` in brewblox-proto instead.
 
 import {
+  AnalogCalibrationState,
   AnalogCompareOp,
   AnalogSensorType,
   BlockOrIntfType,
@@ -153,9 +154,9 @@ export interface BalancedConstraint {
 }
 
 export interface AnalogConstraints {
-  min?: ValueConstraint;
-  max?: ValueConstraint;
-  balanced?: BalancedConstraint;
+  min: ValueConstraint;
+  max: ValueConstraint;
+  balanced: BalancedConstraint;
 }
 // #endregion AnalogConstraints
 
@@ -183,11 +184,11 @@ export interface MutexedConstraint {
 }
 
 export interface DigitalConstraints {
-  minOff?: DurationConstraint;
-  minOn?: DurationConstraint;
-  delayedOff?: DurationConstraint;
-  delayedOn?: DurationConstraint;
-  mutexed?: MutexedConstraint;
+  minOff: DurationConstraint;
+  minOn: DurationConstraint;
+  delayedOff: DurationConstraint;
+  delayedOn: DurationConstraint;
+  mutexed: MutexedConstraint;
 }
 // #endregion DigitalConstraints
 
@@ -517,15 +518,35 @@ export interface GpioModuleStatus {
   faultsHistory60m: Readonly<GpioErrorFlags>;
 }
 
+export interface PairCalibration {
+  offset: number; // The ADC's offset correction, in ADC counts.
+  // Full-scale correction for each PGA setting, in the order bypass, gain 1, 2,
+  // 4, 8, 16, 32. 4194304 is 1.0.
+  scale: number[];
+  switchResistance: Quantity; // Resistance of one analog switch on the module, measured during the calibration.
+  state: Readonly<AnalogCalibrationState>; // Where the pair's calibration stands.
+}
+
 export interface GpioModuleBlock extends Block {
   type: 'GpioModule';
   data: {
     channels: GpioModuleChannel[];
+    // Position of the module, 1 to 4, unique among GpioModule blocks. 0 parks the
+    // block without a module.
     modulePosition: number;
     useExternalPower: boolean;
     status: Readonly<GpioModuleStatus>;
     analogChannels: Readonly<AnalogModuleChannel[]>;
     baroPressure?: Readonly<Quantity>;
+    // The calibration of the ADC for analog channels 1-2. Without one, the channels
+    // calibrate when the module is found. Implausible values are rejected.
+    analogCalibration12?: PairCalibration;
+    // The calibration of the ADC for analog channels 3-4. Without one, the channels
+    // calibrate when the module is found. Implausible values are rejected.
+    analogCalibration34?: PairCalibration;
+    // Written true: both pairs, analogCalibration12 and analogCalibration34, calibrate
+    // again. Never stored; reads absent.
+    calibrateAnalog: boolean;
   };
 }
 // #endregion GpioModule
