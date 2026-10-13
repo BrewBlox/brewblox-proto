@@ -413,6 +413,15 @@ export const TempSensorAnalogSpec = Enum(
 );
 // #endregion TempSensorAnalog
 
+// #region AnalogCalibrationState
+export const AnalogCalibrationState = Enum(
+  'ANALOG_CALIBRATION_STATE_NONE', // no calibration stored
+  'ANALOG_CALIBRATION_STATE_RUNNING', // calibrating: the pair's channels pause their readings
+  'ANALOG_CALIBRATION_STATE_DONE', // the stored calibration is in use
+  'ANALOG_CALIBRATION_STATE_FAILED', // the last calibration failed; the previous one stays in use
+);
+// #endregion AnalogCalibrationState
+
 export type BlockIntfType = Enum<typeof BlockIntfType>;
 export type SystemBlockType = Enum<typeof SystemBlockType>;
 export type UserBlockType = Enum<typeof UserBlockType>;
@@ -448,3 +457,4 @@ export type WifiCipherType = Enum<typeof WifiCipherType>;
 export type ToggleBehavior = Enum<typeof ToggleBehavior>;
 export type TempSensorAnalogType = Enum<typeof TempSensorAnalogType>;
 export type TempSensorAnalogSpec = Enum<typeof TempSensorAnalogSpec>;
+export type AnalogCalibrationState = Enum<typeof AnalogCalibrationState>;

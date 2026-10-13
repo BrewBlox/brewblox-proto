@@ -214,6 +214,34 @@ message ChannelList {
       [ (brewblox.field).stored = true, (nanopb).max_count = 8 ];
 }
 
+enum AnalogCalibrationState {
+  ANALOG_CALIBRATION_STATE_NONE = 0;    // no calibration stored
+  ANALOG_CALIBRATION_STATE_RUNNING = 1; // calibrating: the pair's channels pause their readings
+  ANALOG_CALIBRATION_STATE_DONE = 2;    // the stored calibration is in use
+  ANALOG_CALIBRATION_STATE_FAILED = 3;  // the last calibration failed; the previous one stays in use
+}
+
+message ScaleList {
+  repeated sint32 items = 1
+      [ (brewblox.field).stored = true, (nanopb).max_count = 7 ];
+}
+
+message PairCalibration {
+  // The ADC's offset correction, in ADC counts.
+  optional sint32 offset = 1 [ (brewblox.field).stored = true ];
+  // Full-scale correction for each PGA setting, in the order bypass, gain 1, 2,
+  // 4, 8, 16, 32. 4194304 is 1.0.
+  ScaleList scale = 2 [ (brewblox.field).stored = true ];
+  // Resistance of one analog switch on the module, measured during the calibration.
+  optional sint32 switchResistance = 3 [
+    (brewblox.field).unit = Ohm,
+    (brewblox.field).scale = 16384,
+    (brewblox.field).stored = true
+  ];
+  // Where the pair's calibration stands.
+  AnalogCalibrationState state = 4 [ (brewblox.field).readonly = true ];
+}
+
 message Block {
   option (brewblox.msg).objtype = GpioModule;
   option (brewblox.msg).impl = IoArrayInterface;
@@ -227,6 +255,8 @@ message Block {
   repeated GpioModule.Channel channelsLegacy = 1
       [ (brewblox.field).ignored = true, (nanopb).type = FT_CALLBACK ];
   ChannelList channels = 22 [ (brewblox.field).stored = true ];
+  // Position of the module, 1 to 4, unique among GpioModule blocks. 0 parks the
+  // block without a module.
   optional uint32 modulePosition = 2
       [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
   optional bool useExternalPower = 14 [ (brewblox.field).stored = true ];
@@ -247,6 +277,16 @@ message Block {
     (brewblox.field).omit_if_zero = true,
     (nanopb).int_size = IS_32
   ];
+
+  // The calibration of the ADC for analog channels 1-2. Without one, the channels
+  // calibrate when the module is found. Implausible values are rejected.
+  PairCalibration analogCalibration12 = 23 [ (brewblox.field).stored = true ];
+  // The calibration of the ADC for analog channels 3-4. Without one, the channels
+  // calibrate when the module is found. Implausible values are rejected.
+  PairCalibration analogCalibration34 = 24 [ (brewblox.field).stored = true ];
+  // Written true: both pairs, analogCalibration12 and analogCalibration34, calibrate
+  // again. Never stored; reads absent.
+  optional bool calibrateAnalog = 25;
 
   // Deprecated fields
   uint32 moduleStatus = 3
