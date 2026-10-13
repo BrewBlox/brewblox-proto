@@ -280,10 +280,10 @@ message Block {
 
   // The calibration of the ADC for analog channels 1-2. Without one, the channels
   // calibrate when the module is found. Implausible values are rejected.
-  PairCalibration analogCalibration12 = 23 [ (brewblox.field).stored = true ];
+  optional PairCalibration analogCalibration12 = 23 [ (brewblox.field).stored = true ];
   // The calibration of the ADC for analog channels 3-4. Without one, the channels
   // calibrate when the module is found. Implausible values are rejected.
-  PairCalibration analogCalibration34 = 24 [ (brewblox.field).stored = true ];
+  optional PairCalibration analogCalibration34 = 24 [ (brewblox.field).stored = true ];
   // Written true: both pairs, analogCalibration12 and analogCalibration34, calibrate
   // again. Never stored; reads absent.
   optional bool calibrateAnalog = 25;
