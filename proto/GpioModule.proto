@@ -7,19 +7,19 @@ package blox.GpioModule;
 
 enum DeviceType {
   GPIO_DEV_NONE = 0;
-  GPIO_DEV_SSR_2P = 1;                        // gnd, pp
-  GPIO_DEV_SSR_1P = 2;                        // pp, external ground
-  GPIO_DEV_MECHANICAL_RELAY_2P = 3;           // gnd, pu
-  GPIO_DEV_MECHANICAL_RELAY_1P_HIGH_SIDE = 4; // pu, external ground
-  GPIO_DEV_MECHANICAL_RELAY_1P_LOW_SIDE = 5;  // pd, external ground
-  GPIO_DEV_COIL_2P = 6;                       // gnd, pu
-  GPIO_DEV_COIL_2P_BIDIRECTIONAL = 7;         // pp,pp toggled 01 or 10
-  GPIO_DEV_COIL_1P_HIGH_SIDE = 8;             // pu, external ground
-  GPIO_DEV_COIL_1P_LOW_SIDE = 9;              // pd, external ground
-  GPIO_DEV_MOTOR_2P = 10;                     // gnd, pp
-  GPIO_DEV_MOTOR_2P_BIDIRECTIONAL = 11;       // pp, pp, toggle 01 or 10
-  GPIO_DEV_MOTOR_1P_HIGH_SIDE = 12;           // pu, external to GND
-  GPIO_DEV_MOTOR_1P_LOW_SIDE = 13;            // pd, external to PWR
+  GPIO_DEV_SSR_2P = 1;                        // on: minus to GND, plus to power; off: open
+  GPIO_DEV_SSR_1P = 2;                        // on: pin to power; off: open; SSR minus to GND
+  GPIO_DEV_MECHANICAL_RELAY_2P = 3;           // on: minus to GND, plus to power; off: open
+  GPIO_DEV_MECHANICAL_RELAY_1P_HIGH_SIDE = 4; // on: pin to power; off: open; coil to GND
+  GPIO_DEV_MECHANICAL_RELAY_1P_LOW_SIDE = 5;  // on: pin to GND; off: open; coil to power
+  GPIO_DEV_COIL_2P = 6;                       // on: minus to GND, plus to power; off: open
+  GPIO_DEV_COIL_2P_BIDIRECTIONAL = 7;         // on: minus to GND, plus to power; off: reversed
+  GPIO_DEV_COIL_1P_HIGH_SIDE = 8;             // on: pin to power; off: open; coil to GND
+  GPIO_DEV_COIL_1P_LOW_SIDE = 9;              // on: pin to GND; off: open; coil to power
+  GPIO_DEV_MOTOR_2P = 10;                     // on: minus to GND, plus to power; off: open
+  GPIO_DEV_MOTOR_2P_BIDIRECTIONAL = 11;       // on: minus to GND, plus to power; off, duty < 0: reversed
+  GPIO_DEV_MOTOR_1P_HIGH_SIDE = 12;           // on: pin to power; off: open; motor to GND
+  GPIO_DEV_MOTOR_1P_LOW_SIDE = 13;            // on: pin to GND; off: open; motor to power
   GPIO_DEV_DETECT_LOW_CURRENT_2P = 14;        // gnd, pwr, 2-100mA
   GPIO_DEV_DETECT_LOW_CURRENT_1P_GND = 15;    // gnd, 2-100mA
   // GPIO_DEV_DETECT_LOW_CURRENT_1P_POWER = 16;  // not supported by hardware

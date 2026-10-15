@@ -154,9 +154,9 @@ export interface BalancedConstraint {
 }
 
 export interface AnalogConstraints {
-  min: ValueConstraint;
-  max: ValueConstraint;
-  balanced: BalancedConstraint;
+  min?: ValueConstraint;
+  max?: ValueConstraint;
+  balanced?: BalancedConstraint;
 }
 // #endregion AnalogConstraints
 
@@ -184,11 +184,11 @@ export interface MutexedConstraint {
 }
 
 export interface DigitalConstraints {
-  minOff: DurationConstraint;
-  minOn: DurationConstraint;
-  delayedOff: DurationConstraint;
-  delayedOn: DurationConstraint;
-  mutexed: MutexedConstraint;
+  minOff?: DurationConstraint;
+  minOn?: DurationConstraint;
+  delayedOff?: DurationConstraint;
+  delayedOn?: DurationConstraint;
+  mutexed?: MutexedConstraint;
 }
 // #endregion DigitalConstraints
 

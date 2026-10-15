@@ -106,19 +106,19 @@ export const SettingMode = Enum('STORED', 'CLAIMED');
 // #region GpioModule
 export const GpioDeviceType = Enum(
   'GPIO_DEV_NONE',
-  'GPIO_DEV_SSR_2P', // gnd, pp
-  'GPIO_DEV_SSR_1P', // pp, external ground
-  'GPIO_DEV_MECHANICAL_RELAY_2P', // gnd, pu
-  'GPIO_DEV_MECHANICAL_RELAY_1P_HIGH_SIDE', // pu, external ground
-  'GPIO_DEV_MECHANICAL_RELAY_1P_LOW_SIDE', // pd, external ground
-  'GPIO_DEV_COIL_2P', // gnd, pu
-  'GPIO_DEV_COIL_2P_BIDIRECTIONAL', // pp,pp toggled 01 or 10
-  'GPIO_DEV_COIL_1P_HIGH_SIDE', // pu, external ground
-  'GPIO_DEV_COIL_1P_LOW_SIDE', // pd, external ground
-  'GPIO_DEV_MOTOR_2P', // gnd, pp
-  'GPIO_DEV_MOTOR_2P_BIDIRECTIONAL', // pp, pp, toggle 01 or 10
-  'GPIO_DEV_MOTOR_1P_HIGH_SIDE', // pu, external to GND
-  'GPIO_DEV_MOTOR_1P_LOW_SIDE', // pd, external to PWR
+  'GPIO_DEV_SSR_2P', // on: minus to GND, plus to power; off: open
+  'GPIO_DEV_SSR_1P', // on: pin to power; off: open; SSR minus to GND
+  'GPIO_DEV_MECHANICAL_RELAY_2P', // on: minus to GND, plus to power; off: open
+  'GPIO_DEV_MECHANICAL_RELAY_1P_HIGH_SIDE', // on: pin to power; off: open; coil to GND
+  'GPIO_DEV_MECHANICAL_RELAY_1P_LOW_SIDE', // on: pin to GND; off: open; coil to power
+  'GPIO_DEV_COIL_2P', // on: minus to GND, plus to power; off: open
+  'GPIO_DEV_COIL_2P_BIDIRECTIONAL', // on: minus to GND, plus to power; off: reversed
+  'GPIO_DEV_COIL_1P_HIGH_SIDE', // on: pin to power; off: open; coil to GND
+  'GPIO_DEV_COIL_1P_LOW_SIDE', // on: pin to GND; off: open; coil to power
+  'GPIO_DEV_MOTOR_2P', // on: minus to GND, plus to power; off: open
+  'GPIO_DEV_MOTOR_2P_BIDIRECTIONAL', // on: minus to GND, plus to power; off, duty < 0: reversed
+  'GPIO_DEV_MOTOR_1P_HIGH_SIDE', // on: pin to power; off: open; motor to GND
+  'GPIO_DEV_MOTOR_1P_LOW_SIDE', // on: pin to GND; off: open; motor to power
   'GPIO_DEV_DETECT_LOW_CURRENT_2P', // gnd, pwr, 2-100mA
   'GPIO_DEV_DETECT_LOW_CURRENT_1P_GND', // gnd, 2-100mA
   'GPIO_DEV_POWER_1P', // pwr, 1A
