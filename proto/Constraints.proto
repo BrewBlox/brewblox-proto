@@ -82,18 +82,21 @@ message MutexedConstraint {
 
 // Collections
 
+// Each constraint may be absent: a write carries only the constraints it changes, and a changed
+// read leaves out a disabled one.
 message AnalogConstraints {
-  ValueConstraint min = 1 [ (brewblox.field).stored = true ];
-  ValueConstraint max = 2 [ (brewblox.field).stored = true ];
-  BalancedConstraint balanced = 3 [ (brewblox.field).stored = true ];
+  optional ValueConstraint min = 1 [ (brewblox.field).stored = true ];
+  optional ValueConstraint max = 2 [ (brewblox.field).stored = true ];
+  optional BalancedConstraint balanced = 3 [ (brewblox.field).stored = true ];
 }
 
+// Each constraint may be absent, as in AnalogConstraints.
 message DigitalConstraints {
-  DurationConstraint minOff = 1 [ (brewblox.field).stored = true ];
-  DurationConstraint minOn = 2 [ (brewblox.field).stored = true ];
-  DurationConstraint delayedOff = 3 [ (brewblox.field).stored = true ];
-  DurationConstraint delayedOn = 4 [ (brewblox.field).stored = true ];
-  MutexedConstraint mutexed = 5 [ (brewblox.field).stored = true ];
+  optional DurationConstraint minOff = 1 [ (brewblox.field).stored = true ];
+  optional DurationConstraint minOn = 2 [ (brewblox.field).stored = true ];
+  optional DurationConstraint delayedOff = 3 [ (brewblox.field).stored = true ];
+  optional DurationConstraint delayedOn = 4 [ (brewblox.field).stored = true ];
+  optional MutexedConstraint mutexed = 5 [ (brewblox.field).stored = true ];
 }
 
 // Deprecated old-style constraints
