@@ -46,8 +46,18 @@ message VarContainer {
   }
 }
 
+message VariableMap {
+  map<string, VarContainer> items = 1 [ (brewblox.field).stored = true ];
+}
+
 message Block {
   option (brewblox.msg).objtype = Variables;
 
-  map<string, VarContainer> variables = 1 [ (brewblox.field).stored = true ];
+  // Read at load only: blobs from before the wrapper.
+  map<string, VarContainer> variablesLegacy = 1
+      [ (brewblox.field).ignored = true ];
+  // A write merges by key: the keys it carries replace their entries, an
+  // `empty` entry deletes its key, and the other keys are kept; present but
+  // empty changes nothing. A create or a stored record is the whole map.
+  VariableMap variables = 2 [ (brewblox.field).stored = true ];
 }

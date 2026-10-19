@@ -24,6 +24,8 @@ message EnableDisable {
 message Wait {}
 
 message WaitDuration {
+  // At most 4294967 s (about 49.7 days): the firmware counts the wait in
+  // 32-bit milliseconds, so a longer duration is an INVALID_ARGUMENT error.
   oneof duration {
     uint32 __raw__duration = 1 [
       (brewblox.field).unit = Second,
@@ -232,9 +234,11 @@ message TargetSequence {
   }
 }
 
-message Instruction {
-  option (nanopb_msgopt).submsg_callback = true;
+message InstructionList {
+  repeated Instruction items = 1 [ (brewblox.field).stored = true ];
+}
 
+message Instruction {
   oneof instruction {
     Restart RESTART = 1 [ (brewblox.field).stored = true ];
     EnableDisable ENABLE = 2 [ (brewblox.field).stored = true ];
@@ -266,7 +270,8 @@ message Instruction {
     TargetSequence START_SEQUENCE = 18 [ (brewblox.field).stored = true ];
     TargetSequence WAIT_SEQUENCE = 19 [ (brewblox.field).stored = true ];
 
-    // Special case: comment lines start with #
+    // Special case: comment lines start with #. A blank line is a COMMENT
+    // without text, so a lone # reads back as a blank line.
     Comment COMMENT = 200 [ (brewblox.field).stored = true ];
   }
 }
@@ -307,28 +312,44 @@ message Block {
   option (brewblox.msg).objtype = Sequence;
   option (brewblox.msg).impl = EnablerInterface;
 
-  bool enabled = 1
+  optional bool enabled = 1
       [ (brewblox.field).stored = true, (brewblox.field).logged = true ];
-  repeated Instruction instructions = 2 [ (brewblox.field).stored = true ];
-  uint32 variablesId = 11
+  // Read at load only: blobs from before the wrapper.
+  repeated Instruction instructionsLegacy = 2
+      [ (brewblox.field).ignored = true ];
+  // A write keeps a running sequence at its active instruction when the
+  // instructions before it keep their opcodes, comments and blank lines not
+  // counted: comments added or removed above it move it with them. The active
+  // one continues with its new arguments and keeps its elapsed time, so a
+  // shortened WAIT_DURATION can finish at once; an instruction of another opcode
+  // in its place starts over there. Otherwise the sequence restarts at the first
+  // instruction, and when the write removed the active one it is also disabled,
+  // unless the same write sets enabled.
+  InstructionList instructions = 13 [ (brewblox.field).stored = true ];
+  optional uint32 variablesId = 11
       [ (brewblox.field).objtype = Variables, (brewblox.field).stored = true ];
 
-  bool overrideState = 3 [ (brewblox.field).stored = true ];
-  uint32 activeInstruction = 4 [
+  optional bool overrideState = 3 [ (brewblox.field).stored = true ];
+  // Applies only when the same write sets overrideState.
+  optional uint32 activeInstruction = 4 [
     (brewblox.field).stored = true,
     (brewblox.field).logged = true,
     (nanopb).int_size = IS_16
   ];
 
-  SequenceStoreMode storeMode = 12 [ (brewblox.field).stored = true ];
+  optional SequenceStoreMode storeMode = 12 [ (brewblox.field).stored = true ];
 
   SequenceStatus status = 8 [ (brewblox.field).readonly = true ];
   SequenceError error = 9 [ (brewblox.field).readonly = true ];
 
+  // Time the active instruction has run, not counting time disabled. 0 when no
+  // instruction runs: past the last one, or before the active one's first
+  // update.
   uint32 elapsed = 10 [
     (brewblox.field).unit = Second,
     (brewblox.field).scale = 1000,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 0,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];

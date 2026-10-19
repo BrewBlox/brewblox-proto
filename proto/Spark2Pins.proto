@@ -25,7 +25,7 @@ message Block {
   option (brewblox.msg).impl = IoArrayInterface;
   option (brewblox.msg).impl = OneWireBusInterface;
 
-  bool soundAlarm = 5;
+  optional bool soundAlarm = 5;
   Hardware hardware = 8 [ (brewblox.field).readonly = true ];
   repeated IoArray.IoChannel channels = 9 [
     (brewblox.field).readonly = true,

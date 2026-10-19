@@ -10,30 +10,36 @@ message Block {
   option (brewblox.msg).impl = TempSensorInterface;
   option (brewblox.msg).impl = EnablerInterface;
 
-  bool enabled = 1 [ (brewblox.field).stored = true ];
-  uint32 timeout = 2 [
+  optional bool enabled = 1 [ (brewblox.field).stored = true ];
+  // Seconds after the setting's arrival, on the controller's steady clock;
+  // 0 never times out and keeps the setting through a reboot.
+  optional uint32 timeout = 2 [
     (brewblox.field).unit = Second,
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
 
-  sint32 setting = 3 [
+  // Counts from its arrival, on the controller's steady clock. It survives a
+  // reboot when timeout is 0, or when the controller's clock was set at its
+  // arrival and at the load and shows it younger than timeout.
+  optional sint32 setting = 3 [
     (brewblox.field).unit = Celsius,
     (brewblox.field).scale = 4096,
-    (brewblox.field).logged = true,
     (nanopb).int_size = IS_32
   ];
 
+  // When the setting arrived, on the controller's clock; 0 when it arrived
+  // before the clock was set.
   uint32 lastUpdated = 4 [
     (brewblox.field).datetime = true,
-    (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
-  sint32 value = 5 [
+  optional sint32 value = 5 [
     (brewblox.field).unit = Celsius,
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 3,
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];

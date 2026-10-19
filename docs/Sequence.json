@@ -54,7 +54,7 @@
     },
     {
       "name": "WAIT_DURATION",
-      "desc": "Waits until a given duration has elapsed since the instruction was started. If the *Sequence* is disabled while this instruction is active, time spent disabled is **not** included. If the controller is shut down while this instruction is active, time spent shut down is included.",
+      "desc": "Waits until a given duration has elapsed since the instruction was started. If the *Sequence* is disabled while this instruction is active, time spent disabled is **not** included. If the controller restarts while this instruction is active, the time before the restart is **not** included: the wait starts over. A duration longer than 4294967 seconds (about 49.7 days) is an <code>INVALID_ARGUMENT</code> error.",
       "arguments": [
         {
           "name": "duration",
@@ -62,7 +62,9 @@
           "type": "Duration string or integer seconds"
         }
       ],
-      "errors": [],
+      "errors": [
+        "INVALID_ARGUMENT"
+      ],
       "example": [
         "WAIT_DURATION duration=1h10m5s"
       ]
@@ -237,7 +239,7 @@
     },
     {
       "name": "WAIT_SETPOINT",
-      "desc": "Waits until the measured value of a *Setpoint* block is close enough to its desired setting. The <code>precision</code> argument is not centered on the desired setting: the instruction will finish if either <code>value >= setting - precision</code> or <code>value <= setting + precision</code> is true.",
+      "desc": "Waits until the measured value of a *Setpoint* block is close enough to its desired setting: the instruction finishes when <code>setting - precision <= value <= setting + precision</code>.",
       "arguments": [
         {
           "name": "target",

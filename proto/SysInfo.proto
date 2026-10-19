@@ -19,6 +19,36 @@ enum TemperatureUnit {
   TEMP_FAHRENHEIT = 1;
 };
 
+// Cross-platform reason for the last system reset. Values mirror
+// bloxhal::sysinfo::ResetReason; every platform maps its native reset cause
+// onto this enum (see platform/*/bloxhal_impl/*_sysinfo.cpp).
+enum ResetReason {
+  RESET_REASON_UNKNOWN = 0;
+  RESET_REASON_POWER_ON = 1;
+  RESET_REASON_EXTERNAL = 2;
+  RESET_REASON_SOFTWARE = 3;
+  RESET_REASON_PANIC = 4;
+  RESET_REASON_INTERRUPT_WDT = 5;
+  RESET_REASON_TASK_WDT = 6;
+  RESET_REASON_OTHER_WDT = 7;
+  RESET_REASON_DEEP_SLEEP = 8;
+  RESET_REASON_BROWNOUT = 9;
+  RESET_REASON_SDIO = 10;
+  RESET_REASON_USB = 11;
+  RESET_REASON_JTAG = 12;
+  RESET_REASON_EFUSE = 13;
+  RESET_REASON_POWER_GLITCH = 14;
+  RESET_REASON_CPU_LOCKUP = 15;
+  // Additional cross-platform causes (no ESP equivalent):
+  RESET_REASON_FIRMWARE_UPDATE = 16;
+  RESET_REASON_FIRMWARE_UPDATE_FAILED = 17;
+  RESET_REASON_FIRMWARE_UPDATE_TIMEOUT = 18;
+  RESET_REASON_FACTORY_RESET = 19;
+  RESET_REASON_SAFE_MODE = 20;
+  RESET_REASON_DFU_MODE = 21;
+  RESET_REASON_USER_REQUESTED = 22;
+};
+
 message Block {
   option (brewblox.msg).objtype = SysInfo;
 
@@ -44,54 +74,78 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
+  // Seconds since the controller started.
   uint32 uptime = 11 [
+    (brewblox.field).skip_changed = true,
     (brewblox.field).unit = Second,
-    (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
     (nanopb).int_size = IS_32
   ];
 
   uint32 updatesPerSecond = 12 [
+    (brewblox.field).skip_changed = true,
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 1,
     (nanopb).int_size = IS_32
   ];
 
-  uint32 systemTime = 13
+  optional uint32 systemTime = 13
       [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
 
-  string timeZone = 14
+  optional string timeZone = 14
       [ (brewblox.field).stored = true, (nanopb).max_size = 32 ];
 
-  TemperatureUnit tempUnit = 15 [ (brewblox.field).stored = true ];
+  optional TemperatureUnit tempUnit = 15 [ (brewblox.field).stored = true ];
 
-  uint32 displayBrightness = 16
+  optional uint32 displayBrightness = 16
       [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
 
   uint32 voltage5 = 17 [
+    (brewblox.field).skip_changed = true,
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 2,
     (nanopb).int_size = IS_16
   ];
   uint32 voltageExternal = 18 [
+    (brewblox.field).skip_changed = true,
     (brewblox.field).scale = 1000,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
+    (brewblox.field).logged_decimals = 2,
     (nanopb).int_size = IS_16
   ];
 
-  uint32 memoryFree = 19
-      [ (brewblox.field).readonly = true, (brewblox.field).logged = true ];
-  uint32 memoryFreeContiguous = 20
-      [ (brewblox.field).readonly = true, (brewblox.field).logged = true ];
-  uint32 memoryFreeLowest = 21
-      [ (brewblox.field).readonly = true, (brewblox.field).logged = true ];
+  uint32 memoryFree = 19 [
+    (brewblox.field).skip_changed = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
+  uint32 memoryFreeContiguous = 20 [
+    (brewblox.field).skip_changed = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
+  uint32 memoryFreeLowest = 21 [
+    (brewblox.field).skip_changed = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
 
-  uint32 mainTaskStackFreeLowest = 22
-      [ (brewblox.field).readonly = true, (brewblox.field).logged = true ];
+  // The least free stack the main task had, in bytes. A Spark 2/3 cannot measure it and
+  // reports 0, which is left out.
+  uint32 mainTaskStackFreeLowest = 22 [
+    (brewblox.field).skip_changed = true,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true,
+    (brewblox.field).omit_if_zero = true
+  ];
+
+  ResetReason resetReason = 23 [ (brewblox.field).readonly = true ];
 
   // Deprecated fields
   bool command = 90

@@ -25,11 +25,20 @@ enum Cipher {
 message Block {
   option (brewblox.msg).objtype = WiFiSettings;
 
-  string ssid = 1 [ (nanopb).max_size = 33 ];
-  string password = 2 [ (nanopb).max_size = 64 ];
-  Security security = 3;
-  Cipher cipher = 4;
+  // Read: the network joined, absent while not connected.
+  // Write: the network to join, together with the password.
+  optional string ssid = 1 [ (nanopb).max_size = 33 ];
+  // Write-only, never read back. A write with a password applies ssid,
+  // security and cipher with it, absent ones as empty or unsecured; a write
+  // without one applies none of them.
+  optional string password = 2 [ (nanopb).max_size = 64 ];
+  optional Security security = 3;
+  optional Cipher cipher = 4;
+  // dBm, absent while not connected: a signal is negative, and the firmware
+  // sends 0 for no reading
   int32 signal = 5 [
+    (brewblox.field).omit_if_zero = true,
+    (brewblox.field).skip_changed = true,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true,
     (nanopb).int_size = IS_8

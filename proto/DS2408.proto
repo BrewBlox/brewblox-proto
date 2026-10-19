@@ -34,12 +34,13 @@ message Block {
   option (brewblox.msg).impl = DS2408Interface;
   option (brewblox.msg).impl = OneWireDeviceInterface;
 
-  fixed64 address = 1
+  optional fixed64 address = 1
       [ (brewblox.field).hexed = true, (brewblox.field).stored = true ];
   bool connected = 6 [ (brewblox.field).readonly = true ];
 
-  PinConnectMode connectMode = 9 [ (brewblox.field).stored = true ];
-  uint32 oneWireBusId = 10 [
+  optional PinConnectMode connectMode = 9 [ (brewblox.field).stored = true ];
+  // A write of 0 is ignored.
+  optional uint32 oneWireBusId = 10 [
     (brewblox.field).objtype = OneWireBusInterface,
     (brewblox.field).stored = true
   ];
