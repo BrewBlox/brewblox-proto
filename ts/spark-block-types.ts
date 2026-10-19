@@ -382,7 +382,7 @@ export interface DensitySensorBlock extends Block {
     gravity: number;
     flowCoefficient: number;
     flowThreshold: number;
-    specificGravity: Readonly<number>; // Outputs (readonly, logged)
+    specificGravity: Readonly<number | null>; // Outputs (readonly, logged)
     differentialPressure: Readonly<Quantity>;
     flowRate: Readonly<Quantity>;
     density: Readonly<Quantity>;
@@ -671,7 +671,7 @@ export interface PressureSensorBlock extends Block {
     type: PressureSensorType;
     analogDevice: Link;
     analogChannel: number;
-    raw: Readonly<number>;
+    raw: Readonly<number | null>;
     resistance: Readonly<Quantity>;
     pressureAbsolute: Readonly<Quantity>;
     pressureRelative: Readonly<Quantity>;
@@ -952,7 +952,7 @@ export interface VolumeSensorBlock extends Block {
     volume: Readonly<Quantity>;
     height: Readonly<Quantity>;
     volumeSinceTare: Readonly<Quantity>;
-    tareHeight: Quantity;
+    tareHeight: Quantity; // Absent: no tare taken
     live: boolean;
     heightSinceTare: Readonly<Quantity>;
   };

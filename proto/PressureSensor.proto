@@ -14,34 +14,36 @@ enum PressureSensorType {
 
 message Block {
   option (brewblox.msg).objtype = PressureSensor;
+  option (brewblox.msg).impl = PressureSensorInterface;
   option (brewblox.msg).impl = AnalogClaimerInterface;
 
-  PressureSensorType type = 1;
-  uint32 analogDevice = 2 [
+  optional PressureSensorType type = 1 [ (brewblox.field).stored = true ];
+  optional uint32 analogDevice = 2 [
     (brewblox.field).objtype = AnalogArrayInterface,
     (brewblox.field).stored = true
   ];
 
-  uint32 analogChannel = 3 [ (nanopb).int_size = IS_8 ];
+  optional uint32 analogChannel = 3
+      [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
 
-  sint32 raw = 4 [
+  optional sint32 raw = 4 [
     (brewblox.field).scale = 262144,
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true
   ];
-  sint32 resistance = 5 [
+  optional sint32 resistance = 5 [
     (brewblox.field).scale = 1024,
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
     (brewblox.field).unit = Ohm
   ];
-  sint32 pressureAbsolute = 6 [
+  optional sint32 pressureAbsolute = 6 [
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
     (brewblox.field).unit = MilliBar
   ];
-  sint32 pressureRelative = 7 [
+  optional sint32 pressureRelative = 7 [
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
@@ -49,51 +51,51 @@ message Block {
   ];
 
   // Legendre temperature correction model
-  sint32 referenceResistance = 8 [
+  optional sint32 referenceResistance = 8 [
     (brewblox.field).scale = 1024,
     (brewblox.field).unit = Ohm,
     (brewblox.field).stored = true
   ];
-  sint32 rMin = 9 [
+  optional sint32 rMin = 9 [
     (brewblox.field).scale = 1024,
     (brewblox.field).unit = Ohm,
     (brewblox.field).stored = true
   ];
-  sint32 rMax = 10 [
+  optional sint32 rMax = 10 [
     (brewblox.field).scale = 1024,
     (brewblox.field).unit = Ohm,
     (brewblox.field).stored = true
   ];
-  sint32 offsetO0 = 11 [
+  optional sint32 offsetO0 = 11 [
     (brewblox.field).scale = 262144,
     (brewblox.field).stored = true
   ];
-  sint32 offsetO1 = 12 [
+  optional sint32 offsetO1 = 12 [
     (brewblox.field).scale = 67108864,
     (brewblox.field).stored = true
   ];
-  sint32 offsetO2 = 13 [
+  optional sint32 offsetO2 = 13 [
     (brewblox.field).scale = 67108864,
     (brewblox.field).stored = true
   ];
-  sint32 gainS0 = 14 [
+  optional sint32 gainS0 = 14 [
     (brewblox.field).scale = 67108864,
     (brewblox.field).stored = true
   ];
-  sint32 gainS1 = 15 [
+  optional sint32 gainS1 = 15 [
     (brewblox.field).scale = 67108864,
     (brewblox.field).stored = true
   ];
-  sint32 gainS2 = 16 [
+  optional sint32 gainS2 = 16 [
     (brewblox.field).scale = 67108864,
     (brewblox.field).stored = true
   ];
-  sint32 internalPressure = 17 [
+  optional sint32 internalPressure = 17 [
     (brewblox.field).scale = 4096,
     (brewblox.field).unit = MilliBar,
     (brewblox.field).stored = true
   ];
-  sint32 baroPressure = 18 [
+  optional sint32 baroPressure = 18 [
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true,

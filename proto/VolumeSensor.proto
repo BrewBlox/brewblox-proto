@@ -10,56 +10,57 @@ message Block {
 
   reserved 2;
 
-  uint32 pressureDevice = 1 [
+  optional uint32 pressureDevice = 1 [
     (brewblox.field).objtype = PressureSensor,
     (brewblox.field).stored = true
   ];
 
-  sint32 zeroPressureVolume = 3 [
+  optional sint32 zeroPressureVolume = 3 [
     (brewblox.field).scale = 1024,
     (brewblox.field).unit = MilliLiter,
     (brewblox.field).stored = true
   ];
 
-  sint32 heightPerMbar = 4
+  optional sint32 heightPerMbar = 4
       [ (brewblox.field).scale = 4096, (brewblox.field).stored = true ];
 
-  sint32 mlPerMm = 5
+  optional sint32 mlPerMm = 5
       [ (brewblox.field).scale = 4096, (brewblox.field).stored = true ];
 
-  sint32 sensorHeight = 6
+  optional sint32 sensorHeight = 6
       [ (brewblox.field).scale = 1024, (brewblox.field).unit = Millimeter, (brewblox.field).stored = true ];
 
-  sint32 volume = 9 [
+  optional sint32 volume = 9 [
     (brewblox.field).scale = 1024,
     (brewblox.field).unit = MilliLiter,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true
   ];
 
-  sint32 height = 10 [
+  optional sint32 height = 10 [
     (brewblox.field).scale = 1024,
     (brewblox.field).unit = Millimeter,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true
   ];
 
-  sint32 volumeSinceTare = 12 [
+  optional sint32 volumeSinceTare = 12 [
     (brewblox.field).scale = 1024,
     (brewblox.field).unit = MilliLiter,
     (brewblox.field).readonly = true,
     (brewblox.field).logged = true
   ];
 
-  sint32 tareHeight = 13 [
+  // Absent: no tare taken
+  optional sint32 tareHeight = 13 [
     (brewblox.field).scale = 1024,
     (brewblox.field).unit = Millimeter,
     (brewblox.field).stored = true
   ];
 
-  bool live = 15 [ (brewblox.field).stored = true ];
+  optional bool live = 15 [ (brewblox.field).stored = true ];
 
-  sint32 heightSinceTare = 14 [
+  optional sint32 heightSinceTare = 14 [
     (brewblox.field).scale = 1024,
     (brewblox.field).unit = Millimeter,
     (brewblox.field).readonly = true,
