@@ -8,6 +8,7 @@ import {
   BlockOrIntfType,
   BlockType,
   ChannelCapabilities,
+  DensitySensorMode,
   DigitalCompareOp,
   DigitalState,
   DisplayTempUnit,
@@ -17,6 +18,7 @@ import {
   GpioErrorFlags,
   GpioPins,
   LogicResult,
+  PressureSensorType,
   PwmFrequency,
   ReferenceKind,
   ResetReason,
@@ -33,6 +35,7 @@ import {
   TouchCalibrated,
   TransitionDurationPreset,
   ValveState,
+  VolumeDisplayMode,
   WifiCipherType,
   WifiSecurityType,
 } from './spark-block-enums';
@@ -368,6 +371,26 @@ export interface BalancerBlock extends Block {
 }
 // #endregion Balancer
 
+// #region DensitySensor
+export interface DensitySensorBlock extends Block {
+  type: 'DensitySensor';
+  data: {
+    upperPressure: Link; // References (stored)
+    lowerPressure: Link;
+    tubeTempSensor: Link;
+    sensorSeparation: Quantity; // Settings (stored)
+    gravity: number;
+    flowCoefficient: number;
+    flowThreshold: number;
+    specificGravity: Readonly<number>; // Outputs (readonly, logged)
+    differentialPressure: Readonly<Quantity>;
+    flowRate: Readonly<Quantity>;
+    density: Readonly<Quantity>;
+    mode: Readonly<DensitySensorMode>;
+  };
+}
+// #endregion DensitySensor
+
 // #region DeprecatedObject
 export interface DeprecatedObjectBlock extends Block {
   type: 'DeprecatedObject';
@@ -415,6 +438,11 @@ export interface DigitalInputBlock extends Block {
 // #endregion DigitalInput
 
 // #region DisplaySettings
+export interface VolumeWidget {
+  volumeSensor: Link;
+  displayMode: VolumeDisplayMode;
+}
+
 export interface DisplaySlot {
   pos: number; // 1-indexed
   color: string;
@@ -424,6 +452,7 @@ export interface DisplaySlot {
   setpointSensorPair?: Link;
   actuatorAnalog?: Link;
   pid?: Link;
+  volumeSensor?: VolumeWidget;
 }
 
 export interface DisplaySettingsBlock extends Block {
@@ -634,6 +663,32 @@ export interface PidBlock extends Block {
   };
 }
 // #endregion Pid
+
+// #region PressureSensor
+export interface PressureSensorBlock extends Block {
+  type: 'PressureSensor';
+  data: {
+    type: PressureSensorType;
+    analogDevice: Link;
+    analogChannel: number;
+    raw: Readonly<number>;
+    resistance: Readonly<Quantity>;
+    pressureAbsolute: Readonly<Quantity>;
+    pressureRelative: Readonly<Quantity>;
+    referenceResistance: Quantity; // Legendre temperature correction model
+    rMin: Quantity;
+    rMax: Quantity;
+    offsetO0: number;
+    offsetO1: number;
+    offsetO2: number;
+    gainS0: number;
+    gainS1: number;
+    gainS2: number;
+    internalPressure: Quantity;
+    baroPressure: Readonly<Quantity>;
+  };
+}
+// #endregion PressureSensor
 
 // #region Sequence
 export interface SequenceBlock extends Block {
@@ -884,6 +939,25 @@ export interface VariablesBlock extends Block {
   };
 }
 // #endregion Variables
+
+// #region VolumeSensor
+export interface VolumeSensorBlock extends Block {
+  type: 'VolumeSensor';
+  data: {
+    pressureDevice: Link;
+    zeroPressureVolume: Quantity;
+    heightPerMbar: number;
+    mlPerMm: number;
+    sensorHeight: Quantity;
+    volume: Readonly<Quantity>;
+    height: Readonly<Quantity>;
+    volumeSinceTare: Readonly<Quantity>;
+    tareHeight: Quantity;
+    live: boolean;
+    heightSinceTare: Readonly<Quantity>;
+  };
+}
+// #endregion VolumeSensor
 
 // #region WiFiSettings
 export interface WiFiSettingsBlock extends Block {

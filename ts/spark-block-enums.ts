@@ -51,6 +51,7 @@ export const UserBlockType = Enum(
   'ActuatorOffset',
   'ActuatorPwm',
   'Balancer',
+  'DensitySensor',
   'DeprecatedObject',
   'DigitalActuator',
   'DigitalInput',
@@ -62,6 +63,7 @@ export const UserBlockType = Enum(
   'MotorValve',
   'Mutex',
   'Pid',
+  'PressureSensor',
   'Sequence',
   'SetpointProfile',
   'SetpointSensorPair',
@@ -71,6 +73,7 @@ export const UserBlockType = Enum(
   'TempSensorMock',
   'TempSensorOneWire',
   'Variables',
+  'VolumeSensor',
 );
 
 export const BlockType = Enum(
@@ -413,6 +416,24 @@ export const TempSensorAnalogSpec = Enum(
 );
 // #endregion TempSensorAnalog
 
+// #region DensitySensorMode
+export const DensitySensorMode = Enum(
+  'DENSITY_SENSOR_MODE_DENSITY',
+  'DENSITY_SENSOR_MODE_FLOW',
+);
+// #endregion DensitySensorMode
+
+// #region VolumeDisplayMode
+export const VolumeDisplayMode = Enum(
+  'VOLUME_DISPLAY_MODE_HEIGHT',
+  'VOLUME_DISPLAY_MODE_VOLUME',
+  'VOLUME_DISPLAY_MODE_VOLUME_SINCE_TARE',
+  'VOLUME_DISPLAY_MODE_HEIGHT_SINCE_TARE',
+  'VOLUME_DISPLAY_MODE_TARE_BUTTON',
+  'VOLUME_DISPLAY_MODE_LIVE_BUTTON',
+);
+// #endregion VolumeDisplayMode
+
 // #region AnalogCalibrationState
 export const AnalogCalibrationState = Enum(
   'ANALOG_CALIBRATION_STATE_NONE', // no calibration stored
@@ -421,6 +442,14 @@ export const AnalogCalibrationState = Enum(
   'ANALOG_CALIBRATION_STATE_FAILED', // the last calibration failed; the previous one stays in use
 );
 // #endregion AnalogCalibrationState
+
+// #region PressureSensorType
+export const PressureSensorType = Enum(
+  'PRESSURE_SENSOR_TYPE_NOT_SET',
+  'PRESSURE_SENSOR_TYPE_GAUGE_ABSOLUTE',
+  'PRESSURE_SENSOR_TYPE_GAUGE_RELATIVE',
+);
+// #endregion PressureSensorType
 
 export type BlockIntfType = Enum<typeof BlockIntfType>;
 export type SystemBlockType = Enum<typeof SystemBlockType>;
@@ -457,4 +486,7 @@ export type WifiCipherType = Enum<typeof WifiCipherType>;
 export type ToggleBehavior = Enum<typeof ToggleBehavior>;
 export type TempSensorAnalogType = Enum<typeof TempSensorAnalogType>;
 export type TempSensorAnalogSpec = Enum<typeof TempSensorAnalogSpec>;
+export type DensitySensorMode = Enum<typeof DensitySensorMode>;
+export type VolumeDisplayMode = Enum<typeof VolumeDisplayMode>;
 export type AnalogCalibrationState = Enum<typeof AnalogCalibrationState>;
+export type PressureSensorType = Enum<typeof PressureSensorType>;
