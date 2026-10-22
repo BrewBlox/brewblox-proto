@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "Vessel.proto";
+
+package blox.Kettle;
+
+// A vessel open to the air
+message Block {
+  option (brewblox.msg).objtype = Kettle;
+
+  Vessel.Vessel vessel = 1
+      [ (brewblox.field).stored = true, (brewblox.field).logged = true ];
+}

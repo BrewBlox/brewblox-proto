@@ -59,6 +59,7 @@ export const UserBlockType = Enum(
   'DS2413',
   'FastPwm',
   'InactiveObject',
+  'Kettle',
   'MockPins',
   'MotorValve',
   'Mutex',
@@ -67,13 +68,13 @@ export const UserBlockType = Enum(
   'Sequence',
   'SetpointProfile',
   'SetpointSensorPair',
+  'Tank',
   'TempSensorAnalog',
   'TempSensorCombi',
   'TempSensorExternal',
   'TempSensorMock',
   'TempSensorOneWire',
   'Variables',
-  'VolumeSensor',
 );
 
 export const BlockType = Enum(
@@ -426,17 +427,6 @@ export const DensitySensorMode = Enum(
 );
 // #endregion DensitySensorMode
 
-// #region VolumeDisplayMode
-export const VolumeDisplayMode = Enum(
-  'VOLUME_DISPLAY_MODE_HEIGHT',
-  'VOLUME_DISPLAY_MODE_VOLUME',
-  'VOLUME_DISPLAY_MODE_VOLUME_SINCE_TARE',
-  'VOLUME_DISPLAY_MODE_HEIGHT_SINCE_TARE',
-  'VOLUME_DISPLAY_MODE_TARE_BUTTON',
-  'VOLUME_DISPLAY_MODE_LIVE_BUTTON',
-);
-// #endregion VolumeDisplayMode
-
 // #region AnalogCalibrationState
 export const AnalogCalibrationState = Enum(
   'ANALOG_CALIBRATION_STATE_NONE', // no calibration stored
@@ -445,6 +435,16 @@ export const AnalogCalibrationState = Enum(
   'ANALOG_CALIBRATION_STATE_FAILED', // the last calibration failed; the previous one stays in use
 );
 // #endregion AnalogCalibrationState
+
+// #region VesselState
+export const VesselState = Enum(
+  'VESSEL_STATE_NO_READING', // its pressure sensor gives no reading
+  'VESSEL_STATE_LIVE', // its readings are current
+  'VESSEL_STATE_CONDITION', // an actuator condition does not hold: failingActuator
+  'VESSEL_STATE_SHARED', // another vessel on its pressure sensor is connected too, or a valve of it is on its way
+  'VESSEL_STATE_SETTLING', // just connected: the level is still equalizing
+);
+// #endregion VesselState
 
 // #region PressureSensorType
 export const PressureSensorType = Enum(
@@ -490,6 +490,6 @@ export type ToggleBehavior = Enum<typeof ToggleBehavior>;
 export type TempSensorAnalogType = Enum<typeof TempSensorAnalogType>;
 export type TempSensorAnalogSpec = Enum<typeof TempSensorAnalogSpec>;
 export type DensitySensorMode = Enum<typeof DensitySensorMode>;
-export type VolumeDisplayMode = Enum<typeof VolumeDisplayMode>;
 export type AnalogCalibrationState = Enum<typeof AnalogCalibrationState>;
+export type VesselState = Enum<typeof VesselState>;
 export type PressureSensorType = Enum<typeof PressureSensorType>;

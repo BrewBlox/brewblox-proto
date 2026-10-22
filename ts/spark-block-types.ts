@@ -35,7 +35,7 @@ import {
   TouchCalibrated,
   TransitionDurationPreset,
   ValveState,
-  VolumeDisplayMode,
+  VesselState,
   WifiCipherType,
   WifiSecurityType,
 } from './spark-block-enums';
@@ -194,6 +194,57 @@ export interface DigitalConstraints {
   mutexed?: MutexedConstraint;
 }
 // #endregion DigitalConstraints
+
+// #region Vessel
+export interface ActuatorCondition {
+  actuator: Link;
+  // STATE_ACTIVE or STATE_INACTIVE, the state the actuator must have arrived in. A write naming
+  // another is refused and changes nothing; a create, a backup's restore included, takes it as
+  // STATE_INACTIVE.
+  state: DigitalState;
+}
+
+export interface Vessel {
+  pressureSensor: Link; // The pressure sensor below the vessel
+  // The pressure sensor in the headspace of a pressurized vessel; without one, the
+  // headspace is the atmosphere.
+  headspaceSensor: Link;
+  heightPerMbar: number; // mm of liquid per mbar: about 10.2 for water. At 0 there is no height or volume.
+  mlPerMm: number; // mL per mm of height above the empty level. At 0 there is no volume.
+  // The level of the vessel's bottom above its pressure sensor: the liquid in the tube
+  // below it is not the vessel's contents.
+  emptyLevel: Quantity;
+  height: Readonly<Quantity>; // The liquid's height above the empty level; 0 at and below it
+  volume: Readonly<Quantity>; // The volume above the empty level; 0 at and below it
+  // Two tares, each the height and volume a tare took, 0 until it is first taken; for
+  // records and backups, while a tare is taken with tare1 or tare2.
+  tare1Height: Quantity;
+  tare1Volume: Quantity;
+  tare2Height: Quantity;
+  tare2Volume: Quantity;
+  // The height and volume since each tare: equal to height and volume until it is first
+  // taken. The height is the one to check with a ruler.
+  heightSinceTare1: Readonly<Quantity>;
+  volumeSinceTare1: Readonly<Quantity>;
+  heightSinceTare2: Readonly<Quantity>;
+  volumeSinceTare2: Readonly<Quantity>;
+  // Written true: the current height and volume become that tare. Never stored; reads
+  // absent. While the vessel is not live nothing changes.
+  tare1: boolean;
+  tare2: boolean;
+  // Written true with the vessel drained and the tube full: the liquid's height above the
+  // sensor becomes the empty level. Never stored; reads absent. While the vessel is not
+  // live nothing changes.
+  empty: boolean;
+  // Up to 4 valves or pumps and the states they must have arrived in: the vessel is live
+  // only while they all have, no other vessel on its pressure sensor is connected or on its
+  // way to it, and the step from connecting has settled. While not live it keeps its last
+  // readings, and the tare and empty triggers change nothing.
+  conditions: ActuatorCondition[];
+  state: Readonly<VesselState>;
+  failingActuator: Readonly<Link>; // The first actuator whose condition does not hold
+}
+// #endregion Vessel
 
 // #region DeprecatedConstraints
 export interface DeprecatedMinConstraint {
@@ -436,11 +487,6 @@ export interface DigitalInputBlock extends Block {
 // #endregion DigitalInput
 
 // #region DisplaySettings
-export interface VolumeWidget {
-  volumeSensor: Link;
-  displayMode: VolumeDisplayMode;
-}
-
 export interface DisplaySlot {
   pos: number; // 1-indexed
   color: string;
@@ -450,7 +496,6 @@ export interface DisplaySlot {
   setpointSensorPair?: Link;
   actuatorAnalog?: Link;
   pid?: Link;
-  volumeSensor?: VolumeWidget;
 }
 
 export interface DisplaySettingsBlock extends Block {
@@ -586,6 +631,15 @@ export interface InactiveObjectBlock extends Block {
   };
 }
 // #endregion InactiveObject
+
+// #region Kettle
+export interface KettleBlock extends Block {
+  type: 'Kettle';
+  data: {
+    vessel: Vessel;
+  };
+}
+// #endregion Kettle
 
 // #region MockPins
 export interface MockPinsBlock extends Block {
@@ -847,6 +901,15 @@ export interface SysInfoBlock extends Block {
 }
 // #endregion SysInfo
 
+// #region Tank
+export interface TankBlock extends Block {
+  type: 'Tank';
+  data: {
+    vessel: Vessel;
+  };
+}
+// #endregion Tank
+
 // #region TempSensorAnalog
 export interface TempSensorAnalogBlock extends Block {
   type: 'TempSensorAnalog';
@@ -964,25 +1027,6 @@ export interface VariablesBlock extends Block {
   };
 }
 // #endregion Variables
-
-// #region VolumeSensor
-export interface VolumeSensorBlock extends Block {
-  type: 'VolumeSensor';
-  data: {
-    pressureDevice: Link;
-    zeroPressureVolume: Quantity;
-    heightPerMbar: number;
-    mlPerMm: number;
-    sensorHeight: Quantity;
-    volume: Readonly<Quantity>;
-    height: Readonly<Quantity>;
-    volumeSinceTare: Readonly<Quantity>;
-    tareHeight: Quantity; // Absent: no tare taken
-    live: boolean;
-    heightSinceTare: Readonly<Quantity>;
-  };
-}
-// #endregion VolumeSensor
 
 // #region WiFiSettings
 export interface WiFiSettingsBlock extends Block {

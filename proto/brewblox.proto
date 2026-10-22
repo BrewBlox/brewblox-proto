@@ -61,7 +61,6 @@ enum BlockType {
   AnalogArrayInterface = 28;
   AnalogClaimerInterface = 29; // not used, no unique claimer atm
   PressureSensorInterface = 30;
-  VolumeSensorInterface = 31;
   DensitySensorInterface = 32;
   Any = 255;
   SysInfo = 256;
@@ -103,9 +102,13 @@ enum BlockType {
   TempSensorAnalog = 332;
   Variables = 333;
   PressureSensor = 334;
-  VolumeSensor = 335;
   DensitySensor = 336;
-  // 16001 - 16005 reserved
+  // 337: FlowSensor, on its own branch
+  Kettle = 338;
+  Tank = 339;
+  // 31 and 335: a volume sensor and its interface, which the vessels replaced; records
+  // that some devices hold name them
+  reserved 31, 335;
   Corrupted = 65532;
   Deprecated = 65533;
 

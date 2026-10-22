@@ -1,0 +1,148 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "nanopb.proto";
+import "IoArray.proto";
+
+package blox.Vessel;
+
+enum VesselState {
+  VESSEL_STATE_NO_READING = 0;     // its pressure sensor gives no reading
+  VESSEL_STATE_LIVE = 1;           // its readings are current
+  VESSEL_STATE_CONDITION = 2;      // an actuator condition does not hold: failingActuator
+  VESSEL_STATE_SHARED = 3;         // another vessel on its pressure sensor is connected too, or a valve of it is on its way
+  VESSEL_STATE_SETTLING = 4;       // just connected: the level is still equalizing
+}
+
+// A valve or pump, and the state it must have for the vessel's reading to count
+message ActuatorCondition {
+  uint32 actuator = 1 [
+    (brewblox.field).objtype = ActuatorDigitalInterface,
+    (brewblox.field).stored = true
+  ];
+  // STATE_ACTIVE or STATE_INACTIVE, the state the actuator must have arrived in. A write naming
+  // another is refused and changes nothing; a create, a backup's restore included, takes it as
+  // STATE_INACTIVE.
+  IoArray.DigitalState state = 2 [ (brewblox.field).stored = true ];
+}
+
+message ActuatorConditionList {
+  repeated ActuatorCondition items = 1
+      [ (brewblox.field).stored = true, (nanopb).max_count = 4 ];
+}
+
+// The liquid in a kettle or a tank, measured by a pressure sensor below it.
+message Vessel {
+  // The pressure sensor below the vessel
+  optional uint32 pressureSensor = 1 [
+    (brewblox.field).objtype = PressureSensor,
+    (brewblox.field).stored = true
+  ];
+  // The pressure sensor in the headspace of a pressurized vessel; without one, the
+  // headspace is the atmosphere.
+  optional uint32 headspaceSensor = 2 [
+    (brewblox.field).objtype = PressureSensor,
+    (brewblox.field).stored = true
+  ];
+
+  // mm of liquid per mbar: about 10.2 for water. At 0 there is no height or volume.
+  optional sint32 heightPerMbar = 3
+      [ (brewblox.field).scale = 4096, (brewblox.field).stored = true ];
+  // mL per mm of height above the empty level. At 0 there is no volume.
+  optional sint32 mlPerMm = 4
+      [ (brewblox.field).scale = 4096, (brewblox.field).stored = true ];
+  // The level of the vessel's bottom above its pressure sensor: the liquid in the tube
+  // below it is not the vessel's contents.
+  optional sint32 emptyLevel = 5 [
+    (brewblox.field).scale = 1024,
+    (brewblox.field).unit = Millimeter,
+    (brewblox.field).stored = true
+  ];
+
+  // The liquid's height above the empty level; 0 at and below it
+  optional sint32 height = 10 [
+    (brewblox.field).scale = 1024,
+    (brewblox.field).unit = Millimeter,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
+  // The volume above the empty level; 0 at and below it
+  optional sint32 volume = 11 [
+    (brewblox.field).scale = 256,
+    (brewblox.field).unit = MilliLiter,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
+
+  // Two tares, each the height and volume a tare took, 0 until it is first taken; for
+  // records and backups, while a tare is taken with tare1 or tare2.
+  optional sint32 tare1Height = 12 [
+    (brewblox.field).scale = 1024,
+    (brewblox.field).unit = Millimeter,
+    (brewblox.field).stored = true
+  ];
+  optional sint32 tare1Volume = 13 [
+    (brewblox.field).scale = 256,
+    (brewblox.field).unit = MilliLiter,
+    (brewblox.field).stored = true
+  ];
+  optional sint32 tare2Height = 14 [
+    (brewblox.field).scale = 1024,
+    (brewblox.field).unit = Millimeter,
+    (brewblox.field).stored = true
+  ];
+  optional sint32 tare2Volume = 15 [
+    (brewblox.field).scale = 256,
+    (brewblox.field).unit = MilliLiter,
+    (brewblox.field).stored = true
+  ];
+
+  // The height and volume since each tare: equal to height and volume until it is first
+  // taken. The height is the one to check with a ruler.
+  optional sint32 heightSinceTare1 = 16 [
+    (brewblox.field).scale = 1024,
+    (brewblox.field).unit = Millimeter,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
+  optional sint32 volumeSinceTare1 = 17 [
+    (brewblox.field).scale = 256,
+    (brewblox.field).unit = MilliLiter,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
+  optional sint32 heightSinceTare2 = 18 [
+    (brewblox.field).scale = 1024,
+    (brewblox.field).unit = Millimeter,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
+  optional sint32 volumeSinceTare2 = 19 [
+    (brewblox.field).scale = 256,
+    (brewblox.field).unit = MilliLiter,
+    (brewblox.field).readonly = true,
+    (brewblox.field).logged = true
+  ];
+
+  // Written true: the current height and volume become that tare. Never stored; reads
+  // absent. While the vessel is not live nothing changes.
+  optional bool tare1 = 20;
+  optional bool tare2 = 21;
+  // Written true with the vessel drained and the tube full: the liquid's height above the
+  // sensor becomes the empty level. Never stored; reads absent. While the vessel is not
+  // live nothing changes.
+  optional bool empty = 22;
+
+  // Up to 4 valves or pumps and the states they must have arrived in: the vessel is live
+  // only while they all have, no other vessel on its pressure sensor is connected or on its
+  // way to it, and the step from connecting has settled. While not live it keeps its last
+  // readings, and the tare and empty triggers change nothing.
+  ActuatorConditionList conditions = 23 [ (brewblox.field).stored = true ];
+  VesselState state = 24
+      [ (brewblox.field).readonly = true, (brewblox.field).logged = true ];
+  // The first actuator whose condition does not hold
+  optional uint32 failingActuator = 25 [
+    (brewblox.field).objtype = ActuatorDigitalInterface,
+    (brewblox.field).readonly = true
+  ];
+}

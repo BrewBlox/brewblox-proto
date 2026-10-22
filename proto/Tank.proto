@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "brewblox.proto";
+import "Vessel.proto";
+
+package blox.Tank;
+
+// A vessel that can be pressurized: its vessel's headspace sensor measures the gas above the
+// liquid
+message Block {
+  option (brewblox.msg).objtype = Tank;
+
+  Vessel.Vessel vessel = 1
+      [ (brewblox.field).stored = true, (brewblox.field).logged = true ];
+}

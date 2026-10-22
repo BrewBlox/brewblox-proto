@@ -164,6 +164,10 @@ const SHARED_REGIONS = [
       'blox.Constraints.DigitalConstraints',
     ],
   },
+  {
+    region: 'Vessel',
+    messages: ['blox.Vessel.ActuatorCondition', 'blox.Vessel.Vessel'],
+  },
 ];
 
 // Interface blocks: `XInterfaceBlock extends Block { data: {...} }` for the
