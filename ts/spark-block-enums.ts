@@ -418,8 +418,11 @@ export const TempSensorAnalogSpec = Enum(
 
 // #region DensitySensorMode
 export const DensitySensorMode = Enum(
-  'DENSITY_SENSOR_MODE_DENSITY',
-  'DENSITY_SENSOR_MODE_FLOW',
+  'DENSITY_SENSOR_MODE_DENSITY', // the liquid in the tube is still and its reading steady: SG and density
+  'DENSITY_SENSOR_MODE_FLOW', // a pump moves it: flow rate, no SG or density
+  'DENSITY_SENSOR_MODE_LOW_LEVEL', // the liquid is below the upper sensor: none of them
+  'DENSITY_SENSOR_MODE_SETTLING', // still, but the reading has not held steady yet, as after a pump stop, a fast level change or another mode: no SG or density yet
+  'DENSITY_SENSOR_MODE_ERROR', // it reads nothing: a pressure sensor or its reading is missing, or, with liquid over the upper sensor, a temperature, gravity or the separation
 );
 // #endregion DensitySensorMode
 

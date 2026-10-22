@@ -377,15 +377,13 @@ export interface DensitySensorBlock extends Block {
   data: {
     upperPressure: Link; // References (stored)
     lowerPressure: Link;
-    tubeTempSensor: Link;
     sensorSeparation: Quantity; // Settings (stored)
     gravity: number;
     flowCoefficient: number;
-    flowThreshold: number;
-    specificGravity: Readonly<number | null>; // Outputs (readonly, logged)
+    specificGravity: Readonly<number | null>; // In density mode only
     differentialPressure: Readonly<Quantity>;
-    flowRate: Readonly<Quantity>;
-    density: Readonly<Quantity>;
+    flowRate: Readonly<Quantity>; // In flow mode only; positive with the pump in its normal direction
+    density: Readonly<Quantity>; // In density mode only
     mode: Readonly<DensitySensorMode>;
   };
 }
