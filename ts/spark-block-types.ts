@@ -665,6 +665,23 @@ export interface PidBlock extends Block {
 // #endregion Pid
 
 // #region PressureSensor
+export interface PressureSensorCalibration {
+  rMin: Quantity;
+  rMax: Quantity;
+  offsetO0: number;
+  offsetO1: number;
+  offsetO2: number;
+  gainS0: number;
+  gainS1: number;
+  gainS2: number;
+  internalPressure: Quantity;
+  // The bridge's own temperature on the same window: T = temperatureT0 + temperatureT1·x +
+  // temperatureT2·1.5x²; without temperatureT1 there is no temperature.
+  temperatureT0: Quantity;
+  temperatureT1: Quantity;
+  temperatureT2: Quantity;
+}
+
 export interface PressureSensorBlock extends Block {
   type: 'PressureSensor';
   data: {
@@ -675,17 +692,27 @@ export interface PressureSensorBlock extends Block {
     resistance: Readonly<Quantity>;
     pressureAbsolute: Readonly<Quantity>;
     pressureRelative: Readonly<Quantity>;
-    referenceResistance: Quantity; // Legendre temperature correction model
-    rMin: Quantity;
-    rMax: Quantity;
-    offsetO0: number;
-    offsetO1: number;
-    offsetO2: number;
-    gainS0: number;
-    gainS1: number;
-    gainS2: number;
-    internalPressure: Quantity;
+    // The fit's calibration. Its values belong together: a write that leaves one out is refused,
+    // and a create takes it as 0.
+    // With x the resistance scaled to -1 at rMin and 1 at rMax, the bridge offset is offsetO0 +
+    // offsetO1·x + offsetO2·1.5x² + zeroCorrection, the gain gainS0·(1 + gainS1·x +
+    // gainS2·1.5x²), and the pressure (bridge output − offset) / gain − internalPressure. Both
+    // terms are zero at x = 0, so offsetO0 and gainS0 are the fit's offset and gain at the
+    // window's centre. rMin and rMax bound the resistance the fit saw; well past them there is
+    // no pressure, and without gainS0 there is none either.
+    calibration: PressureSensorCalibration;
     baroPressure: Readonly<Quantity>;
+    // The correction to the bridge offset that zeroing has set, beside the calibration's
+    // offsetO0; 0 until the first zero. A new fit writes it 0: its offsetO0 already holds the
+    // drift.
+    zeroCorrection: number;
+    // Written true with the sensor in air: its reading there becomes zero (the barometer for
+    // an absolute gauge). Refused when the sensor cannot have been in air, or without the
+    // reading or barometer it needs. Never stored; reads absent.
+    zero: boolean;
+    // The bridge's own temperature from its resistance, by the calibration's temperature terms;
+    // absent without temperatureT1, or with the resistance well past rMin and rMax
+    temperature: Readonly<Quantity>;
   };
 }
 // #endregion PressureSensor

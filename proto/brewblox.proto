@@ -59,7 +59,7 @@ enum BlockType {
   I2CDiscoverableInterface = 26;
   DigitalInterface = 27;
   AnalogArrayInterface = 28;
-  AnalogClaimerInterface = 29;
+  AnalogClaimerInterface = 29; // not used, no unique claimer atm
   PressureSensorInterface = 30;
   VolumeSensorInterface = 31;
   DensitySensorInterface = 32;

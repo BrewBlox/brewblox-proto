@@ -12,10 +12,69 @@ enum PressureSensorType {
 
 }
 
+// The fit's calibration of one bridge
+message Calibration {
+  optional sint32 rMin = 1 [
+    (brewblox.field).scale = 1024,
+    (brewblox.field).unit = Ohm,
+    (brewblox.field).stored = true
+  ];
+  optional sint32 rMax = 2 [
+    (brewblox.field).scale = 1024,
+    (brewblox.field).unit = Ohm,
+    (brewblox.field).stored = true
+  ];
+  optional sint32 offsetO0 = 3 [
+    (brewblox.field).scale = 262144,
+    (brewblox.field).stored = true
+  ];
+  optional sint32 offsetO1 = 4 [
+    (brewblox.field).scale = 67108864,
+    (brewblox.field).stored = true
+  ];
+  optional sint32 offsetO2 = 5 [
+    (brewblox.field).scale = 67108864,
+    (brewblox.field).stored = true
+  ];
+  optional sint32 gainS0 = 6 [
+    (brewblox.field).scale = 67108864,
+    (brewblox.field).stored = true
+  ];
+  optional sint32 gainS1 = 7 [
+    (brewblox.field).scale = 67108864,
+    (brewblox.field).stored = true
+  ];
+  optional sint32 gainS2 = 8 [
+    (brewblox.field).scale = 67108864,
+    (brewblox.field).stored = true
+  ];
+  optional sint32 internalPressure = 9 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).unit = MilliBar,
+    (brewblox.field).stored = true
+  ];
+  // The bridge's own temperature on the same window: T = temperatureT0 + temperatureT1·x +
+  // temperatureT2·1.5x²; without temperatureT1 there is no temperature.
+  optional sint32 temperatureT0 = 10 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).unit = Celsius,
+    (brewblox.field).stored = true
+  ];
+  optional sint32 temperatureT1 = 11 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).unit = DeltaCelsius,
+    (brewblox.field).stored = true
+  ];
+  optional sint32 temperatureT2 = 12 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).unit = DeltaCelsius,
+    (brewblox.field).stored = true
+  ];
+}
+
 message Block {
   option (brewblox.msg).objtype = PressureSensor;
   option (brewblox.msg).impl = PressureSensorInterface;
-  option (brewblox.msg).impl = AnalogClaimerInterface;
 
   optional PressureSensorType type = 1 [ (brewblox.field).stored = true ];
   optional uint32 analogDevice = 2 [
@@ -50,55 +109,46 @@ message Block {
     (brewblox.field).unit = MilliBar
   ];
 
-  // Legendre temperature correction model
-  optional sint32 referenceResistance = 8 [
-    (brewblox.field).scale = 1024,
-    (brewblox.field).unit = Ohm,
-    (brewblox.field).stored = true
-  ];
-  optional sint32 rMin = 9 [
-    (brewblox.field).scale = 1024,
-    (brewblox.field).unit = Ohm,
-    (brewblox.field).stored = true
-  ];
-  optional sint32 rMax = 10 [
-    (brewblox.field).scale = 1024,
-    (brewblox.field).unit = Ohm,
-    (brewblox.field).stored = true
-  ];
-  optional sint32 offsetO0 = 11 [
-    (brewblox.field).scale = 262144,
-    (brewblox.field).stored = true
-  ];
-  optional sint32 offsetO1 = 12 [
-    (brewblox.field).scale = 67108864,
-    (brewblox.field).stored = true
-  ];
-  optional sint32 offsetO2 = 13 [
-    (brewblox.field).scale = 67108864,
-    (brewblox.field).stored = true
-  ];
-  optional sint32 gainS0 = 14 [
-    (brewblox.field).scale = 67108864,
-    (brewblox.field).stored = true
-  ];
-  optional sint32 gainS1 = 15 [
-    (brewblox.field).scale = 67108864,
-    (brewblox.field).stored = true
-  ];
-  optional sint32 gainS2 = 16 [
-    (brewblox.field).scale = 67108864,
-    (brewblox.field).stored = true
-  ];
-  optional sint32 internalPressure = 17 [
-    (brewblox.field).scale = 4096,
-    (brewblox.field).unit = MilliBar,
-    (brewblox.field).stored = true
-  ];
+  // 8: a reference resistance that the correction no longer uses; 9 to 17 and 21 to 23: the
+  // calibration's values before they moved into calibration. Records that some devices hold
+  // name them.
+  reserved 8, 9 to 17, 21 to 23;
+
+  // The fit's calibration. Its values belong together: a write that leaves one out is refused,
+  // and a create takes it as 0.
+  // With x the resistance scaled to -1 at rMin and 1 at rMax, the bridge offset is offsetO0 +
+  // offsetO1·x + offsetO2·1.5x² + zeroCorrection, the gain gainS0·(1 + gainS1·x +
+  // gainS2·1.5x²), and the pressure (bridge output − offset) / gain − internalPressure. Both
+  // terms are zero at x = 0, so offsetO0 and gainS0 are the fit's offset and gain at the
+  // window's centre. rMin and rMax bound the resistance the fit saw; well past them there is
+  // no pressure, and without gainS0 there is none either.
+  Calibration calibration = 25 [ (brewblox.field).stored = true ];
+
   optional sint32 baroPressure = 18 [
     (brewblox.field).scale = 4096,
     (brewblox.field).logged = true,
     (brewblox.field).readonly = true,
     (brewblox.field).unit = MilliBar
+  ];
+
+  // The correction to the bridge offset that zeroing has set, beside the calibration's
+  // offsetO0; 0 until the first zero. A new fit writes it 0: its offsetO0 already holds the
+  // drift.
+  optional sint32 zeroCorrection = 19 [
+    (brewblox.field).scale = 262144,
+    (brewblox.field).stored = true
+  ];
+  // Written true with the sensor in air: its reading there becomes zero (the barometer for
+  // an absolute gauge). Refused when the sensor cannot have been in air, or without the
+  // reading or barometer it needs. Never stored; reads absent.
+  optional bool zero = 20;
+
+  // The bridge's own temperature from its resistance, by the calibration's temperature terms;
+  // absent without temperatureT1, or with the resistance well past rMin and rMax
+  optional sint32 temperature = 24 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).unit = Celsius,
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true
   ];
 }

@@ -99,6 +99,7 @@ const MESSAGE_RENAMES = {
   'blox.GpioModule.AnalogChannel': 'AnalogModuleChannel',
   'blox.DisplaySettings.Widget': 'DisplaySlot',
   'blox.SetpointProfile.Point': 'Setpoint',
+  'blox.PressureSensor.Calibration': 'PressureSensorCalibration',
 };
 
 // TS names for proto enums whose short name is ambiguous or historical.
