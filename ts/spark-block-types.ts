@@ -727,7 +727,7 @@ export interface Spark2PinsBlock extends Block {
 export interface Spark3PinsBlock extends Block {
   type: 'Spark3Pins';
   data: {
-    enableIoSupply5V: boolean;
+    enableIoSupply5V: boolean; // On at every boot and not stored: switched off only for a moment, to power-cycle the peripherals
     enableIoSupply12V: boolean;
     soundAlarm: boolean;
     voltage5: Readonly<number>;
