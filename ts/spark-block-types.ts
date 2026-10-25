@@ -716,7 +716,7 @@ export interface SetpointSensorPairBlock extends Block {
 export interface Spark2PinsBlock extends Block {
   type: 'Spark2Pins';
   data: {
-    soundAlarm: boolean;
+    soundAlarm: boolean; // Not stored: off at every boot, so a restart never starts the beep
     hardware: Readonly<Spark2Hardware>;
     channels: Readonly<IoChannel[]>;
   };
@@ -727,9 +727,9 @@ export interface Spark2PinsBlock extends Block {
 export interface Spark3PinsBlock extends Block {
   type: 'Spark3Pins';
   data: {
-    enableIoSupply5V: boolean;
-    enableIoSupply12V: boolean;
-    soundAlarm: boolean;
+    enableIoSupply5V: boolean; // On at every boot and not stored: switched off only for a moment, to power-cycle the peripherals
+    enableIoSupply12V: boolean; // Stored, and off until a user switches it on: 12V on the outputs makes damage from a short likelier
+    soundAlarm: boolean; // Not stored: off at every boot, so a restart never starts the beep
     voltage5: Readonly<number>;
     voltage12: Readonly<number>;
     channels: Readonly<IoChannel[]>;
