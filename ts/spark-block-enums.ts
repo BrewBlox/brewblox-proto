@@ -69,6 +69,7 @@ export const UserBlockType = Enum(
   'TempSensorCombi',
   'TempSensorExternal',
   'TempSensorMock',
+  'TempSensorMockFluctuating',
   'TempSensorOneWire',
   'Variables',
 );

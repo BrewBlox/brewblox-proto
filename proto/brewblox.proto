@@ -96,6 +96,9 @@ enum BlockType {
   AnalogGpioModule = 331; // alias for backwards compatibilty with backups
   TempSensorAnalog = 332;
   Variables = 333;
+  // 334 to 339: held on other branches for PressureSensor, DensitySensor,
+  // FlowSensor, Kettle and Tank, with 335 reserved there
+  TempSensorMockFluctuating = 340;
   Corrupted = 65532;
   Deprecated = 65533;
 
