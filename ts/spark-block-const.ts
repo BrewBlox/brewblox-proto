@@ -20,6 +20,7 @@ export const COMPATIBLE_TYPES: Record<BlockIntfType, BlockType[]> = {
     BlockType.TempSensorCombi,
     BlockType.TempSensorExternal,
     BlockType.TempSensorMock,
+    BlockType.TempSensorMockFluctuating,
     BlockType.TempSensorOneWire,
   ],
   SetpointSensorPairInterface: [BlockType.SetpointSensorPair],

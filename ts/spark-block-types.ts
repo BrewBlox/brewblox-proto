@@ -822,21 +822,34 @@ export interface TempSensorExternalBlock extends Block {
 // #endregion TempSensorExternal
 
 // #region TempSensorMock
-export interface Fluctuation {
-  amplitude: Quantity;
-  period: Quantity;
-}
-
 export interface TempSensorMockBlock extends Block {
   type: 'TempSensorMock';
   data: {
     value: Readonly<Quantity>;
     connected: boolean;
     setting: Quantity;
-    fluctuations: Fluctuation[];
   };
 }
 // #endregion TempSensorMock
+
+// #region TempSensorMockFluctuating
+export interface Fluctuation {
+  amplitude: Quantity;
+  period: Quantity;
+}
+
+export interface TempSensorMockFluctuatingBlock extends Block {
+  type: 'TempSensorMockFluctuating';
+  data: {
+    value: Readonly<Quantity>;
+    connected: boolean;
+    setting: Quantity;
+    // Each is added to the setting: a periodic wave of its amplitude, or a
+    // constant offset at period 0.
+    fluctuations: Fluctuation[];
+  };
+}
+// #endregion TempSensorMockFluctuating
 
 // #region TempSensorOneWire
 export interface TempSensorOneWireBlock extends Block {
