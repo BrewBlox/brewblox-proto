@@ -180,11 +180,6 @@ const INTERFACE_BLOCKS = {
   },
   IoClaimerInterface: { fields: { hwDevice: null, channel: null } },
   AnalogArrayInterface: {
-    // GpioModule.Block lacks `impl = AnalogArrayInterface` in the proto
-    // although TempSensorAnalog.analogDevice links to it. Assume it until the
-    // proto is fixed (that changes proto_sha, so it waits for a firmware
-    // release).
-    assumedImplementors: ['blox.GpioModule.Block'],
     // GpioModule has Readonly<AnalogModuleChannel[]>; declare the mutable
     // array so existing casts keep working.
     fields: { analogChannels: 'AnalogModuleChannel[]' },
@@ -1099,21 +1094,9 @@ class Generator {
   // --- emission: interface blocks ------------------------------------------
 
   implementors(intf) {
-    const found = this.blocks
+    return this.blocks
       .filter((b) => b.impl.includes(intf))
       .map((b) => b.type);
-    for (const assumed of INTERFACE_BLOCKS[intf].assumedImplementors ?? []) {
-      const type = this.messages.get(assumed);
-      if (!type) {
-        fail(
-          `${intf}: assumed implementor ${assumed} is not a reachable Block`,
-        );
-      }
-      if (!found.includes(type)) {
-        found.push(type);
-      }
-    }
-    return found;
   }
 
   emitInterfaceBlock(intf) {
