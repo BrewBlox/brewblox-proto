@@ -26,7 +26,6 @@ export const BlockIntfType = Enum(
   'IoArrayInterface',
   'IoClaimerInterface',
   'AnalogArrayInterface',
-  'AnalogClaimerInterface',
   'DS2408Interface',
   'EnablerInterface',
   'ClaimableInterface',

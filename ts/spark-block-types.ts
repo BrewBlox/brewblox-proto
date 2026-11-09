@@ -96,7 +96,6 @@ export interface IoClaimerInterfaceBlock extends Block {
 export interface AnalogModuleChannel {
   id: Readonly<number>;
   sensorType: Readonly<AnalogSensorType>;
-  claimedBy: Readonly<Link>;
   resistance?: Readonly<Quantity>;
   leadResistance?: Readonly<Quantity>;
   bridgeResistance?: Readonly<Quantity>;
@@ -106,13 +105,6 @@ export interface AnalogModuleChannel {
 export interface AnalogArrayInterfaceBlock extends Block {
   data: {
     analogChannels: AnalogModuleChannel[];
-  };
-}
-
-export interface AnalogClaimerInterfaceBlock extends Block {
-  data: {
-    analogDevice: Link;
-    analogChannel: number;
   };
 }
 // #endregion AnalogChannel

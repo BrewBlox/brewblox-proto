@@ -24,7 +24,6 @@ enum TempSensorAnalogSpec {
 message Block {
   option (brewblox.msg).objtype = TempSensorAnalog;
   option (brewblox.msg).impl = TempSensorInterface;
-  option (brewblox.msg).impl = AnalogClaimerInterface;
 
   optional TempSensorAnalogType sensorType = 1
       [ (brewblox.field).stored = true ];
