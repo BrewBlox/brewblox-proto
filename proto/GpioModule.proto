@@ -163,10 +163,9 @@ enum AnalogSensorType {
 message AnalogChannel {
   uint32 id = 1 [ (brewblox.field).readonly = true, (nanopb).int_size = IS_8 ];
   AnalogSensorType sensorType = 2 [ (brewblox.field).readonly = true ];
-  uint32 claimedBy = 3 [
-    (brewblox.field).objtype = AnalogClaimerInterface,
-    (brewblox.field).readonly = true
-  ]; // currently not used or set, claims are not exclusive
+  // 3 was claimedBy, never set: the blocks that read a channel name it in
+  // their own links (analogDevice, analogChannel)
+  reserved 3;
 
   // for RTD: resistance and optionally leadResistance
   // for Gauge: bridgeResistance and bridgeOutput

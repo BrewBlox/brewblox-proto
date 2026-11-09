@@ -56,7 +56,9 @@ enum BlockType {
   I2CDiscoverableInterface = 26;
   DigitalInterface = 27;
   AnalogArrayInterface = 28;
-  AnalogClaimerInterface = 29; // not used, no unique claimer atm
+  // 29 was AnalogClaimerInterface: no block claims an analog channel, since
+  // the GpioModule measures it and any number of blocks read it
+  reserved 29;
   Any = 255;
   SysInfo = 256;
   Ticks = 257;      // deprecated

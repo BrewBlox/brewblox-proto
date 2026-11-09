@@ -60,7 +60,6 @@ export const COMPATIBLE_TYPES: Record<BlockIntfType, BlockType[]> = {
     BlockType.DigitalInput,
   ],
   AnalogArrayInterface: [BlockType.GpioModule],
-  AnalogClaimerInterface: [BlockType.TempSensorAnalog],
   DS2408Interface: [BlockType.DS2408],
   EnablerInterface: [
     BlockType.ActuatorAnalogMock,
