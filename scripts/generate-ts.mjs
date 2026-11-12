@@ -84,7 +84,6 @@ const BLOCK_INTF_TYPES = [
   'IoArrayInterface',
   'IoClaimerInterface',
   'AnalogArrayInterface',
-  'AnalogClaimerInterface',
   'DS2408Interface',
   'EnablerInterface',
   'ClaimableInterface',
@@ -131,7 +130,7 @@ const SHARED_REGIONS = [
   {
     region: 'AnalogChannel',
     messages: ['blox.GpioModule.AnalogChannel'],
-    interfaces: ['AnalogArrayInterface', 'AnalogClaimerInterface'],
+    interfaces: ['AnalogArrayInterface'],
   },
   { region: 'EnablerInterfaceBlock', interfaces: ['EnablerInterface'] },
   { region: 'ClaimableInterfaceBlock', interfaces: ['ClaimableInterface'] },
@@ -171,8 +170,8 @@ const SHARED_REGIONS = [
 ];
 
 // Interface blocks: `XInterfaceBlock extends Block { data: {...} }` for the
-// proto interfaces the UI casts to. Only 6 of the 29 proto interfaces have one
-// and the field subset is curated, so the fields are listed here. The field
+// proto interfaces the UI casts to. Only some interfaces have one and the
+// field subset is curated, so the fields are listed here. The field
 // type is derived from the implementors ((brewblox.msg).impl): every
 // implementor must have the field; if they agree the shared type is used, if
 // they only agree after dropping Readonly that is used, otherwise the type
@@ -186,17 +185,9 @@ const INTERFACE_BLOCKS = {
   },
   IoClaimerInterface: { fields: { hwDevice: null, channel: null } },
   AnalogArrayInterface: {
-    // GpioModule.Block lacks `impl = AnalogArrayInterface` in the proto
-    // although TempSensorAnalog.analogDevice links to it. Assume it until the
-    // proto is fixed (that changes proto_sha, so it waits for a firmware
-    // release).
-    assumedImplementors: ['blox.GpioModule.Block'],
     // GpioModule has Readonly<AnalogModuleChannel[]>; declare the mutable
     // array so existing casts keep working.
     fields: { analogChannels: 'AnalogModuleChannel[]' },
-  },
-  AnalogClaimerInterface: {
-    fields: { analogDevice: null, analogChannel: null },
   },
 };
 
@@ -1108,21 +1099,9 @@ class Generator {
   // --- emission: interface blocks ------------------------------------------
 
   implementors(intf) {
-    const found = this.blocks
+    return this.blocks
       .filter((b) => b.impl.includes(intf))
       .map((b) => b.type);
-    for (const assumed of INTERFACE_BLOCKS[intf].assumedImplementors ?? []) {
-      const type = this.messages.get(assumed);
-      if (!type) {
-        fail(
-          `${intf}: assumed implementor ${assumed} is not a reachable Block`,
-        );
-      }
-      if (!found.includes(type)) {
-        found.push(type);
-      }
-    }
-    return found;
   }
 
   emitInterfaceBlock(intf) {

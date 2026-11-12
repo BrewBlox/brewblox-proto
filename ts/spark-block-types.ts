@@ -99,7 +99,6 @@ export interface IoClaimerInterfaceBlock extends Block {
 export interface AnalogModuleChannel {
   id: Readonly<number>;
   sensorType: Readonly<AnalogSensorType>;
-  claimedBy: Readonly<Link>;
   resistance?: Readonly<Quantity>;
   leadResistance?: Readonly<Quantity>;
   bridgeResistance?: Readonly<Quantity>;
@@ -109,13 +108,6 @@ export interface AnalogModuleChannel {
 export interface AnalogArrayInterfaceBlock extends Block {
   data: {
     analogChannels: AnalogModuleChannel[];
-  };
-}
-
-export interface AnalogClaimerInterfaceBlock extends Block {
-  data: {
-    analogDevice: Link;
-    analogChannel: number;
   };
 }
 // #endregion AnalogChannel
@@ -965,21 +957,34 @@ export interface TempSensorExternalBlock extends Block {
 // #endregion TempSensorExternal
 
 // #region TempSensorMock
-export interface Fluctuation {
-  amplitude: Quantity;
-  period: Quantity;
-}
-
 export interface TempSensorMockBlock extends Block {
   type: 'TempSensorMock';
   data: {
     value: Readonly<Quantity>;
     connected: boolean;
     setting: Quantity;
-    fluctuations: Fluctuation[];
   };
 }
 // #endregion TempSensorMock
+
+// #region TempSensorMockFluctuating
+export interface Fluctuation {
+  amplitude: Quantity;
+  period: Quantity;
+}
+
+export interface TempSensorMockFluctuatingBlock extends Block {
+  type: 'TempSensorMockFluctuating';
+  data: {
+    value: Readonly<Quantity>;
+    connected: boolean;
+    setting: Quantity;
+    // Each is added to the setting: a periodic wave of its amplitude, or a
+    // constant offset at period 0.
+    fluctuations: Fluctuation[];
+  };
+}
+// #endregion TempSensorMockFluctuating
 
 // #region TempSensorOneWire
 export interface TempSensorOneWireBlock extends Block {

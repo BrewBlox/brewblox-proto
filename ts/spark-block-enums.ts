@@ -26,7 +26,6 @@ export const BlockIntfType = Enum(
   'IoArrayInterface',
   'IoClaimerInterface',
   'AnalogArrayInterface',
-  'AnalogClaimerInterface',
   'DS2408Interface',
   'EnablerInterface',
   'ClaimableInterface',
@@ -73,6 +72,7 @@ export const UserBlockType = Enum(
   'TempSensorCombi',
   'TempSensorExternal',
   'TempSensorMock',
+  'TempSensorMockFluctuating',
   'TempSensorOneWire',
   'Variables',
 );

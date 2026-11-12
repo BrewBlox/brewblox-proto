@@ -59,7 +59,9 @@ enum BlockType {
   I2CDiscoverableInterface = 26;
   DigitalInterface = 27;
   AnalogArrayInterface = 28;
-  AnalogClaimerInterface = 29; // not used, no unique claimer atm
+  // 29 was AnalogClaimerInterface: no block claims an analog channel, since
+  // the GpioModule measures it and any number of blocks read it
+  reserved 29;
   PressureSensorInterface = 30;
   DensitySensorInterface = 32;
   Any = 255;
@@ -109,6 +111,7 @@ enum BlockType {
   // 31 and 335: a volume sensor and its interface, which the vessels replaced; records
   // that some devices hold name them
   reserved 31, 335;
+  TempSensorMockFluctuating = 340;
   Corrupted = 65532;
   Deprecated = 65533;
 
