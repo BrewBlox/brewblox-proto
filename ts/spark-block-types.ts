@@ -2,6 +2,7 @@
 // Do not edit by hand: run `yarn generate` in brewblox-proto instead.
 
 import {
+  AdcError,
   AnalogCalibrationState,
   AnalogCompareOp,
   AnalogSensorType,
@@ -100,6 +101,7 @@ export interface AnalogModuleChannel {
   leadResistance?: Readonly<Quantity>;
   bridgeResistance?: Readonly<Quantity>;
   bridgeOutput?: Readonly<number>;
+  error: Readonly<AdcError>; // what stopped this channel's ADC pair
 }
 
 export interface AnalogArrayInterfaceBlock extends Block {

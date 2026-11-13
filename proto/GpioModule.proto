@@ -160,6 +160,22 @@ enum AnalogSensorType {
   ANALOG_SENSOR_TYPE_STRAIN_GAUGE_LOW_RESISTANCE = 6;
 };
 
+enum AdcError {
+  ADC_ERROR_OK = 0;
+  ADC_ERROR_NOT_READY = 1;
+  ADC_ERROR_REF_LOW_ALARM = 2;
+  ADC_ERROR_PGA_LOW_ALARM = 3;
+  ADC_ERROR_PGA_HIGH_ALARM = 4;
+  ADC_ERROR_CRC_ERROR = 5;
+  ADC_ERROR_RESET_DETECTED = 6;
+  ADC_ERROR_SYSTEM_SPI_ERROR = 7;
+  ADC_ERROR_SPI_ACQUIRE_ERROR = 8;
+  ADC_ERROR_SPI_VALIDATE_ERROR = 9;
+  ADC_ERROR_WRITING_LOCKED_REGISTER = 10;
+  ADC_ERROR_INVALID_CHANNEL = 11;
+  ADC_ERROR_DATA_READY_TIMEOUT = 12;
+}
+
 message AnalogChannel {
   uint32 id = 1 [ (brewblox.field).readonly = true, (nanopb).int_size = IS_8 ];
   AnalogSensorType sensorType = 2 [ (brewblox.field).readonly = true ];
@@ -206,6 +222,9 @@ message AnalogChannel {
     (brewblox.field).omit_if_zero = true,
     (nanopb).int_size = IS_32
   ];
+
+  // what stopped this channel's ADC pair
+  AdcError error = 8 [ (brewblox.field).readonly = true ];
 }
 
 message ChannelList {

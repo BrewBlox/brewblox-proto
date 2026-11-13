@@ -413,6 +413,24 @@ export const TempSensorAnalogSpec = Enum(
 );
 // #endregion TempSensorAnalog
 
+// #region AdcError
+export const AdcError = Enum(
+  'ADC_ERROR_OK',
+  'ADC_ERROR_NOT_READY',
+  'ADC_ERROR_REF_LOW_ALARM',
+  'ADC_ERROR_PGA_LOW_ALARM',
+  'ADC_ERROR_PGA_HIGH_ALARM',
+  'ADC_ERROR_CRC_ERROR',
+  'ADC_ERROR_RESET_DETECTED',
+  'ADC_ERROR_SYSTEM_SPI_ERROR',
+  'ADC_ERROR_SPI_ACQUIRE_ERROR',
+  'ADC_ERROR_SPI_VALIDATE_ERROR',
+  'ADC_ERROR_WRITING_LOCKED_REGISTER',
+  'ADC_ERROR_INVALID_CHANNEL',
+  'ADC_ERROR_DATA_READY_TIMEOUT',
+);
+// #endregion AdcError
+
 // #region AnalogCalibrationState
 export const AnalogCalibrationState = Enum(
   'ANALOG_CALIBRATION_STATE_NONE', // no calibration stored
@@ -457,4 +475,5 @@ export type WifiCipherType = Enum<typeof WifiCipherType>;
 export type ToggleBehavior = Enum<typeof ToggleBehavior>;
 export type TempSensorAnalogType = Enum<typeof TempSensorAnalogType>;
 export type TempSensorAnalogSpec = Enum<typeof TempSensorAnalogSpec>;
+export type AdcError = Enum<typeof AdcError>;
 export type AnalogCalibrationState = Enum<typeof AnalogCalibrationState>;
