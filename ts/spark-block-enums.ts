@@ -351,6 +351,7 @@ export const ResetReason = Enum(
   'RESET_REASON_SAFE_MODE',
   'RESET_REASON_DFU_MODE',
   'RESET_REASON_USER_REQUESTED',
+  'RESET_REASON_FIRMWARE_UPDATE_ABORTED', // a REBOOT or FACTORY_RESET cut a firmware update short: the firmware it would have replaced still runs
 );
 // #endregion ResetReason
 

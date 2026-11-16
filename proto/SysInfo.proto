@@ -47,6 +47,8 @@ enum ResetReason {
   RESET_REASON_SAFE_MODE = 20;
   RESET_REASON_DFU_MODE = 21;
   RESET_REASON_USER_REQUESTED = 22;
+  // a REBOOT or FACTORY_RESET cut a firmware update short: the firmware it would have replaced still runs
+  RESET_REASON_FIRMWARE_UPDATE_ABORTED = 23;
 };
 
 message Block {
