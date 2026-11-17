@@ -616,8 +616,6 @@ export interface PidBlock extends Block {
     boilPointAdjust: Quantity;
     boilMinOutput: number;
     boilModeActive: Readonly<boolean>;
-    derivativeFilter: Readonly<FilterChoice>;
-    derivativeFilterChoice: FilterChoice;
     kff: Quantity;
     ff: Readonly<number | null>;
     ambientId: Link;

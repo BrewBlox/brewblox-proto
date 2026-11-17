@@ -137,11 +137,13 @@ message Block {
   bool boilModeActive = 26
       [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
 
+  // Deprecated: D has a filter of its own, set by Td; kept ignored, so a backup that holds it still loads
   SetpointSensorPair.FilterChoice derivativeFilter = 27
-      [ (brewblox.field).readonly = true ];
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 
-  optional SetpointSensorPair.FilterChoice derivativeFilterChoice = 28
-      [ (brewblox.field).stored = true ];
+  // Deprecated: D has a filter of its own, set by Td; kept ignored, so a backup that holds it still loads
+  SetpointSensorPair.FilterChoice derivativeFilterChoice = 28
+      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
 
   optional sint32 kff = 29 [
     (brewblox.field).unit = InverseCelsius,
