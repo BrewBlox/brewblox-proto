@@ -721,12 +721,14 @@ export interface Spark2PinsBlock extends Block {
 export interface Spark3PinsBlock extends Block {
   type: 'Spark3Pins';
   data: {
-    enableIoSupply5V: boolean; // On at every boot and not stored: switched off only for a moment, to power-cycle the peripherals
     enableIoSupply12V: boolean; // Stored, and off until a user switches it on: 12V on the outputs makes damage from a short likelier
     soundAlarm: boolean; // Not stored: off at every boot, so a restart never starts the beep
     voltage5: Readonly<number>;
     voltage12: Readonly<number>;
     channels: Readonly<IoChannel[]>;
+    // Written true, switches 5V off for a second, then on again: a power cycle of the peripherals on the
+    // RJ12 ports
+    powerCycleIoSupply5V: boolean;
   };
 }
 // #endregion Spark3Pins
