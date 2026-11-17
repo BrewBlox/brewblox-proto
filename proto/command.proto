@@ -82,6 +82,9 @@ enum ErrorCode {
   // Invalid block identifiers
   DUPLICATE_BLOCK_ID = 60;
   DUPLICATE_BLOCK_NAME = 61;
+
+  // A valid request the controller cannot carry out now: the host may retry
+  SYSTEM_BUSY = 70;
 }
 
 enum ReadMode {
