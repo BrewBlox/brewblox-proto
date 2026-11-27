@@ -757,6 +757,10 @@ export interface SysInfoBlock extends Block {
     // reports 0, which is left out.
     mainTaskStackFreeLowest?: Readonly<number>;
     resetReason: Readonly<ResetReason>;
+    // More about resetReason, for a restart the firmware made itself: 0 adds nothing, 1 to 127
+    // are reserved, and 128 to 255 are free for the application to use. After a Panic on a
+    // Spark 2 or 3, it holds Device OS's crash code.
+    resetData: Readonly<number>;
   };
 }
 // #endregion SysInfo

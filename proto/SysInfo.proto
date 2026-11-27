@@ -148,6 +148,11 @@ message Block {
   ];
 
   ResetReason resetReason = 23 [ (brewblox.field).readonly = true ];
+  // More about resetReason, for a restart the firmware made itself: 0 adds nothing, 1 to 127
+  // are reserved, and 128 to 255 are free for the application to use. After a Panic on a
+  // Spark 2 or 3, it holds Device OS's crash code.
+  uint32 resetData = 24
+      [ (brewblox.field).readonly = true, (nanopb).int_size = IS_8 ];
 
   // Deprecated fields
   bool command = 90
