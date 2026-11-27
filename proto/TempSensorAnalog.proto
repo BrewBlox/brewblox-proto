@@ -1,10 +1,10 @@
 syntax = "proto3";
 
+package blox.TempSensorAnalog;
+
+import "GpioModule.proto";
 import "brewblox.proto";
 import "nanopb.proto";
-import "GpioModule.proto";
-
-package blox.TempSensorAnalog;
 
 enum TempSensorAnalogType {
   TEMP_SENSOR_TYPE_NOT_SET = 0;
@@ -25,15 +25,16 @@ message Block {
   option (brewblox.msg).objtype = TempSensorAnalog;
   option (brewblox.msg).impl = TempSensorInterface;
 
-  optional TempSensorAnalogType sensorType = 1
-      [ (brewblox.field).stored = true ];
+  optional TempSensorAnalogType sensorType = 1 [(brewblox.field).stored = true];
 
   optional uint32 analogDevice = 2 [
     (brewblox.field).objtype = AnalogArrayInterface,
     (brewblox.field).stored = true
   ];
-  optional uint32 analogChannel = 3
-      [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
+  optional uint32 analogChannel = 3 [
+    (brewblox.field).stored = true,
+    (nanopb).int_size = IS_8
+  ];
 
   optional sint32 value = 4 [
     (brewblox.field).unit = Celsius,
@@ -44,8 +45,8 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
-  GpioModule.AnalogSensorType detected = 6 [ (brewblox.field).readonly = true ];
-  optional TempSensorAnalogSpec spec = 7 [ (brewblox.field).stored = true ];
+  GpioModule.AnalogSensorType detected = 6 [(brewblox.field).readonly = true];
+  optional TempSensorAnalogSpec spec = 7 [(brewblox.field).stored = true];
 
   sint32 resistance = 8 [
     (brewblox.field).unit = Ohm,
@@ -114,4 +115,4 @@ message Block {
     (brewblox.field).omit_if_zero = true,
     (nanopb).int_size = IS_32
   ];
-};
+}

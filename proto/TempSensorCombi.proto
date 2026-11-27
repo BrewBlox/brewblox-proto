@@ -1,9 +1,9 @@
 syntax = "proto3";
 
+package blox.TempSensorCombi;
+
 import "brewblox.proto";
 import "nanopb.proto";
-
-package blox.TempSensorCombi;
 
 enum SensorCombiFunc {
   SENSOR_COMBI_FUNC_AVG = 0;
@@ -32,7 +32,7 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
-  optional SensorCombiFunc combineFunc = 2 [ (brewblox.field).stored = true ];
+  optional SensorCombiFunc combineFunc = 2 [(brewblox.field).stored = true];
 
   // Read at load only: blobs from before the wrapper.
   repeated uint32 sensorsLegacy = 3 [
@@ -40,5 +40,5 @@ message Block {
     (brewblox.field).ignored = true,
     (nanopb).type = FT_CALLBACK
   ];
-  SensorList sensors = 4 [ (brewblox.field).stored = true ];
+  SensorList sensors = 4 [(brewblox.field).stored = true];
 }

@@ -1,9 +1,9 @@
 syntax = "proto3";
 
+package blox.SetpointProfile;
+
 import "brewblox.proto";
 import "nanopb.proto";
-
-package blox.SetpointProfile;
 
 message Point {
   // Offset from start
@@ -24,7 +24,7 @@ message Point {
 }
 
 message PointList {
-  repeated Point items = 1 [ (brewblox.field).stored = true ];
+  repeated Point items = 1 [(brewblox.field).stored = true];
 }
 
 message Block {
@@ -32,9 +32,9 @@ message Block {
   option (brewblox.msg).impl = EnablerInterface;
 
   // Read at load only: blobs from before the wrapper.
-  repeated Point pointsLegacy = 1 [ (brewblox.field).ignored = true ];
-  PointList points = 8 [ (brewblox.field).stored = true ];
-  optional bool enabled = 3 [ (brewblox.field).stored = true ];
+  repeated Point pointsLegacy = 1 [(brewblox.field).ignored = true];
+  PointList points = 8 [(brewblox.field).stored = true];
+  optional bool enabled = 3 [(brewblox.field).stored = true];
   optional uint32 targetId = 4 [
     (brewblox.field).objtype = SetpointSensorPair,
     (brewblox.field).stored = true
@@ -53,9 +53,11 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
-  optional bool interpolateDisabled = 7 [ (brewblox.field).stored = true ];
+  optional bool interpolateDisabled = 7 [(brewblox.field).stored = true];
 
   // Deprecated field
-  bool drivenTargetId = 90
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool drivenTargetId = 90 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
 }

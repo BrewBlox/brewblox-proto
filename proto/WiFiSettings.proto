@@ -1,9 +1,9 @@
 syntax = "proto3";
 
+package blox.WiFiSettings;
+
 import "brewblox.proto";
 import "nanopb.proto";
-
-package blox.WiFiSettings;
 
 enum Security {
   WLAN_SEC_UNSEC = 0;
@@ -27,11 +27,11 @@ message Block {
 
   // Read: the network joined, absent while not connected.
   // Write: the network to join, together with the password.
-  optional string ssid = 1 [ (nanopb).max_size = 33 ];
+  optional string ssid = 1 [(nanopb).max_size = 33];
   // Write-only, never read back. A write with a password applies ssid,
   // security and cipher with it, absent ones as empty or unsecured; a write
   // without one applies none of them.
-  optional string password = 2 [ (nanopb).max_size = 64 ];
+  optional string password = 2 [(nanopb).max_size = 64];
   optional Security security = 3;
   optional Cipher cipher = 4;
   // dBm, absent while not connected: a signal is negative, and the firmware
@@ -45,5 +45,8 @@ message Block {
   ];
 
   // Deprecated fields
-  bool ip = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool ip = 90 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
 }

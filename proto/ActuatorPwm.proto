@@ -1,11 +1,11 @@
 syntax = "proto3";
 
+package blox.ActuatorPwm;
+
+import "Claims.proto";
+import "Constraints.proto";
 import "brewblox.proto";
 import "nanopb.proto";
-import "Constraints.proto";
-import "Claims.proto";
-
-package blox.ActuatorPwm;
 
 message Block {
   option (brewblox.msg).objtype = ActuatorPwm;
@@ -15,7 +15,7 @@ message Block {
   option (brewblox.msg).impl = EnablerInterface;
   option (brewblox.msg).impl = ClaimableInterface;
 
-  optional bool enabled = 8 [ (brewblox.field).stored = true ];
+  optional bool enabled = 8 [(brewblox.field).stored = true];
 
   optional uint32 actuatorId = 1 [
     (brewblox.field).objtype = ActuatorDigitalInterface,
@@ -59,17 +59,18 @@ message Block {
   // Constraints in their format before 2023-02. A stored record or a restored
   // backup that still carries them has them converted into `constraints`; no
   // read carries them.
-  Constraints.DeprecatedAnalogConstraints constrainedBy = 6
-      [ (brewblox.field).skip_changed = true ];
-  Constraints.AnalogConstraints constraints = 13
-      [ (brewblox.field).stored = true ];
+  Constraints.DeprecatedAnalogConstraints constrainedBy = 6 [(brewblox.field).skip_changed = true];
+  Constraints.AnalogConstraints constraints = 13 [(brewblox.field).stored = true];
 
-  uint32 claimedBy = 10
-      [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
-  optional Claims.SettingMode settingMode = 12
-      [ (brewblox.field).stored = true ];
+  uint32 claimedBy = 10 [
+    (brewblox.field).objtype = Any,
+    (brewblox.field).readonly = true
+  ];
+  optional Claims.SettingMode settingMode = 12 [(brewblox.field).stored = true];
 
   // Deprecated field
-  bool drivenActuatorId = 90
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool drivenActuatorId = 90 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
 }

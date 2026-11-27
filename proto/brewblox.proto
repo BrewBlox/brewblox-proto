@@ -1,9 +1,9 @@
 syntax = "proto3";
 
+package brewblox;
+
 import "google/protobuf/descriptor.proto";
 import "nanopb.proto";
-
-package brewblox;
 
 enum UnitType {
   NotSet = 0;
@@ -61,7 +61,7 @@ enum BlockType {
   reserved 29;
   Any = 255;
   SysInfo = 256;
-  Ticks = 257;      // deprecated
+  Ticks = 257; // deprecated
   OneWireBus = 258; // deprecated
   BoardPins = 259;
   TempSensorMock = 301;
@@ -110,8 +110,8 @@ enum BlockType {
 message MessageOpts {
   option (nanopb_msgopt).skip_message = true;
   BlockType objtype = 3;
-  repeated BlockType impl = 9 [ (nanopb).max_count = 5 ];
-  uint32 subtype = 11 [ (nanopb).int_size = IS_16 ];
+  repeated BlockType impl = 9 [(nanopb).max_count = 5];
+  uint32 subtype = 11 [(nanopb).int_size = IS_16];
 }
 
 message FieldOpts {
@@ -141,9 +141,9 @@ message FieldOpts {
 }
 
 extend google.protobuf.FieldOptions {
-  FieldOpts field = 50001 [ (nanopb).type = FT_IGNORE ];
+  FieldOpts field = 50001 [(nanopb).type = FT_IGNORE];
 }
 
 extend google.protobuf.MessageOptions {
-  MessageOpts msg = 50001 [ (nanopb).type = FT_IGNORE ];
+  MessageOpts msg = 50001 [(nanopb).type = FT_IGNORE];
 }

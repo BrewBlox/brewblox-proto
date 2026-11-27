@@ -1,10 +1,10 @@
 syntax = "proto3";
 
+package blox.Spark3Pins;
+
+import "IoArray.proto";
 import "brewblox.proto";
 import "nanopb.proto";
-import "IoArray.proto";
-
-package blox.Spark3Pins;
 
 enum ChannelId {
   SPARK3_NO_PIN = 0;
@@ -13,7 +13,7 @@ enum ChannelId {
   SPARK3_CHAN_TOP3 = 3;
   SPARK3_CHAN_BOTTOM1 = 4;
   SPARK3_CHAN_BOTTOM2 = 5;
-};
+}
 
 message Block {
   option (brewblox.msg).objtype = Spark3Pins;
@@ -21,9 +21,12 @@ message Block {
   option (brewblox.msg).impl = OneWireBusInterface;
 
   // Replaced by powerCycleIoSupply5V; kept ignored, so a backup that holds it still loads
-  bool enableIoSupply5V = 2 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool enableIoSupply5V = 2 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
   // Stored, and off until a user switches it on: 12V on the outputs makes damage from a short likelier
-  optional bool enableIoSupply12V = 3 [ (brewblox.field).stored = true ];
+  optional bool enableIoSupply12V = 3 [(brewblox.field).stored = true];
   // Not stored: off at every boot, so a restart never starts the beep
   optional bool soundAlarm = 5;
   uint32 voltage5 = 6 [
@@ -50,5 +53,8 @@ message Block {
 
   // "pins" was renamed to "channels".
   // Keep an explicitly ignored field around to avoid import errors
-  bool pins = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool pins = 90 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
 }

@@ -1,10 +1,10 @@
 syntax = "proto3";
 
+package blox.MockPins;
+
+import "IoArray.proto";
 import "brewblox.proto";
 import "nanopb.proto";
-import "IoArray.proto";
-
-package blox.MockPins;
 
 enum ChannelId {
   MOCKPINS_CHAN_NONE = 0;
@@ -16,7 +16,7 @@ enum ChannelId {
   MOCKPINS_CHAN_F = 6;
   MOCKPINS_CHAN_G = 7;
   MOCKPINS_CHAN_H = 8;
-};
+}
 
 message Block {
   option (brewblox.msg).objtype = MockPins;
@@ -30,5 +30,8 @@ message Block {
 
   // "pins" was renamed to "channels".
   // Keep an explicitly ignored field around to avoid import errors
-  bool pins = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool pins = 90 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
 }

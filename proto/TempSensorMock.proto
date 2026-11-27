@@ -1,9 +1,9 @@
 syntax = "proto3";
 
+package blox.TempSensorMock;
+
 import "brewblox.proto";
 import "nanopb.proto";
-
-package blox.TempSensorMock;
 
 message Block {
   option (brewblox.msg).objtype = TempSensorMock;
@@ -21,8 +21,10 @@ message Block {
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
-  optional bool connected = 3
-      [ (brewblox.field).stored = true, (brewblox.field).logged = true ];
+  optional bool connected = 3 [
+    (brewblox.field).stored = true,
+    (brewblox.field).logged = true
+  ];
 
   optional sint32 setting = 4 [
     (brewblox.field).unit = Celsius,

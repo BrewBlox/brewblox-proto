@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-import "brewblox.proto";
-import "nanopb.proto";
+package blox.DigitalActuator;
+
+import "Claims.proto";
 import "Constraints.proto";
 import "IoArray.proto";
-import "Claims.proto";
-
-package blox.DigitalActuator;
+import "brewblox.proto";
+import "nanopb.proto";
 
 message Block {
   option (brewblox.msg).objtype = DigitalActuator;
@@ -20,29 +20,31 @@ message Block {
     (brewblox.field).objtype = IoArrayInterface,
     (brewblox.field).stored = true
   ];
-  optional uint32 channel = 2
-      [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
+  optional uint32 channel = 2 [
+    (brewblox.field).stored = true,
+    (nanopb).int_size = IS_8
+  ];
 
   // Written without settingMode, it also sets the mode to STORED, unless the
   // block is claimed.
-  optional IoArray.DigitalState storedState = 11
-      [ (brewblox.field).stored = true ];
-  optional IoArray.DigitalState desiredState = 6
-      [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
-  optional IoArray.DigitalState state = 3
-      [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
+  optional IoArray.DigitalState storedState = 11 [(brewblox.field).stored = true];
+  optional IoArray.DigitalState desiredState = 6 [
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true
+  ];
+  optional IoArray.DigitalState state = 3 [
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true
+  ];
 
-  optional bool invert = 4 [ (brewblox.field).stored = true ];
+  optional bool invert = 4 [(brewblox.field).stored = true];
   // Constraints in their format before 2023-02. A stored record or a restored
   // backup that still carries them has them converted into `constraints`; no
   // read carries them.
-  Constraints.DeprecatedDigitalConstraints constrainedBy = 5
-      [ (brewblox.field).skip_changed = true ];
-  Constraints.DigitalConstraints constraints = 13
-      [ (brewblox.field).stored = true ];
+  Constraints.DeprecatedDigitalConstraints constrainedBy = 5 [(brewblox.field).skip_changed = true];
+  Constraints.DigitalConstraints constraints = 13 [(brewblox.field).stored = true];
 
-  optional IoArray.TransitionDurationPreset transitionDurationPreset = 7
-      [ (brewblox.field).stored = true ];
+  optional IoArray.TransitionDurationPreset transitionDurationPreset = 7 [(brewblox.field).stored = true];
   optional uint32 transitionDurationSetting = 8 [
     (brewblox.field).unit = Second,
     (brewblox.field).scale = 1000,
@@ -54,8 +56,9 @@ message Block {
     (brewblox.field).readonly = true
   ];
 
-  uint32 claimedBy = 10
-      [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
-  optional Claims.SettingMode settingMode = 12
-      [ (brewblox.field).stored = true ];
+  uint32 claimedBy = 10 [
+    (brewblox.field).objtype = Any,
+    (brewblox.field).readonly = true
+  ];
+  optional Claims.SettingMode settingMode = 12 [(brewblox.field).stored = true];
 }

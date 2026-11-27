@@ -1,8 +1,8 @@
 syntax = "proto3";
-
-import "nanopb.proto";
-import "brewblox.proto";
 package blox.IoArray;
+
+import "brewblox.proto";
+import "nanopb.proto";
 
 enum DigitalState {
   option allow_alias = true;
@@ -16,7 +16,7 @@ enum DigitalState {
   Inactive = 0;
   Active = 1;
   Unknown = 2;
-};
+}
 
 enum TransitionDurationPreset {
   ST_OFF = 0;
@@ -24,7 +24,7 @@ enum TransitionDurationPreset {
   ST_MEDIUM = 2;
   ST_SLOW = 3;
   ST_CUSTOM = 4;
-};
+}
 
 enum ChannelCapabilities {
   CHAN_SUPPORTS_NONE = 0;
@@ -35,17 +35,20 @@ enum ChannelCapabilities {
   CHAN_SUPPORTS_PWM_2000HZ = 16;
   CHAN_SUPPORTS_BIDIRECTIONAL = 32;
   CHAN_SUPPORTS_DIGITAL_INPUT = 64;
-};
+}
 
 enum PwmFrequency {
   PWM_FREQ_80HZ = 0;
   PWM_FREQ_100HZ = 1;
   PWM_FREQ_200HZ = 2;
   PWM_FREQ_2000HZ = 3;
-};
+}
 
 message IoChannel {
-  uint32 id = 1 [ (brewblox.field).readonly = true, (nanopb).int_size = IS_8 ];
+  uint32 id = 1 [
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_8
+  ];
   uint32 capabilities = 2 [
     (brewblox.field).bitfield = true,
     (brewblox.field).readonly = true,
@@ -55,4 +58,4 @@ message IoChannel {
     (brewblox.field).objtype = IoClaimerInterface,
     (brewblox.field).readonly = true
   ];
-};
+}
