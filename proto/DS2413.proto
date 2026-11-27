@@ -1,25 +1,27 @@
 syntax = "proto3";
 
+package blox.DS2413;
+
+import "IoArray.proto";
 import "brewblox.proto";
 import "nanopb.proto";
-import "IoArray.proto";
-
-package blox.DS2413;
 
 enum ChannelId {
   DS2413_CHAN_NONE = 0;
   DS2413_CHAN_A = 1;
   DS2413_CHAN_B = 2;
-};
+}
 
 message Block {
   option (brewblox.msg).objtype = DS2413;
   option (brewblox.msg).impl = IoArrayInterface;
   option (brewblox.msg).impl = OneWireDeviceInterface;
 
-  optional fixed64 address = 1
-      [ (brewblox.field).hexed = true, (brewblox.field).stored = true ];
-  bool connected = 6 [ (brewblox.field).readonly = true ];
+  optional fixed64 address = 1 [
+    (brewblox.field).hexed = true,
+    (brewblox.field).stored = true
+  ];
+  bool connected = 6 [(brewblox.field).readonly = true];
 
   // A write of 0 is ignored.
   optional uint32 oneWireBusId = 8 [
@@ -34,5 +36,8 @@ message Block {
 
   // "pins" was renamed to "channels".
   // Keep an explicitly ignored field around to avoid import errors
-  bool pins = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool pins = 90 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
 }

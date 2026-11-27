@@ -1,9 +1,9 @@
 syntax = "proto3";
 
+package blox.Mutex;
+
 import "brewblox.proto";
 import "nanopb.proto";
-
-package blox.Mutex;
 
 message Block {
   option (brewblox.msg).objtype = Mutex;
@@ -17,6 +17,8 @@ message Block {
   ];
 
   // Deprecated fields
-  bool differentActuatorWait = 90
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool differentActuatorWait = 90 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
 }

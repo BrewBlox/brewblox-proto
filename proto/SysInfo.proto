@@ -1,9 +1,9 @@
 syntax = "proto3";
 
+package blox.SysInfo;
+
 import "brewblox.proto";
 import "nanopb.proto";
-
-package blox.SysInfo;
 
 enum Platform {
   PLATFORM_UNKNOWN = 0;
@@ -17,7 +17,7 @@ enum Platform {
 enum TemperatureUnit {
   TEMP_CELSIUS = 0;
   TEMP_FAHRENHEIT = 1;
-};
+}
 
 // Cross-platform reason for the last system reset. Values mirror
 // bloxhal::sysinfo::ResetReason; every platform maps its native reset cause
@@ -49,7 +49,7 @@ enum ResetReason {
   RESET_REASON_USER_REQUESTED = 22;
   // a REBOOT or FACTORY_RESET cut a firmware update short: the firmware it would have replaced still runs
   RESET_REASON_FIRMWARE_UPDATE_ABORTED = 23;
-};
+}
 
 message Block {
   option (brewblox.msg).objtype = SysInfo;
@@ -59,16 +59,24 @@ message Block {
     (brewblox.field).readonly = true,
     (nanopb).max_size = 12
   ];
-  string version = 2
-      [ (brewblox.field).readonly = true, (nanopb).max_size = 12 ];
-  Platform platform = 3 [ (brewblox.field).readonly = true ];
+  string version = 2 [
+    (brewblox.field).readonly = true,
+    (nanopb).max_size = 12
+  ];
+  Platform platform = 3 [(brewblox.field).readonly = true];
 
-  string protocolVersion = 7
-      [ (brewblox.field).readonly = true, (nanopb).max_size = 12 ];
-  string releaseDate = 8
-      [ (brewblox.field).readonly = true, (nanopb).max_size = 12 ];
-  string protocolDate = 9
-      [ (brewblox.field).readonly = true, (nanopb).max_size = 12 ];
+  string protocolVersion = 7 [
+    (brewblox.field).readonly = true,
+    (nanopb).max_size = 12
+  ];
+  string releaseDate = 8 [
+    (brewblox.field).readonly = true,
+    (nanopb).max_size = 12
+  ];
+  string protocolDate = 9 [
+    (brewblox.field).readonly = true,
+    (nanopb).max_size = 12
+  ];
 
   uint32 ip = 10 [
     (brewblox.field).ipv4address = true,
@@ -94,16 +102,22 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
-  optional uint32 systemTime = 13
-      [ (brewblox.field).datetime = true, (nanopb).int_size = IS_32 ];
+  optional uint32 systemTime = 13 [
+    (brewblox.field).datetime = true,
+    (nanopb).int_size = IS_32
+  ];
 
-  optional string timeZone = 14
-      [ (brewblox.field).stored = true, (nanopb).max_size = 32 ];
+  optional string timeZone = 14 [
+    (brewblox.field).stored = true,
+    (nanopb).max_size = 32
+  ];
 
-  optional TemperatureUnit tempUnit = 15 [ (brewblox.field).stored = true ];
+  optional TemperatureUnit tempUnit = 15 [(brewblox.field).stored = true];
 
-  optional uint32 displayBrightness = 16
-      [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
+  optional uint32 displayBrightness = 16 [
+    (brewblox.field).stored = true,
+    (nanopb).int_size = IS_8
+  ];
 
   uint32 voltage5 = 17 [
     (brewblox.field).skip_changed = true,
@@ -147,16 +161,22 @@ message Block {
     (brewblox.field).omit_if_zero = true
   ];
 
-  ResetReason resetReason = 23 [ (brewblox.field).readonly = true ];
+  ResetReason resetReason = 23 [(brewblox.field).readonly = true];
   // More about resetReason, for a restart the firmware made itself: 0 adds nothing, 1 to 127
   // are reserved, and 128 to 255 are free for the application to use. After a Panic on a
   // Spark 2 or 3, it holds Device OS's crash code.
-  uint32 resetData = 24
-      [ (brewblox.field).readonly = true, (nanopb).int_size = IS_8 ];
+  uint32 resetData = 24 [
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_8
+  ];
 
   // Deprecated fields
-  bool command = 90
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  bool trace = 91
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool command = 90 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
+  bool trace = 91 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
 }

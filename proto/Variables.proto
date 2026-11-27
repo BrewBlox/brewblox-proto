@@ -1,16 +1,16 @@
 syntax = "proto3";
 
+package blox.Variables;
+
+import "IoArray.proto";
 import "brewblox.proto";
 import "nanopb.proto";
-import "IoArray.proto";
-
-package blox.Variables;
 
 message VarContainer {
   oneof var {
     bool empty = 1;
 
-    IoArray.DigitalState digital = 10 [ (brewblox.field).stored = true ];
+    IoArray.DigitalState digital = 10 [(brewblox.field).stored = true];
     sint32 analog = 11 [
       (brewblox.field).scale = 4096,
       (brewblox.field).stored = true,
@@ -41,23 +41,24 @@ message VarContainer {
       (nanopb).int_size = IS_32
     ];
 
-    uint32 link = 40
-        [ (brewblox.field).objtype = Any, (brewblox.field).stored = true ];
+    uint32 link = 40 [
+      (brewblox.field).objtype = Any,
+      (brewblox.field).stored = true
+    ];
   }
 }
 
 message VariableMap {
-  map<string, VarContainer> items = 1 [ (brewblox.field).stored = true ];
+  map<string, VarContainer> items = 1 [(brewblox.field).stored = true];
 }
 
 message Block {
   option (brewblox.msg).objtype = Variables;
 
   // Read at load only: blobs from before the wrapper.
-  map<string, VarContainer> variablesLegacy = 1
-      [ (brewblox.field).ignored = true ];
+  map<string, VarContainer> variablesLegacy = 1 [(brewblox.field).ignored = true];
   // A write merges by key: the keys it carries replace their entries, an
   // `empty` entry deletes its key, and the other keys are kept; present but
   // empty changes nothing. A create or a stored record is the whole map.
-  VariableMap variables = 2 [ (brewblox.field).stored = true ];
+  VariableMap variables = 2 [(brewblox.field).stored = true];
 }

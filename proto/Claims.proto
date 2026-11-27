@@ -5,4 +5,4 @@ package blox.Claims;
 enum SettingMode {
   STORED = 0;
   CLAIMED = 1;
-};
+}

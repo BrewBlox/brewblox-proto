@@ -1,9 +1,9 @@
 syntax = "proto3";
 
+package blox.TempSensorMockFluctuating;
+
 import "brewblox.proto";
 import "nanopb.proto";
-
-package blox.TempSensorMockFluctuating;
 
 message Fluctuation {
   sint32 amplitude = 1 [
@@ -18,10 +18,10 @@ message Fluctuation {
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
-};
+}
 
 message FluctuationList {
-  repeated Fluctuation items = 1 [ (brewblox.field).stored = true ];
+  repeated Fluctuation items = 1 [(brewblox.field).stored = true];
 }
 
 // A mock sensor with periodic fluctuations, built only for the simulator and
@@ -38,8 +38,10 @@ message Block {
     (brewblox.field).readonly = true,
     (nanopb).int_size = IS_32
   ];
-  optional bool connected = 3
-      [ (brewblox.field).stored = true, (brewblox.field).logged = true ];
+  optional bool connected = 3 [
+    (brewblox.field).stored = true,
+    (brewblox.field).logged = true
+  ];
 
   optional sint32 setting = 4 [
     (brewblox.field).unit = Celsius,
@@ -50,5 +52,5 @@ message Block {
 
   // Each is added to the setting: a periodic wave of its amplitude, or a
   // constant offset at period 0.
-  FluctuationList fluctuations = 6 [ (brewblox.field).stored = true ];
+  FluctuationList fluctuations = 6 [(brewblox.field).stored = true];
 }

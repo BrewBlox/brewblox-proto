@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-import "brewblox.proto";
-
 package command;
+
+import "brewblox.proto";
 
 enum Opcode {
   NONE = 0;

@@ -1,10 +1,10 @@
 syntax = "proto3";
 
+package blox.Spark2Pins;
+
+import "IoArray.proto";
 import "brewblox.proto";
 import "nanopb.proto";
-import "IoArray.proto";
-
-package blox.Spark2Pins;
 
 enum ChannelId {
   SPARK2_CHAN_NONE = 0;
@@ -12,7 +12,7 @@ enum ChannelId {
   SPARK2_CHAN_BOTTOM2 = 2;
   SPARK2_CHAN_BOTTOM3 = 3;
   SPARK2_CHAN_BOTTOM0 = 4;
-};
+}
 
 enum Hardware {
   HW_UNKNOWN = 0;
@@ -27,7 +27,7 @@ message Block {
 
   // Not stored: off at every boot, so a restart never starts the beep
   optional bool soundAlarm = 5;
-  Hardware hardware = 8 [ (brewblox.field).readonly = true ];
+  Hardware hardware = 8 [(brewblox.field).readonly = true];
   repeated IoArray.IoChannel channels = 9 [
     (brewblox.field).readonly = true,
     (nanopb).max_count = 4,
@@ -36,5 +36,8 @@ message Block {
 
   // "pins" was renamed to "channels".
   // Keep an explicitly ignored field around to avoid import errors
-  bool pins = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool pins = 90 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
 }

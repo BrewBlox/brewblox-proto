@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-import "brewblox.proto";
-import "nanopb.proto";
+package blox.FastPwm;
+
+import "Claims.proto";
 import "Constraints.proto";
 import "IoArray.proto";
-import "Claims.proto";
-
-package blox.FastPwm;
+import "brewblox.proto";
+import "nanopb.proto";
 
 message Block {
   option (brewblox.msg).objtype = FastPwm;
@@ -17,15 +17,17 @@ message Block {
   option (brewblox.msg).impl = ClaimableInterface;
   option (brewblox.msg).impl = IoClaimerInterface;
 
-  optional bool enabled = 8 [ (brewblox.field).stored = true ];
+  optional bool enabled = 8 [(brewblox.field).stored = true];
 
   // A new device clears channel, unless the same write sets it.
   optional uint32 hwDevice = 1 [
     (brewblox.field).objtype = IoArrayInterface,
     (brewblox.field).stored = true
   ];
-  optional uint32 channel = 2
-      [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
+  optional uint32 channel = 2 [
+    (brewblox.field).stored = true,
+    (nanopb).int_size = IS_8
+  ];
 
   // Written without settingMode, it also sets the mode to STORED, unless the
   // block is claimed.
@@ -56,19 +58,15 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
-  optional bool invert = 12 [ (brewblox.field).stored = true ];
-  optional IoArray.PwmFrequency frequency = 3
-      [ (brewblox.field).stored = true ];
+  optional bool invert = 12 [(brewblox.field).stored = true];
+  optional IoArray.PwmFrequency frequency = 3 [(brewblox.field).stored = true];
   // Constraints in their format before 2023-02. A stored record or a restored
   // backup that still carries them has them converted into `constraints`; no
   // read carries them.
-  Constraints.DeprecatedAnalogConstraints constrainedBy = 7
-      [ (brewblox.field).skip_changed = true ];
-  Constraints.AnalogConstraints constraints = 16
-      [ (brewblox.field).stored = true ];
+  Constraints.DeprecatedAnalogConstraints constrainedBy = 7 [(brewblox.field).skip_changed = true];
+  Constraints.AnalogConstraints constraints = 16 [(brewblox.field).stored = true];
 
-  optional IoArray.TransitionDurationPreset transitionDurationPreset = 9
-      [ (brewblox.field).stored = true ];
+  optional IoArray.TransitionDurationPreset transitionDurationPreset = 9 [(brewblox.field).stored = true];
   optional uint32 transitionDurationSetting = 10 [
     (brewblox.field).unit = Second,
     (brewblox.field).scale = 1000,
@@ -80,8 +78,9 @@ message Block {
     (brewblox.field).readonly = true
   ];
 
-  uint32 claimedBy = 13
-      [ (brewblox.field).objtype = Any, (brewblox.field).readonly = true ];
-  optional Claims.SettingMode settingMode = 15
-      [ (brewblox.field).stored = true ];
+  uint32 claimedBy = 13 [
+    (brewblox.field).objtype = Any,
+    (brewblox.field).readonly = true
+  ];
+  optional Claims.SettingMode settingMode = 15 [(brewblox.field).stored = true];
 }

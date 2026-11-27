@@ -1,10 +1,10 @@
 syntax = "proto3";
 
+package blox.Pid;
+
+import "SetpointSensorPair.proto";
 import "brewblox.proto";
 import "nanopb.proto";
-import "SetpointSensorPair.proto";
-
-package blox.Pid;
 
 message Block {
   option (brewblox.msg).objtype = Pid;
@@ -50,10 +50,14 @@ message Block {
     (nanopb).int_size = IS_32
   ];
 
-  optional bool enabled = 11
-      [ (brewblox.field).stored = true, (brewblox.field).logged = true ];
-  bool active = 12
-      [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
+  optional bool enabled = 11 [
+    (brewblox.field).stored = true,
+    (brewblox.field).logged = true
+  ];
+  bool active = 12 [
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true
+  ];
 
   optional sint32 kp = 13 [
     (brewblox.field).unit = InverseCelsius,
@@ -134,16 +138,22 @@ message Block {
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
-  bool boilModeActive = 26
-      [ (brewblox.field).logged = true, (brewblox.field).readonly = true ];
+  bool boilModeActive = 26 [
+    (brewblox.field).logged = true,
+    (brewblox.field).readonly = true
+  ];
 
   // Deprecated: D has a filter of its own, set by Td; kept ignored, so a backup that holds it still loads
-  SetpointSensorPair.FilterChoice derivativeFilter = 27
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  SetpointSensorPair.FilterChoice derivativeFilter = 27 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
 
   // Deprecated: D has a filter of its own, set by Td; kept ignored, so a backup that holds it still loads
-  SetpointSensorPair.FilterChoice derivativeFilterChoice = 28
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  SetpointSensorPair.FilterChoice derivativeFilterChoice = 28 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
 
   optional sint32 kff = 29 [
     (brewblox.field).unit = InverseCelsius,
@@ -200,6 +210,8 @@ message Block {
   ];
 
   // Deprecated field
-  bool drivenOutputId = 90
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool drivenOutputId = 90 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
 }

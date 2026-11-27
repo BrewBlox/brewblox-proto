@@ -1,16 +1,16 @@
 syntax = "proto3";
 
+package blox.TempSensorExternal;
+
 import "brewblox.proto";
 import "nanopb.proto";
-
-package blox.TempSensorExternal;
 
 message Block {
   option (brewblox.msg).objtype = TempSensorExternal;
   option (brewblox.msg).impl = TempSensorInterface;
   option (brewblox.msg).impl = EnablerInterface;
 
-  optional bool enabled = 1 [ (brewblox.field).stored = true ];
+  optional bool enabled = 1 [(brewblox.field).stored = true];
   // Seconds after the setting's arrival, on the controller's steady clock;
   // 0 never times out and keeps the setting through a reboot.
   optional uint32 timeout = 2 [

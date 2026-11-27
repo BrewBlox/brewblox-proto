@@ -1,34 +1,34 @@
 syntax = "proto3";
 
+package blox.GpioModule;
+
 import "brewblox.proto";
 import "nanopb.proto";
 
-package blox.GpioModule;
-
 enum DeviceType {
   GPIO_DEV_NONE = 0;
-  GPIO_DEV_SSR_2P = 1;                        // on: minus to GND, plus to power; off: open
-  GPIO_DEV_SSR_1P = 2;                        // on: pin to power; off: open; SSR minus to GND
-  GPIO_DEV_MECHANICAL_RELAY_2P = 3;           // on: minus to GND, plus to power; off: open
+  GPIO_DEV_SSR_2P = 1; // on: minus to GND, plus to power; off: open
+  GPIO_DEV_SSR_1P = 2; // on: pin to power; off: open; SSR minus to GND
+  GPIO_DEV_MECHANICAL_RELAY_2P = 3; // on: minus to GND, plus to power; off: open
   GPIO_DEV_MECHANICAL_RELAY_1P_HIGH_SIDE = 4; // on: pin to power; off: open; coil to GND
-  GPIO_DEV_MECHANICAL_RELAY_1P_LOW_SIDE = 5;  // on: pin to GND; off: open; coil to power
-  GPIO_DEV_COIL_2P = 6;                       // on: minus to GND, plus to power; off: open
-  GPIO_DEV_COIL_2P_BIDIRECTIONAL = 7;         // on: minus to GND, plus to power; off: reversed
-  GPIO_DEV_COIL_1P_HIGH_SIDE = 8;             // on: pin to power; off: open; coil to GND
-  GPIO_DEV_COIL_1P_LOW_SIDE = 9;              // on: pin to GND; off: open; coil to power
-  GPIO_DEV_MOTOR_2P = 10;                     // on: minus to GND, plus to power; off: open
-  GPIO_DEV_MOTOR_2P_BIDIRECTIONAL = 11;       // on: minus to GND, plus to power; off, duty < 0: reversed
-  GPIO_DEV_MOTOR_1P_HIGH_SIDE = 12;           // on: pin to power; off: open; motor to GND
-  GPIO_DEV_MOTOR_1P_LOW_SIDE = 13;            // on: pin to GND; off: open; motor to power
-  GPIO_DEV_DETECT_LOW_CURRENT_2P = 14;        // gnd, pwr, 2-100mA
-  GPIO_DEV_DETECT_LOW_CURRENT_1P_GND = 15;    // gnd, 2-100mA
+  GPIO_DEV_MECHANICAL_RELAY_1P_LOW_SIDE = 5; // on: pin to GND; off: open; coil to power
+  GPIO_DEV_COIL_2P = 6; // on: minus to GND, plus to power; off: open
+  GPIO_DEV_COIL_2P_BIDIRECTIONAL = 7; // on: minus to GND, plus to power; off: reversed
+  GPIO_DEV_COIL_1P_HIGH_SIDE = 8; // on: pin to power; off: open; coil to GND
+  GPIO_DEV_COIL_1P_LOW_SIDE = 9; // on: pin to GND; off: open; coil to power
+  GPIO_DEV_MOTOR_2P = 10; // on: minus to GND, plus to power; off: open
+  GPIO_DEV_MOTOR_2P_BIDIRECTIONAL = 11; // on: minus to GND, plus to power; off, duty < 0: reversed
+  GPIO_DEV_MOTOR_1P_HIGH_SIDE = 12; // on: pin to power; off: open; motor to GND
+  GPIO_DEV_MOTOR_1P_LOW_SIDE = 13; // on: pin to GND; off: open; motor to power
+  GPIO_DEV_DETECT_LOW_CURRENT_2P = 14; // gnd, pwr, 2-100mA
+  GPIO_DEV_DETECT_LOW_CURRENT_1P_GND = 15; // gnd, 2-100mA
   // GPIO_DEV_DETECT_LOW_CURRENT_1P_POWER = 16;  // not supported by hardware
-  GPIO_DEV_POWER_1P = 17;                     // pwr, 1A
+  GPIO_DEV_POWER_1P = 17; // pwr, 1A
   GPIO_DEV_DETECT_HIGH_CURRENT_1P_POWER = 18; // pwr, 30-1000mA
-  GPIO_DEV_GND_1P = 19;                       // gnd
-  GPIO_DEV_DETECT_HIGH_CURRENT_1P_GND = 20;   // gnd, 30-1000mA
-  GPIO_DEV_DETECT_HIGH_CURRENT_2P = 21;       // gnd, pwr, 30-1000mA
-};
+  GPIO_DEV_GND_1P = 19; // gnd
+  GPIO_DEV_DETECT_HIGH_CURRENT_1P_GND = 20; // gnd, 30-1000mA
+  GPIO_DEV_DETECT_HIGH_CURRENT_2P = 21; // gnd, pwr, 30-1000mA
+}
 
 // Error flags
 enum ErrorFlags {
@@ -41,7 +41,7 @@ enum ErrorFlags {
   GPIO_ERR_OVERTEMPERATURE_WARNING = 32;
   GPIO_ERR_OVERTEMPERATURE_ERROR = 64;
   GPIO_ERR_SPI_ERROR = 128;
-};
+}
 
 // Each channel has a bitmask for which pins it uses.
 // These bit positions correspond to global fiels in the module and are
@@ -51,15 +51,24 @@ enum ErrorFlags {
 // 00001111, will switch 0000, 1100 or 0011
 
 message Channel {
-  uint32 id = 1 [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
-  DeviceType deviceType = 2 [ (brewblox.field).stored = true ];
+  uint32 id = 1 [
+    (brewblox.field).stored = true,
+    (nanopb).int_size = IS_8
+  ];
+  DeviceType deviceType = 2 [(brewblox.field).stored = true];
   uint32 pinsMask = 3 [
     (brewblox.field).bitfield = true,
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_8
   ];
-  uint32 width = 4 [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
-  string name = 5 [ (brewblox.field).stored = true, (nanopb).max_size = 32 ];
+  uint32 width = 4 [
+    (brewblox.field).stored = true,
+    (nanopb).int_size = IS_8
+  ];
+  string name = 5 [
+    (brewblox.field).stored = true,
+    (nanopb).max_size = 32
+  ];
   uint32 capabilities = 6 [
     (brewblox.field).bitfield = true,
     (brewblox.field).readonly = true,
@@ -158,7 +167,7 @@ enum AnalogSensorType {
   ANALOG_SENSOR_TYPE_RTD_4WIRE = 4;
   ANALOG_SENSOR_TYPE_RTD_3WIRE_LS = 5; // not supported now
   ANALOG_SENSOR_TYPE_STRAIN_GAUGE_LOW_RESISTANCE = 6;
-};
+}
 
 enum AdcError {
   ADC_ERROR_OK = 0;
@@ -177,8 +186,11 @@ enum AdcError {
 }
 
 message AnalogChannel {
-  uint32 id = 1 [ (brewblox.field).readonly = true, (nanopb).int_size = IS_8 ];
-  AnalogSensorType sensorType = 2 [ (brewblox.field).readonly = true ];
+  uint32 id = 1 [
+    (brewblox.field).readonly = true,
+    (nanopb).int_size = IS_8
+  ];
+  AnalogSensorType sensorType = 2 [(brewblox.field).readonly = true];
   // 3 was claimedBy, never set: the blocks that read a channel name it in
   // their own links (analogDevice, analogChannel)
   reserved 3;
@@ -212,7 +224,6 @@ message AnalogChannel {
     (brewblox.field).readonly = true,
     (brewblox.field).omit_if_zero = true,
     (nanopb).int_size = IS_32
-
   ];
   sint32 bridgeOutput = 7 [
     (brewblox.field).scale = 262144,
@@ -224,32 +235,36 @@ message AnalogChannel {
   ];
 
   // what stopped this channel's ADC pair
-  AdcError error = 8 [ (brewblox.field).readonly = true ];
+  AdcError error = 8 [(brewblox.field).readonly = true];
 }
 
 message ChannelList {
-  repeated GpioModule.Channel items = 1
-      [ (brewblox.field).stored = true, (nanopb).max_count = 8 ];
+  repeated GpioModule.Channel items = 1 [
+    (brewblox.field).stored = true,
+    (nanopb).max_count = 8
+  ];
 }
 
 enum AnalogCalibrationState {
-  ANALOG_CALIBRATION_STATE_NONE = 0;    // no calibration stored
+  ANALOG_CALIBRATION_STATE_NONE = 0; // no calibration stored
   ANALOG_CALIBRATION_STATE_RUNNING = 1; // calibrating: the pair's channels pause their readings
-  ANALOG_CALIBRATION_STATE_DONE = 2;    // the stored calibration is in use
-  ANALOG_CALIBRATION_STATE_FAILED = 3;  // the last calibration failed; the previous one stays in use
+  ANALOG_CALIBRATION_STATE_DONE = 2; // the stored calibration is in use
+  ANALOG_CALIBRATION_STATE_FAILED = 3; // the last calibration failed; the previous one stays in use
 }
 
 message ScaleList {
-  repeated sint32 items = 1
-      [ (brewblox.field).stored = true, (nanopb).max_count = 7 ];
+  repeated sint32 items = 1 [
+    (brewblox.field).stored = true,
+    (nanopb).max_count = 7
+  ];
 }
 
 message PairCalibration {
   // The ADC's offset correction, in ADC counts.
-  optional sint32 offset = 1 [ (brewblox.field).stored = true ];
+  optional sint32 offset = 1 [(brewblox.field).stored = true];
   // Full-scale correction for each PGA setting, in the order bypass, gain 1, 2,
   // 4, 8, 16, 32. 4194304 is 1.0.
-  ScaleList scale = 2 [ (brewblox.field).stored = true ];
+  ScaleList scale = 2 [(brewblox.field).stored = true];
   // Resistance of one analog switch on the module, measured during the calibration.
   optional sint32 switchResistance = 3 [
     (brewblox.field).unit = Ohm,
@@ -257,7 +272,7 @@ message PairCalibration {
     (brewblox.field).stored = true
   ];
   // Where the pair's calibration stands.
-  AnalogCalibrationState state = 4 [ (brewblox.field).readonly = true ];
+  AnalogCalibrationState state = 4 [(brewblox.field).readonly = true];
 }
 
 message Block {
@@ -270,15 +285,19 @@ message Block {
   option (brewblox.msg).impl = AnalogArrayInterface;
 
   // Read at load only: blobs from before the wrapper.
-  repeated GpioModule.Channel channelsLegacy = 1
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_CALLBACK ];
-  ChannelList channels = 22 [ (brewblox.field).stored = true ];
+  repeated GpioModule.Channel channelsLegacy = 1 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_CALLBACK
+  ];
+  ChannelList channels = 22 [(brewblox.field).stored = true];
   // Position of the module, 1 to 4, unique among GpioModule blocks. 0 parks the
   // block without a module.
-  optional uint32 modulePosition = 2
-      [ (brewblox.field).stored = true, (nanopb).int_size = IS_8 ];
-  optional bool useExternalPower = 14 [ (brewblox.field).stored = true ];
-  GpioModule.Status status = 17 [ (brewblox.field).readonly = true ];
+  optional uint32 modulePosition = 2 [
+    (brewblox.field).stored = true,
+    (nanopb).int_size = IS_8
+  ];
+  optional bool useExternalPower = 14 [(brewblox.field).stored = true];
+  GpioModule.Status status = 17 [(brewblox.field).readonly = true];
 
   repeated AnalogChannel analogChannels = 20 [
     (nanopb).max_count = 4,
@@ -298,45 +317,75 @@ message Block {
 
   // The calibration of the ADC for analog channels 1-2. Without one, the channels
   // calibrate when the module is found. Implausible values are rejected.
-  optional PairCalibration analogCalibration12 = 23 [ (brewblox.field).stored = true ];
+  optional PairCalibration analogCalibration12 = 23 [(brewblox.field).stored = true];
   // The calibration of the ADC for analog channels 3-4. Without one, the channels
   // calibrate when the module is found. Implausible values are rejected.
-  optional PairCalibration analogCalibration34 = 24 [ (brewblox.field).stored = true ];
+  optional PairCalibration analogCalibration34 = 24 [(brewblox.field).stored = true];
   // Written true: both pairs, analogCalibration12 and analogCalibration34, calibrate
   // again. Never stored; reads absent.
   optional bool calibrateAnalog = 25;
 
   // Deprecated fields
-  uint32 moduleStatus = 3
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  uint32 pullUpDesired = 4
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  uint32 pullUpStatus = 5
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  uint32 pullUpWhenActive = 6
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  uint32 pullUpWhenInactive = 7
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  uint32 pullDownDesired = 8
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  uint32 pullDownStatus = 9
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  uint32 pullDownWhenActive = 10
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  uint32 pullDownWhenInactive = 11
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  uint32 overCurrent = 12
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  uint32 openLoad = 13
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  uint32 faultsHistory5m = 15
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  uint32 faultsHistory60m = 16
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  uint32 moduleStatus = 3 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
+  uint32 pullUpDesired = 4 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
+  uint32 pullUpStatus = 5 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
+  uint32 pullUpWhenActive = 6 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
+  uint32 pullUpWhenInactive = 7 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
+  uint32 pullDownDesired = 8 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
+  uint32 pullDownStatus = 9 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
+  uint32 pullDownWhenActive = 10 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
+  uint32 pullDownWhenInactive = 11 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
+  uint32 overCurrent = 12 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
+  uint32 openLoad = 13 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
+  uint32 faultsHistory5m = 15 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
+  uint32 faultsHistory60m = 16 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
   // fault clearing is now automatic, but we keep the ignored fields for
   // backwards compatibility
-  uint32 moduleStatusClear = 90
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
-  bool clearFaults = 32
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  uint32 moduleStatusClear = 90 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
+  bool clearFaults = 32 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
 }

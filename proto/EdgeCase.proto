@@ -1,24 +1,28 @@
 syntax = "proto3";
 
+package blox.EdgeCase;
+
 import "brewblox.proto";
 import "nanopb.proto";
 
-package blox.EdgeCase;
-
 message Settings {
-  fixed64 address = 1 [ (brewblox.field).hexed = true ];
-  sint32 offset = 2
-      [ (brewblox.field).unit = DeltaCelsius, (brewblox.field).scale = 256 ];
+  fixed64 address = 1 [(brewblox.field).hexed = true];
+  sint32 offset = 2 [
+    (brewblox.field).unit = DeltaCelsius,
+    (brewblox.field).scale = 256
+  ];
 }
 
 message State {
-  sint32 value = 1
-      [ (brewblox.field).unit = Celsius, (brewblox.field).scale = 256 ];
-  bool connected = 2 [ (brewblox.field).readonly = true ];
+  sint32 value = 1 [
+    (brewblox.field).unit = Celsius,
+    (brewblox.field).scale = 256
+  ];
+  bool connected = 2 [(brewblox.field).readonly = true];
 }
 
 message NestedLink {
-  uint32 connection = 1 [ (brewblox.field).objtype = TempSensorInterface ];
+  uint32 connection = 1 [(brewblox.field).objtype = TempSensorInterface];
 }
 
 // This message allows testing combinations that are possible, but not likely in
@@ -43,11 +47,15 @@ message Block {
     (brewblox.field).stored = true,
     (brewblox.field).null_if_zero = true
   ];
-  uint32 logged = 7
-      [ (brewblox.field).logged = true, (brewblox.field).omit_if_zero = true ];
+  uint32 logged = 7 [
+    (brewblox.field).logged = true,
+    (brewblox.field).omit_if_zero = true
+  ];
   uint32 unLogged = 8;
-  uint32 ip = 10
-      [ (brewblox.field).ipv4address = true, (nanopb).int_size = IS_32 ];
+  uint32 ip = 10 [
+    (brewblox.field).ipv4address = true,
+    (nanopb).int_size = IS_32
+  ];
 }
 
 message SubCase {

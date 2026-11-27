@@ -1,9 +1,9 @@
 syntax = "proto3";
 
+package blox.TempSensorOneWire;
+
 import "brewblox.proto";
 import "nanopb.proto";
-
-package blox.TempSensorOneWire;
 
 message Block {
   option (brewblox.msg).objtype = TempSensorOneWire;
@@ -24,8 +24,10 @@ message Block {
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
-  optional fixed64 address = 4
-      [ (brewblox.field).hexed = true, (brewblox.field).stored = true ];
+  optional fixed64 address = 4 [
+    (brewblox.field).hexed = true,
+    (brewblox.field).stored = true
+  ];
   // A write of 0 is ignored.
   optional uint32 oneWireBusId = 5 [
     (brewblox.field).objtype = OneWireBusInterface,

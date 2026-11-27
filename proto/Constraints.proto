@@ -1,9 +1,9 @@
 syntax = "proto3";
 
+package blox.Constraints;
+
 import "brewblox.proto";
 import "nanopb.proto";
-
-package blox.Constraints;
 
 message ValueConstraint {
   optional sint32 value = 1 [
@@ -13,8 +13,8 @@ message ValueConstraint {
   ];
 
   // Generic for analog constraints
-  optional bool enabled = 50 [ (brewblox.field).stored = true ];
-  bool limiting = 51 [ (brewblox.field).readonly = true ];
+  optional bool enabled = 50 [(brewblox.field).stored = true];
+  bool limiting = 51 [(brewblox.field).readonly = true];
 }
 
 message BalancedConstraint {
@@ -22,15 +22,20 @@ message BalancedConstraint {
     (brewblox.field).objtype = BalancerInterface,
     (brewblox.field).stored = true
   ];
-  uint32 granted = 2
-      [ (brewblox.field).scale = 4096, (brewblox.field).readonly = true ];
+  uint32 granted = 2 [
+    (brewblox.field).scale = 4096,
+    (brewblox.field).readonly = true
+  ];
 
   // Generic for analog constraints
-  optional bool enabled = 50 [ (brewblox.field).stored = true ];
-  bool limiting = 51 [ (brewblox.field).readonly = true ];
+  optional bool enabled = 50 [(brewblox.field).stored = true];
+  bool limiting = 51 [(brewblox.field).readonly = true];
 
   // Deprecated fields
-  bool id = 90 [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool id = 90 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
 }
 
 message DurationConstraint {
@@ -42,8 +47,8 @@ message DurationConstraint {
   ];
 
   // Generic for digital constraints
-  optional bool enabled = 50 [ (brewblox.field).stored = true ];
-  bool limiting = 51 [ (brewblox.field).readonly = true ];
+  optional bool enabled = 50 [(brewblox.field).stored = true];
+  bool limiting = 51 [(brewblox.field).readonly = true];
   uint32 remaining = 52 [
     (brewblox.field).unit = Second,
     (brewblox.field).scale = 1000,
@@ -63,11 +68,11 @@ message MutexedConstraint {
     (brewblox.field).stored = true,
     (nanopb).int_size = IS_32
   ];
-  bool hasLock = 4 [ (brewblox.field).readonly = true ];
+  bool hasLock = 4 [(brewblox.field).readonly = true];
 
   // Generic for digital constraints
-  optional bool enabled = 50 [ (brewblox.field).stored = true ];
-  bool limiting = 51 [ (brewblox.field).readonly = true ];
+  optional bool enabled = 50 [(brewblox.field).stored = true];
+  bool limiting = 51 [(brewblox.field).readonly = true];
   uint32 remaining = 52 [
     (brewblox.field).unit = Second,
     (brewblox.field).scale = 1000,
@@ -76,8 +81,10 @@ message MutexedConstraint {
   ];
 
   // Deprecated fields
-  bool hasCustomHoldTime = 90
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  bool hasCustomHoldTime = 90 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
 }
 
 // Collections
@@ -85,34 +92,39 @@ message MutexedConstraint {
 // Each constraint may be absent: a write carries only the constraints it changes, and a changed
 // read leaves out a disabled one.
 message AnalogConstraints {
-  optional ValueConstraint min = 1 [ (brewblox.field).stored = true ];
-  optional ValueConstraint max = 2 [ (brewblox.field).stored = true ];
-  optional BalancedConstraint balanced = 3 [ (brewblox.field).stored = true ];
+  optional ValueConstraint min = 1 [(brewblox.field).stored = true];
+  optional ValueConstraint max = 2 [(brewblox.field).stored = true];
+  optional BalancedConstraint balanced = 3 [(brewblox.field).stored = true];
 }
 
 // Each constraint may be absent, as in AnalogConstraints.
 message DigitalConstraints {
-  optional DurationConstraint minOff = 1 [ (brewblox.field).stored = true ];
-  optional DurationConstraint minOn = 2 [ (brewblox.field).stored = true ];
-  optional DurationConstraint delayedOff = 3 [ (brewblox.field).stored = true ];
-  optional DurationConstraint delayedOn = 4 [ (brewblox.field).stored = true ];
-  optional MutexedConstraint mutexed = 5 [ (brewblox.field).stored = true ];
+  optional DurationConstraint minOff = 1 [(brewblox.field).stored = true];
+  optional DurationConstraint minOn = 2 [(brewblox.field).stored = true];
+  optional DurationConstraint delayedOff = 3 [(brewblox.field).stored = true];
+  optional DurationConstraint delayedOn = 4 [(brewblox.field).stored = true];
+  optional MutexedConstraint mutexed = 5 [(brewblox.field).stored = true];
 }
 
 // Deprecated old-style constraints
 
 message DeprecatedAnalogConstraint {
   oneof constraint {
-    sint32 min = 1 [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
-    sint32 max = 2 [ (brewblox.field).scale = 4096, (nanopb).int_size = IS_32 ];
+    sint32 min = 1 [
+      (brewblox.field).scale = 4096,
+      (nanopb).int_size = IS_32
+    ];
+    sint32 max = 2 [
+      (brewblox.field).scale = 4096,
+      (nanopb).int_size = IS_32
+    ];
     BalancedConstraint balanced = 3;
   }
-  bool limiting = 100 [ (brewblox.field).readonly = true ];
+  bool limiting = 100 [(brewblox.field).readonly = true];
 }
 
 message DeprecatedAnalogConstraints {
-  repeated DeprecatedAnalogConstraint constraints = 1
-      [ (nanopb).max_count = 8 ];
+  repeated DeprecatedAnalogConstraint constraints = 1 [(nanopb).max_count = 8];
 }
 
 message DeprecatedDigitalConstraint {
@@ -140,11 +152,13 @@ message DeprecatedDigitalConstraint {
     ];
 
     // deprecated format, will automatically be converted to nr 4
-    uint32 mutex = 3 [ (brewblox.field).objtype = MutexInterface ];
+    uint32 mutex = 3 [(brewblox.field).objtype = MutexInterface];
   }
 
-  uint32 limiting = 100
-      [ (brewblox.field).ignored = true, (nanopb).type = FT_IGNORE ];
+  uint32 limiting = 100 [
+    (brewblox.field).ignored = true,
+    (nanopb).type = FT_IGNORE
+  ];
 
   uint32 remaining = 101 [
     (brewblox.field).unit = Second,
@@ -155,6 +169,5 @@ message DeprecatedDigitalConstraint {
 }
 
 message DeprecatedDigitalConstraints {
-  repeated DeprecatedDigitalConstraint constraints = 1
-      [ (nanopb).max_count = 8 ];
+  repeated DeprecatedDigitalConstraint constraints = 1 [(nanopb).max_count = 8];
 }
